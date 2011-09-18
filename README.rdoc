@@ -1,6 +1,6 @@
-= parse_resource
+= ParseResource
 
-Description goes here.
+ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. Ruby/Rails developers should feel right at home.
 
 == Contributing to parse_resource
  
