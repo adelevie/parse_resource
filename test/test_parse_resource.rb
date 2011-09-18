@@ -1,7 +1,11 @@
 require 'helper'
 
 class TestParseResource < Test::Unit::TestCase
-  def test_something_for_real
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+  def setup
+    @p = ParseResouce.new 
+  end
+
+  def test_foo_method
+    assert_equal @p.foo, "nothing yet to see here"
   end
 end

@@ -17,10 +17,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "parse_resource"
   gem.homepage = "http://github.com/adelevie/parse_resource"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{An ActiveResource-like wrapper for the Parse REST api.}
+  gem.description = %Q{}
   gem.email = "adelevie@gmail.com"
-  gem.authors = ["Alan"]
+  gem.authors = ["Alan deLevie"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

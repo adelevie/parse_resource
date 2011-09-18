@@ -14,6 +14,6 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Alan. See LICENSE.txt for
+Copyright (c) 2011 Alan deLevie. See LICENSE.txt for
 further details.
 
