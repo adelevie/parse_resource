@@ -7,10 +7,13 @@ Installation
 -----
 
 Include in your `Gemfile`:
+
 ```ruby
 gem "parse_resource"
 ```
+
 Or just gem install
+
 ```ruby
 gem install parse_resource
 ```
