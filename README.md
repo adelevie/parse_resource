@@ -3,6 +3,20 @@ ParseResource
 
 ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. Ruby/Rails developers should feel right at home.
 
+Installation
+-----
+
+Include in your `Gemfile`:
+```ruby
+gem "parse_resource"
+```
+Or just gem install
+```ruby
+gem install parse_resource
+```
+
+
+
 Contributing to ParseResource
 -----------------------------
  
