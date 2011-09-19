@@ -1,11 +1,11 @@
 ParseResource
 =============
 
-ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParceResource is fully ActiveModel complaint, meaning you can use validations, callbacks, and Rails forms.
+ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParceResource is fully ActiveModel compliant, meaning you can use validations, callbacks, and Rails forms.
 
 Ruby/Rails developers should feel right at home.
 
-Word of caution
+Words of caution
 ---------------
 
 ParseResource is brand new and has no test coverage. You read that right. I figured I'd ship 1.0.0 then write tests later. We'll see how it goes.
@@ -50,6 +50,8 @@ If you're using a Rack app, in an initializer, include the following:
 ParseResource.load!("path/to/parse_resource.yml")
 ```
 
+In a later version, I'll include support for non-Rails/Rack apps.
+
 Usage
 -----
 
@@ -66,52 +68,52 @@ end
 Creating, updating, and deleting:
 
 ```ruby
-ruby-1.9.2-p290 :002 >  p = Post.new
+>  p = Post.new
  => #<Post:0xab74864 @attributes={}, @unsaved_attributes={}> 
-ruby-1.9.2-p290 :003 > p.valid?
+> p.valid?
  => false 
-ruby-1.9.2-p290 :004 > p.errors
+> p.errors
  => #<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 @attributes={}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 ...>>, @messages={:title=>["can't be blank"]}> 
-ruby-1.9.2-p290 :005 > p.title = "Introducing ParseResource"
+> p.title = "Introducing ParseResource"
  => "Introducing ParseResource" 
-ruby-1.9.2-p290 :006 > p.valid?
+> p.valid?
  => true 
-ruby-1.9.2-p290 :007 > p.author = "Alan deLevie"
+> p.author = "Alan deLevie"
  => "Alan deLevie" 
-ruby-1.9.2-p290 :008 > p.body = "Ipso Lorem"
+> p.body = "Ipso Lorem"
  => "Ipso Lorem" 
-ruby-1.9.2-p290 :009 > p.save
+> p.save
  => #<Post:0xab74864 @attributes={:title=>"Introducing ParseResource", :author=>"Alan deLevie", :body=>"Ipso Lorem", :createdAt=>"2011-09-19T01:32:04.973Z", :objectId=>"QARfXUILgY"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 ...>, @messages={}>> 
-ruby-1.9.2-p290 :010 > p.id
+> p.id
  => "QARfXUILgY" 
-ruby-1.9.2-p290 :011 > p.updated_at
+> p.updated_at
  => nil 
-ruby-1.9.2-p290 :012 > p.created_at
+> p.created_at
  => "2011-09-19T01:32:04.973Z" 
-ruby-1.9.2-p290 :013 > p.title = "[Update] Introducing ParseResource"
+> p.title = "[Update] Introducing ParseResource"
  => "[Update] Introducing ParseResource" 
-ruby-1.9.2-p290 :014 > p.save
+> p.save
  => #<Post:0xab74864 @attributes={:title=>"[Update] Introducing ParseResource", :author=>"Alan deLevie", :body=>"Ipso Lorem", :createdAt=>"2011-09-19T01:32:04.973Z", :objectId=>"QARfXUILgY", :updatedAt=>"2011-09-19T01:32:37.930Z", "title"=>"[Update] Introducing ParseResource"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 ...>, @messages={}>> 
-ruby-1.9.2-p290 :015 > p.updated_at
+> p.updated_at
  => "2011-09-19T01:32:37.930Z" 
-ruby-1.9.2-p290 :016 > p.destroy
+> p.destroy
  => nil 
-ruby-1.9.2-p290 :017 > p.title
+> p.title
  => nil 
 ```
 
 Finding:
 
 ```ruby
-ruby-1.9.2-p290 :001 > a = Post.create(:title => "foo", :author => "bar", :body => "ipso")
+> a = Post.create(:title => "foo", :author => "bar", :body => "ipso")
  => #<Post:0xa6eee34 @attributes={:title=>"foo", :author=>"bar", :body=>"ipso", :createdAt=>"2011-09-19T01:36:42.833Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xa6ee54c @base=#<Post:0xa6eee34 ...>, @messages={}>> 
-ruby-1.9.2-p290 :002 > b = Post.create(:title => "a newer post", :author => "bar", :body => "some newer content")
+> b = Post.create(:title => "a newer post", :author => "bar", :body => "some newer content")
  => #<Post:0xa6b5e68 @attributes={:title=>"a newer post", :author=>"bar", :body=>"some newer content", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xa6b5710 @base=#<Post:0xa6b5e68 ...>, @messages={}>> 
-ruby-1.9.2-p290 :003 > posts = Post.where(:author => "bar")
+> posts = Post.where(:author => "bar")
  => [#<Post:0xa67b830 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}>, #<Post:0xa67b088 @attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}>] 
-ruby-1.9.2-p290 :004 > p = Post.first
+> p = Post.first
  => #<Post:0xa640dd4 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}> 
-ruby-1.9.2-p290 :005 > posts = Post.all
+> posts = Post.all
  => [#<Post:0xa6236a8 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}>, #<Post:0xa6226cc @attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}>] 
 ```
 
