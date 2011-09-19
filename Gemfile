@@ -11,3 +11,5 @@ group :development do
   gem "rcov", ">= 0"
   gem "reek", "~> 1.2.8"
 end
+
+gem "rest-client"
