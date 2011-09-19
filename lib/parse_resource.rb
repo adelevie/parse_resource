@@ -171,6 +171,10 @@ class ParseResource
     self
   end
 
+  def update_attributes(attributes = HashWithIndifferentAccess.new)
+    self.update(attributes)
+  end
+
   def destroy
     self.instance_resource.delete
     @attributes = {}
