@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.4.0"
+  s.version = "1.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
@@ -26,6 +26,11 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/parse_resource.rb",
     "parse_resource.gemspec",
+    "rdoc/ParseResource.html",
+    "rdoc/created.rid",
+    "rdoc/index.html",
+    "rdoc/lib/parse_resource_rb.html",
+    "rdoc/rdoc.css",
     "test/helper.rb",
     "test/test_parse_resource.rb",
     "test/test_subclass.rb"
