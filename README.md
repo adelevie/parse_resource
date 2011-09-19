@@ -8,7 +8,9 @@ Ruby/Rails developers should feel right at home.
 Words of caution
 ---------------
 
-ParseResource is brand new and has no test coverage. You read that right. I figured I'd ship 1.0.0 then write tests later. We'll see how it goes.
+ParseResource is brand new and has no test coverage. You read that right. I figured I'd ship now and write tests later. We'll see how it goes.
+
+This is also my first gem. Be afraid.
 
 Installation
 ------------
