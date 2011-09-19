@@ -13,3 +13,6 @@ group :development do
 end
 
 gem "rest-client"
+gem "activesupport"
+gem "activemodel"
+
