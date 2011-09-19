@@ -2,7 +2,7 @@
 
 ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. Ruby/Rails developers should feel right at home.
 
-== Contributing to parse_resource
+== Contributing to ParseResource
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
