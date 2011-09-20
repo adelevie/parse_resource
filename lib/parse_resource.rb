@@ -1,3 +1,7 @@
+require "rubygems"
+require "bundler/setup"
+require "active_model"
+
 class ParseResource
   # ParseResource provides an easy way to use Ruby to interace with a Parse.com backend
   # Usage:
