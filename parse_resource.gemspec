@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.5.0"
+  s.version = "1.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
@@ -52,6 +52,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<reek>, ["~> 1.2.8"])
+      s.add_development_dependency(%q<rest-client>, [">= 0"])
+      s.add_development_dependency(%q<activesupport>, [">= 0"])
+      s.add_development_dependency(%q<activemodel>, [">= 0"])
     else
       s.add_dependency(%q<rest-client>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
@@ -60,6 +63,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<reek>, ["~> 1.2.8"])
+      s.add_dependency(%q<rest-client>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<activemodel>, [">= 0"])
     end
   else
     s.add_dependency(%q<rest-client>, [">= 0"])
@@ -69,6 +75,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<reek>, ["~> 1.2.8"])
+    s.add_dependency(%q<rest-client>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<activemodel>, [">= 0"])
   end
 end
 
