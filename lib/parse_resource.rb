@@ -68,7 +68,7 @@ class ParseResource
   end
 
   class << self
-    @@settings ||= {}
+    @@settings ||= nil
 
     def load!(app_id, master_key)
       @@settings = {"app_id" => app_id, "master_key" => master_key}
