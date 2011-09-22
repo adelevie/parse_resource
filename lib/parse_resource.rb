@@ -75,14 +75,14 @@ class ParseResource
     # creates a RESTful resource
     # sends requests to [base_uri]/[classname]
     def resource
-      if @@settings.nil?
+      if @settings.nil?
         path = "config/parse_resource.yml"
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+        @settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
       end
       base_uri   = "https://api.parse.com/1/classes/#{model_name}"
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
+      app_id     = @settings['app_id']
+      master_key = @settings['master_key']
       RestClient::Resource.new(base_uri, app_id, master_key)
     end
 

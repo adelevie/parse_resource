@@ -45,14 +45,13 @@ production:
 
 You can create separate Parse databases if you want. If not, include the same info for each environment.
 
-If you're using a Rack app, in an initializer, include the following:
+In a non-Rails app, include this somewhere (preferable in an initializer):
 
 
 ```ruby
 ParseResource.load!("your_app_id", "your_master_key")
 ```
 
-In a later version, I'll include support for non-Rails/Rack apps.
 
 Usage
 -----
