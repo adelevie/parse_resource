@@ -1,6 +1,10 @@
 require "rubygems"
 require "bundler/setup"
 require "active_model"
+require "erb"
+require "rest-client"
+require "json"
+require "active_support"
 
 class ParseResource
   # ParseResource provides an easy way to use Ruby to interace with a Parse.com backend
@@ -18,13 +22,13 @@ class ParseResource
   # p = Post.new(:title => "cool story")
   def initialize(attributes = {})
     if new?
-      @unsaved_attributes = attributes.symbolize_keys!
+      @unsaved_attributes = attributes
     else
-      @unsaved_attributes = HashWithIndifferentAccess.new
+      @unsaved_attributes = {}
     end
     self.attributes = {}
     self.attributes.merge!(attributes)
-    self.attributes.symbolize_keys! unless self.attributes.empty?
+    self.attributes unless self.attributes.empty?
     #@field_message = "set in #initialize"
     create_setters!
   end
@@ -64,22 +68,21 @@ class ParseResource
   end
 
   class << self
-    def load!(path="config/parse_resource.yml")
-      environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-      @settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+    def load!(app_id, master_key)
+      @@settings = {"app_id" => app_id, "master_key" => master_key}
     end
 
     # creates a RESTful resource
     # sends requests to [base_uri]/[classname]
     def resource
-      if @settings.nil?
+      if @@settings.nil?
         path = "config/parse_resource.yml"
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        @settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
       end
       base_uri   = "https://api.parse.com/1/classes/#{model_name}"
-      app_id     = @settings['app_id']
-      master_key = @settings['master_key']
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
       RestClient::Resource.new(base_uri, app_id, master_key)
     end
 
@@ -93,14 +96,14 @@ class ParseResource
     def where(parameters)
       resp = resource.get(:params => {:where => parameters.to_json})
       results = JSON.parse(resp)['results']
-      results.map {|r| model_name.constantize.new(r.symbolize_keys!)}
+      results.map {|r| model_name.constantize.new(r)}
     end
 
     # Post.all
     def all
       resp = resource.get
       results = JSON.parse(resp)['results']
-      results.map {|r| model_name.constantize.new(r.symbolize_keys!)}
+      results.map {|r| model_name.constantize.new(r)}
     end
 
     # Post.create(:title => "new post")
@@ -140,9 +143,9 @@ class ParseResource
 
   def create
     resp = self.resource.post(@unsaved_attributes.to_json, :content_type => "application/json")
-    @attributes.merge!(JSON.parse(resp).symbolize_keys!)
+    @attributes.merge!(JSON.parse(resp))
     @attributes.merge!(@unsaved_attributes)
-    @unsaved_attributes = HashWithIndifferentAccess.new
+    @unsaved_attributes = {}
     create_setters!
     self
   end
@@ -156,7 +159,7 @@ class ParseResource
     rescue false
   end
 
-  def update(attributes = HashWithIndifferentAccess.new)
+  def update(attributes = {})
     @unsaved_attributes.merge!(attributes)
 
     put_attrs = @unsaved_attributes
@@ -167,15 +170,15 @@ class ParseResource
 
     resp = self.instance_resource.put(put_attrs, :content_type => "application/json")
 
-    @attributes.merge!(JSON.parse(resp).symbolize_keys!)
+    @attributes.merge!(JSON.parse(resp))
     @attributes.merge!(@unsaved_attributes)
-    @unsaved_attributes = HashWithIndifferentAccess.new
+    @unsaved_attributes = {}
     create_setters!
 
     self
   end
 
-  def update_attributes(attributes = HashWithIndifferentAccess.new)
+  def update_attributes(attributes = {})
     self.update(attributes)
   end
 
@@ -189,12 +192,12 @@ class ParseResource
   # provides access to @attributes for getting and setting
   def attributes
     @attributes ||= self.class.class_attributes
-    @attributes.symbolize_keys!
+    @attributes
   end
 
   def attributes=(n)
     @attributes = n
-    @attributes.symbolize_keys!
+    @attributes
   end
 
   # aliasing for idiomatic Ruby

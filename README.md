@@ -49,7 +49,7 @@ If you're using a Rack app, in an initializer, include the following:
 
 
 ```ruby
-ParseResource.load!("path/to/parse_resource.yml")
+ParseResource.load!("your_app_id", "your_master_key")
 ```
 
 In a later version, I'll include support for non-Rails/Rack apps.
