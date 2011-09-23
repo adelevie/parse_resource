@@ -29,7 +29,6 @@ class ParseResource
     self.attributes = {}
     self.attributes.merge!(attributes)
     self.attributes unless self.attributes.empty?
-    #@field_message = "set in #initialize"
     create_setters!
   end
 
@@ -50,18 +49,14 @@ class ParseResource
     args.each {|f| field(f)}
   end
 
-  def self.add_field(fieldname, val=nil)
-    class_attributes.merge!({fieldname.to_sym => nil})
-  end
-
   # a sprinkle of metaprogramming
   # p = Post.new(:some_attr => "some value")
   # p.some_attr = "new value"
   def create_setters!
     @attributes.each_pair do |k,v|
       self.class.send(:define_method, "#{k}=") do |val|
-        @attributes[k.to_sym] = val
-        @unsaved_attributes[k.to_sym] = val
+        @attributes[k.to_s] = val
+        @unsaved_attributes[k.to_s] = val
         val
       end
     end
@@ -213,8 +208,8 @@ class ParseResource
   # p = Post.new(:some_attr => "some value")
   # p.some_attr #=> "some value"
   def method_missing(meth, *args, &block)
-    if self.attributes.has_key?(meth.to_sym)
-      self.attributes[meth.to_sym]
+    if self.attributes.has_key?(meth.to_s)
+      self.attributes[meth.to_s]
     else
       super
     end
