@@ -69,52 +69,52 @@ end
 Creating, updating, and deleting:
 
 ```ruby
->  p = Post.new
+p = Post.new
  => #<Post:0xab74864 @attributes={}, @unsaved_attributes={}> 
-> p.valid?
+p.valid?
  => false 
-> p.errors
+p.errors
  => #<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 @attributes={}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 ...>>, @messages={:title=>["can't be blank"]}> 
-> p.title = "Introducing ParseResource"
+p.title = "Introducing ParseResource"
  => "Introducing ParseResource" 
-> p.valid?
+p.valid?
  => true 
-> p.author = "Alan deLevie"
+p.author = "Alan deLevie"
  => "Alan deLevie" 
-> p.body = "Ipso Lorem"
+p.body = "Ipso Lorem"
  => "Ipso Lorem" 
-> p.save
+p.save
  => #<Post:0xab74864 @attributes={:title=>"Introducing ParseResource", :author=>"Alan deLevie", :body=>"Ipso Lorem", :createdAt=>"2011-09-19T01:32:04.973Z", :objectId=>"QARfXUILgY"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 ...>, @messages={}>> 
-> p.id
+p.id
  => "QARfXUILgY" 
-> p.updated_at
+p.updated_at
  => nil 
-> p.created_at
+p.created_at
  => "2011-09-19T01:32:04.973Z" 
-> p.title = "[Update] Introducing ParseResource"
+p.title = "[Update] Introducing ParseResource"
  => "[Update] Introducing ParseResource" 
-> p.save
+p.save
  => #<Post:0xab74864 @attributes={:title=>"[Update] Introducing ParseResource", :author=>"Alan deLevie", :body=>"Ipso Lorem", :createdAt=>"2011-09-19T01:32:04.973Z", :objectId=>"QARfXUILgY", :updatedAt=>"2011-09-19T01:32:37.930Z", "title"=>"[Update] Introducing ParseResource"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xab71998 @base=#<Post:0xab74864 ...>, @messages={}>> 
-> p.updated_at
+p.updated_at
  => "2011-09-19T01:32:37.930Z" 
-> p.destroy
+p.destroy
  => nil 
-> p.title
+p.title
  => nil 
 ```
 
 Finding:
 
 ```ruby
-> a = Post.create(:title => "foo", :author => "bar", :body => "ipso")
+a = Post.create(:title => "foo", :author => "bar", :body => "ipso")
  => #<Post:0xa6eee34 @attributes={:title=>"foo", :author=>"bar", :body=>"ipso", :createdAt=>"2011-09-19T01:36:42.833Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xa6ee54c @base=#<Post:0xa6eee34 ...>, @messages={}>> 
-> b = Post.create(:title => "a newer post", :author => "bar", :body => "some newer content")
+b = Post.create(:title => "a newer post", :author => "bar", :body => "some newer content")
  => #<Post:0xa6b5e68 @attributes={:title=>"a newer post", :author=>"bar", :body=>"some newer content", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={}, @validation_context=nil, @errors=#<ActiveModel::Errors:0xa6b5710 @base=#<Post:0xa6b5e68 ...>, @messages={}>> 
-> posts = Post.where(:author => "bar")
+posts = Post.where(:author => "bar")
  => [#<Post:0xa67b830 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}>, #<Post:0xa67b088 @attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}>] 
-> p = Post.first
+p = Post.first
  => #<Post:0xa640dd4 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}> 
-> posts = Post.all
+posts = Post.all
  => [#<Post:0xa6236a8 @attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}, @unsaved_attributes={:body=>"ipso", :author=>"bar", :title=>"foo", :updatedAt=>"2011-09-19T01:36:42.834Z", :createdAt=>"2011-09-19T01:36:42.834Z", :objectId=>"dPjKwaqQUv"}>, #<Post:0xa6226cc @attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}, @unsaved_attributes={:body=>"some newer content", :author=>"bar", :title=>"a newer post", :updatedAt=>"2011-09-19T01:37:16.805Z", :createdAt=>"2011-09-19T01:37:16.805Z", :objectId=>"ZripqKvunV"}>] 
 ```
 

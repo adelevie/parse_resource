@@ -17,6 +17,10 @@ class ParseResource
   include ActiveModel::Conversion
   include ActiveModel::AttributeMethods
   extend ActiveModel::Naming
+  extend ActiveModel::Callbacks
+
+  #define_model_callbacks :initialize, :find, :only => :after
+  define_model_callbacks :save, :create, :update, :destroy
 
   # instantiation!
   # p = Post.new(:title => "cool story")
@@ -67,12 +71,8 @@ class ParseResource
         if k.is_a?(Symbol)
           k = k.to_s
         end
-        
-        if @attributes[k.to_s]
-          @attributes[k.to_s]
-        else
-          @unsaved_attributes[k.to_s]
-        end
+
+        @attributes[k.to_s]
       end
     end
   end
@@ -168,7 +168,9 @@ class ParseResource
 
   def save
     if valid?
-      new? ? create : update
+      run_callbacks :save do
+        new? ? create : update
+      end
     else
       false
     end
@@ -176,6 +178,7 @@ class ParseResource
   end
 
   def update(attributes = {})
+    attributes.with_indifferent_access
     @unsaved_attributes.merge!(attributes)
 
     put_attrs = @unsaved_attributes
