@@ -20,8 +20,9 @@ class ParseResource
 
   # instantiation!
   # p = Post.new(:title => "cool story")
-  def initialize(attributes = {})
-    if new?
+  def initialize(attributes = {}, new=true)
+    attributes.each_key {}
+    if new
       @unsaved_attributes = attributes
     else
       @unsaved_attributes = {}
@@ -55,9 +56,23 @@ class ParseResource
   def create_setters!
     @attributes.each_pair do |k,v|
       self.class.send(:define_method, "#{k}=") do |val|
+        if k.is_a?(Symbol)
+          k = k.to_s
+        end
         @attributes[k.to_s] = val
         @unsaved_attributes[k.to_s] = val
         val
+      end
+      self.class.send(:define_method, "#{k}") do
+        if k.is_a?(Symbol)
+          k = k.to_s
+        end
+        
+        if @attributes[k.to_s]
+          @attributes[k.to_s]
+        else
+          @unsaved_attributes[k.to_s]
+        end
       end
     end
   end
@@ -93,14 +108,14 @@ class ParseResource
     def where(parameters)
       resp = resource.get(:params => {:where => parameters.to_json})
       results = JSON.parse(resp)['results']
-      results.map {|r| model_name.constantize.new(r)}
+      results.map {|r| model_name.constantize.new(r, false)}
     end
 
     # Post.all
     def all
       resp = resource.get
       results = JSON.parse(resp)['results']
-      results.map {|r| model_name.constantize.new(r)}
+      results.map {|r| model_name.constantize.new(r, false)}
     end
 
     # Post.create(:title => "new post")
@@ -120,7 +135,11 @@ class ParseResource
   end
 
   def persisted?
-    !self.id.nil?
+    if id
+      true
+    else
+      false
+    end
   end
 
   def new?
@@ -207,11 +226,11 @@ class ParseResource
   # another sprinkle of metaprogramming
   # p = Post.new(:some_attr => "some value")
   # p.some_attr #=> "some value"
-  def method_missing(meth, *args, &block)
-    if self.attributes.has_key?(meth.to_s)
-      self.attributes[meth.to_s]
-    else
-      super
-    end
-  end
+  #def method_missing(meth, *args, &block)
+  #  if @attributes.has_key?(meth.to_s)
+  #    @attributes[meth.to_s]
+  #  else
+  #    super
+  #  end
+  #end
 end
