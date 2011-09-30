@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.5.8"
+  s.version = "1.5.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2011-09-23"
+  s.date = "2011-09-30"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
