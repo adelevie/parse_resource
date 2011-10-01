@@ -4,7 +4,9 @@ require "active_model"
 require "erb"
 require "rest-client"
 require "json"
-require "active_support"
+require "active_support/hash_with_indifferent_access"
+
+ActiveSupport
 
 class ParseResource
   # ParseResource provides an easy way to use Ruby to interace with a Parse.com backend
@@ -18,6 +20,7 @@ class ParseResource
   include ActiveModel::AttributeMethods
   extend ActiveModel::Naming
   extend ActiveModel::Callbacks
+  HashWithIndifferentAccess = ActiveSupport::HashWithIndifferentAccess
 
   #define_model_callbacks :initialize, :find, :only => :after
   define_model_callbacks :save, :create, :update, :destroy
@@ -25,7 +28,7 @@ class ParseResource
   # instantiation!
   # p = Post.new(:title => "cool story")
   def initialize(attributes = {}, new=true)
-    attributes.each_key {}
+    attributes = HashWithIndifferentAccess.new(attributes)
     if new
       @unsaved_attributes = attributes
     else
@@ -120,6 +123,7 @@ class ParseResource
 
     # Post.create(:title => "new post")
     def create(attributes = {})
+      attributes = HashWithIndifferentAccess.new(attributes)
       new(attributes).save
     end
 
@@ -161,6 +165,7 @@ class ParseResource
     resp = self.resource.post(@unsaved_attributes.to_json, :content_type => "application/json")
     @attributes.merge!(JSON.parse(resp))
     @attributes.merge!(@unsaved_attributes)
+    attributes = HashWithIndifferentAccess.new(attributes)
     @unsaved_attributes = {}
     create_setters!
     self
@@ -178,7 +183,7 @@ class ParseResource
   end
 
   def update(attributes = {})
-    attributes.with_indifferent_access
+    attributes = HashWithIndifferentAccess.new(attributes)
     @unsaved_attributes.merge!(attributes)
 
     put_attrs = @unsaved_attributes
