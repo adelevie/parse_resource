@@ -1,15 +1,11 @@
+require 'helper'
 require 'parse_resource'
-require 'pp'
 
+path = "parse_resource.yml"
+settings = YAML.load(ERB.new(File.new(path).read).result)['test']
 
-ParseResource.load!("FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ", "bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN")
+ParseResource.load!(settings['app_id'], settings['master_key'])
 
 class Post < ParseResource
   fields :title, :author, :body
-
-  after_save :add_author
-
-  def add_author
-    update(:author => "Alan")
-  end
 end
