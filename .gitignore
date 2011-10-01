@@ -11,6 +11,8 @@ doc
 # bundler
 .bundle
 
+parse_resource.yml
+
 # jeweler generated
 pkg
 
