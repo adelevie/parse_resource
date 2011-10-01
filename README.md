@@ -1,16 +1,35 @@
 ParseResource
 =============
 
-ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParceResource is fully ActiveModel compliant, meaning you can use validations, callbacks, and Rails forms.
+ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParceResource is fully ActiveModel compliant, meaning you can use validations and Rails forms.
 
 Ruby/Rails developers should feel right at home.
+
+Features
+---------------
+*   ActiveRecord-like API, almost no learning curve
+*   Validations
+*   Rails forms and scaffolds **just work**
+
+Use cases
+-------------
+*   Build a custom admin dashboard for your Parse.com data
+*   Use the same database for your web and native apps
+*   Pre-collect data for use in iOS and Android apps
+
+To-do
+--------------
+*   Associations
+*   Authentication support (probably with Devise)
+*   Better type-casting
+
 
 Words of caution
 ---------------
 
-ParseResource is brand new and has no test coverage. You read that right. I figured I'd ship now and write tests later. We'll see how it goes.
+ParseResource is brand new. Test coverage is decent.
 
-This is also my first gem. Be afraid.
+This is my first gem. Be afraid.
 
 Installation
 ------------
@@ -124,13 +143,14 @@ p = Post.find(id)
 
 Contributing to ParseResource
 -----------------------------
- 
+
 *   Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 *   Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 *   Fork the project
 *   Start a feature/bugfix branch
 *   Commit and push until you are happy with your contribution
-*   Make sure to add tests for it. This is important so I don't break it in a future version unintentionally. (A little hypocritical since I haven't written tests yet)
+*   Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+*   Create `parse_resource.yml` in the root of the gem folder. Using the same format as `parse_resource.yml` in the instructions (except only creating a `test` environment, add your own API keys.
 *   Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 Copyright
