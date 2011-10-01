@@ -20,6 +20,7 @@ Use cases
 To-do
 --------------
 *   Associations
+*   Callbacks
 *   Authentication support (probably with Devise)
 *   Better type-casting
 
