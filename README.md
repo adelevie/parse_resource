@@ -21,6 +21,7 @@ To-do
 --------------
 *   Associations
 *   Callbacks
+*   Push notifications
 *   Authentication support (probably with Devise)
 *   Better type-casting
 
