@@ -25,6 +25,7 @@ To-do
 *   Push notifications
 *   Authentication support (probably with Devise)
 *   Better type-casting
+
 Let me know which of these I should prioritize.
 
 
