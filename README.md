@@ -19,14 +19,16 @@ Use cases
 
 To-do
 --------------
+*   User authentication
 *   Better documentation
 *   Associations
 *   Callbacks
 *   Push notifications
-*   Authentication support (probably with Devise)
 *   Better type-casting
 
-Let me know which of these I should prioritize.
+User authentication is my top priority feature. Several people have specifically requested it, and Parse just began exposing [`User` objects in the REST API](https://www.parse.com/docs/rest#users).
+
+Let me know any other features you want.
 
 
 Words of caution
