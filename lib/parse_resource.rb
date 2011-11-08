@@ -88,8 +88,37 @@ class ParseResource
   end
 
   class << self
+    def has_one(child_name)
+      class_eval do
+
+        define_method("#{child_name}") do
+          child_name
+        end
+
+        define_method("#{child_name}=") do |child_object|
+          [child_object, child_name]
+        end
+
+      end
+    end
+
+    def belongs_to(name)
+      class_eval do
+
+        define_method("#{parent_name}") do
+          name
+        end
+
+        define_method("#{parent_name}=") do |parent_object|
+          [parent_name, parent_object]
+        end
+
+      end
+    end
+
+
     @@settings ||= nil
--
+
     # Explicitly set Parse.com API keys.
     #
     # @param [String] app_id the Application ID of your Parse database
