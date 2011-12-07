@@ -75,7 +75,7 @@ In a non-Rails app, include this somewhere (preferable in an initializer):
 
 
 ```ruby
-ParseResource.load!("your_app_id", "your_master_key")
+ParseResource::Base.load!("your_app_id", "your_master_key")
 ```
 
 
