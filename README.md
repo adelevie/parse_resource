@@ -28,7 +28,7 @@ To-do
 
 User authentication is my top priority feature. Several people have specifically requested it, and Parse just began exposing [`User` objects in the REST API](https://www.parse.com/docs/rest#users).
 
-Let me know any other features you want.
+Let me know of any other features you want.
 
 
 Words of caution
@@ -85,12 +85,14 @@ Usage
 Create a model:
 
 ```ruby
-class Post < ParseResource
+class Post < ParseResource::Base
   fields :title, :author, :body
 
   validates_presence_of :title
 end
 ```
+
+If you are using version `1.5.11` or earlier, subclass to just `ParseResource`.
 
 Creating, updating, and deleting:
 
