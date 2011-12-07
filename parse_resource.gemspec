@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.5.11"
+  s.version = "1.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2011-10-01"
+  s.date = "2011-12-07"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
@@ -24,8 +24,10 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "lib/base.rb",
     "lib/examples/post.rb",
     "lib/parse_resource.rb",
+    "lib/parse_resource_old.rb",
     "parse_resource.gemspec",
     "rdoc/ParseResource.html",
     "rdoc/created.rid",
