@@ -133,6 +133,17 @@ class TestParseResource < Test::Unit::TestCase
     assert @post.attributes['createdAt']
   end
 
+  def test_each
+    Post.destroy_all
+    4.times do |i|
+      Post.create(:title => "each", :author => i.to_s)
+    end
+    posts = Post.where(:title => "each")
+    posts.each do |p|
+      assert_equal p.title, "each"
+    end
+  end
+
   def test_id
     @post = Post.create(:title => "testing id")
     assert @post.respond_to?(:id)

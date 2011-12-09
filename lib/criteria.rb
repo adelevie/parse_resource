@@ -30,24 +30,6 @@ class Criteria
     all
   end
 
-  #def each(&block)
-  #  resp = @klass.resource.get(:params => {:where => criteria[:conditions].to_json})
-  #  results = JSON.parse(resp)['results']
-  #  results.map {|r| @klass.model_name.constantize.new(r, false)}.each(&block)
-  #end
-
-  #def first
-  #  resp = @klass.resource.get(:params => {:where => criteria[:conditions].to_json})
-  #  results = JSON.parse(resp)['results']
-  #  results.map {|r| @klass.model_name.constantize.new(r, false)}.first
-  #end
-
-  #def length
-  #  resp = @klass.resource.get(:params => {:where => criteria[:conditions].to_json})
-  #  results = JSON.parse(resp)['results']
-  #  results.length
-  #end
-
   def all
     params = {}
     params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
@@ -66,14 +48,12 @@ class Criteria
     end
   end
 
-  def method_missing(meth)
+  def method_missing(meth, *args, &block)
     if Array.method_defined?(meth)
-      all.send(meth)
+      all.send(meth, *args, &block)
     else
       super
     end
   end
-
-
 
 end
