@@ -156,6 +156,10 @@ posts.length #=> 5
 Post.where(:bar => "foo").count #=> 1337
 ```
 
+Documentation
+-------------
+[Here](http://rubydoc.info/gems/parse_resource/)
+
 
 Contributing to ParseResource
 -----------------------------
