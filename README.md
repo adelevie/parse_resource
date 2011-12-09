@@ -149,7 +149,7 @@ p = Post.find(id)
  => #<Post:0xa50f028 @unsaved_attributes={}, @attributes={"title"=>"fvvV", "updatedAt"=>"2011-09-22T21:36:13.044Z", "createdAt"=>"2011-09-22T21:36:13.044Z", "objectId"=>"DjiH4Qffke"}> 
 
 #you can now chain method calls, just like in ActiveRecord3
-Post.where(:param1 => "foo", :param2 => "bar").all
+Post.where(:param1 => "foo").where(:param2 => "bar").all
 
 #destroy all objects
 Post.destroy_all
