@@ -11,10 +11,33 @@ class Post < ParseResource::Base
   validates_presence_of :title
 end
 
+class Author < ParseResource::Base
+  field :name
+end
+
 class TestParseResource < Test::Unit::TestCase
+
+  def setup
+    Post.destroy_all
+    Author.destroy_all
+  end
+
+  def teardown
+    Post.destroy_all
+    Author.destroy_all
+  end
 
   def test_initialize_without_args
     assert Post.new.is_a?(Post)
+  end
+
+  def test_count
+    p1 = Author.create(:name => "bar")
+    p2 = Author.create(:name => "jab")
+    assert_equal Author.count, 2
+    p1.destroy
+    p2.destroy
+    assert_equal Author.count, 0
   end
 
   def test_initialize_with_args
@@ -39,6 +62,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_first
+    Post.create(:title => "firsttt")
     p = Post.first
     assert p.is_a?(Post)
   end
@@ -48,6 +72,21 @@ class TestParseResource < Test::Unit::TestCase
     p2 = Post.where(:title => "Welcome111").first
     assert_equal p2.id, p1.id
   end
+
+  def test_destroy_all
+    p = Post.create(:title => "arbitrary")
+    Post.destroy_all
+    assert_equal Post.count, 0
+  end
+
+  #def test_chained_finders
+  #  p1 = Post.create(:title => "where1", :author => "where2")
+  #  p2 = Post.create(:title => "where1", :author => "foobar")
+  #  p = Post.where(:title => "where1").where(:author => "where2")
+  #  assert_equal p.length, 0
+  #  assert_equal p.first.title, p1.title 
+  #  assert_equal p.first.author, p1.author
+  #end
 
   def test_all
     Post.create(:title => "11222")
@@ -121,4 +160,5 @@ class TestParseResource < Test::Unit::TestCase
     p.title = "foo"
     assert p.valid?
   end
+
 end

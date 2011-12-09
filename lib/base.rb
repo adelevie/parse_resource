@@ -115,6 +115,11 @@ module ParseResource
         RestClient::Resource.new(base_uri, app_id, master_key)
       end
 
+      def collection
+        #http://jeffkreeftmeijer.com/2011/method-chaining-and-lazy-evaluation-in-ruby/
+        @collection ||= self
+      end
+
       # Find a ParseResource::Base object by ID
       #
       # @param [String] id the ID of the Parse object you want to find.
@@ -127,10 +132,20 @@ module ParseResource
       #
       # @param [Hash] parameters a `Hash` of conditions.
       # @return [Array] an `Array` of objects that subclass `ParseResource`.
-      def where(parameters)
+      def old_where(parameters)
         resp = resource.get(:params => {:where => parameters.to_json})
         results = JSON.parse(resp)['results']
         results.map {|r| model_name.constantize.new(r, false)}
+      end
+
+      def where(*args)
+        Criteria.new(self).where(*args)
+      end
+
+      def count
+        #https://www.parse.com/docs/rest#queries-counting
+        resp = resource.get(:params => {:count => 1})
+        JSON.parse(resp)['count'].to_i
       end
 
       # Find all ParseResource::Base objects for that model.
@@ -155,6 +170,12 @@ module ParseResource
       #
       def first
         all.first
+      end
+
+      def destroy_all
+        all.each do |object|
+          object.destroy
+        end
       end
 
       def class_attributes
