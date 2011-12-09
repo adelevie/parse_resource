@@ -92,7 +92,7 @@ class Post < ParseResource::Base
 end
 ```
 
-If you are using version `1.5.11` or earlier, subclass to just `ParseResource`.
+If you are using version `1.5.11` or earlier, subclass to just `ParseResource`--or just update to the most recent version.
 
 Creating, updating, and deleting:
 
@@ -137,7 +137,7 @@ posts.each do |post|
   "#{post.title}, by #{post.author}"
 end
 
-posts.map {|p| p.title} #=> ["unpaid blogger"]
+posts.map {|p| p.title} #=> ["Unpaid blogger", "Uncrunched"]
 
 id = "DjiH4Qffke"
 p = Post.find(id) #simple find by id
