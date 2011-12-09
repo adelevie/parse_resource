@@ -144,6 +144,15 @@ class TestParseResource < Test::Unit::TestCase
     end
   end
 
+  def test_map
+    Post.destroy_all
+    4.times do |i|
+      Post.create(:title => "map", :author => i.to_s)
+    end
+    posts = Post.where(:title => "map")
+    assert_equal posts.map {|p| p}.class, Array
+  end
+
   def test_id
     @post = Post.create(:title => "testing id")
     assert @post.respond_to?(:id)
