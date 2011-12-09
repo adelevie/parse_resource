@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.6.1"
+  s.version = "1.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
@@ -25,9 +25,8 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/base.rb",
-    "lib/criteria.rb",
-    "lib/examples/post.rb",
     "lib/parse_resource.rb",
+    "lib/query.rb",
     "parse_resource.gemspec",
     "rdoc/ParseResource.html",
     "rdoc/created.rid",
@@ -36,7 +35,8 @@ Gem::Specification.new do |s|
     "rdoc/rdoc.css",
     "test/active_model_lint_test.rb",
     "test/helper.rb",
-    "test/test_parse_resource.rb"
+    "test/test_parse_resource.rb",
+    "test/test_query.rb"
   ]
   s.homepage = "http://github.com/adelevie/parse_resource"
   s.licenses = ["MIT"]
