@@ -188,6 +188,7 @@ class TestParseResource < Test::Unit::TestCase
     p = Post.create(:title => "hello1234567890abc!")
     id = p.id
     p.destroy
+    assert_equal p.title, nil
     assert_equal 0, Post.where(:title => "hello1234567890abc!", :objectId => id).length
   end
 

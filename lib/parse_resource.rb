@@ -1,5 +1,5 @@
 require 'base'
-require 'criteria'
+require 'query'
 
 module ParseResource
 end

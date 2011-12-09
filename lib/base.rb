@@ -5,7 +5,7 @@ require "erb"
 require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
-require "criteria"
+require "query"
 
 module ParseResource
 
@@ -127,32 +127,32 @@ module ParseResource
       # Find a ParseResource::Base object by chaining #where method calls.
       #
       def where(*args)
-        Criteria.new(self).where(*args)
+        Query.new(self).where(*args)
       end
 
       # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
       def count
         #https://www.parse.com/docs/rest#queries-counting
-        Criteria.new(self).count(1)
+        Query.new(self).count(1)
       end
 
       # Find all ParseResource::Base objects for that model.
       #
       # @return [Array] an `Array` of objects that subclass `ParseResource`.
       def all
-        Criteria.new(self).all
+        Query.new(self).all
       end
 
       # Find the first object. Fairly random, not based on any specific condition.
       #
       def first
-        Criteria.new(self).limit(1).first
+        Query.new(self).limit(1).first
       end
 
       # Limits the number of objects returned
       #
       def limit(n)
-        Criteria.new(self).limit(n)
+        Query.new(self).limit(n)
       end
 
       # Create a ParseResource::Base object.

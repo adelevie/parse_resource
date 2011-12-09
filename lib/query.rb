@@ -1,4 +1,4 @@
-class Criteria
+class Query
 
   def initialize(klass)
     @klass = klass
@@ -30,7 +30,7 @@ class Criteria
     all
   end
 
-  def all
+  def execute
     params = {}
     params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
     params.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
@@ -48,9 +48,21 @@ class Criteria
     end
   end
 
+  def all
+    execute
+  end
+
   def method_missing(meth, *args, &block)
     if Array.method_defined?(meth)
       all.send(meth, *args, &block)
+    else
+      super
+    end
+  end
+
+  def respond_to?(meth)
+    if Array.method_defined?(meth)
+      true
     else
       super
     end
