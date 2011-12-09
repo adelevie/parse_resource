@@ -1,6 +1,5 @@
-Thu, 08 Dec 2011 23:26:29 -0500
-README.md	Tue, 06 Dec 2011 20:23:21 -0500
-lib/criteria.rb	Thu, 08 Dec 2011 23:18:08 -0500
-lib/examples/post.rb	Sat, 01 Oct 2011 16:18:47 -0400
-lib/parse_resource.rb	Thu, 08 Dec 2011 18:14:05 -0500
-lib/base.rb	Thu, 08 Dec 2011 23:22:58 -0500
+Fri, 09 Dec 2011 18:31:09 -0500
+README.md	Fri, 09 Dec 2011 18:15:16 -0500
+lib/query.rb	Fri, 09 Dec 2011 18:08:24 -0500
+lib/parse_resource.rb	Fri, 09 Dec 2011 17:54:17 -0500
+lib/base.rb	Fri, 09 Dec 2011 17:53:11 -0500
