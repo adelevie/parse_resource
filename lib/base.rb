@@ -5,6 +5,7 @@ require "erb"
 require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
+require "criteria"
 
 module ParseResource
 
@@ -115,11 +116,6 @@ module ParseResource
         RestClient::Resource.new(base_uri, app_id, master_key)
       end
 
-      def collection
-        #http://jeffkreeftmeijer.com/2011/method-chaining-and-lazy-evaluation-in-ruby/
-        @collection ||= self
-      end
-
       # Find a ParseResource::Base object by ID
       #
       # @param [String] id the ID of the Parse object you want to find.
@@ -128,33 +124,35 @@ module ParseResource
         where(:objectId => id).first
       end
 
-      # Find a ParseResource::Base object by a `Hash` of conditions.
+      # Find a ParseResource::Base object by chaining #where method calls.
       #
-      # @param [Hash] parameters a `Hash` of conditions.
-      # @return [Array] an `Array` of objects that subclass `ParseResource`.
-      def old_where(parameters)
-        resp = resource.get(:params => {:where => parameters.to_json})
-        results = JSON.parse(resp)['results']
-        results.map {|r| model_name.constantize.new(r, false)}
-      end
-
       def where(*args)
         Criteria.new(self).where(*args)
       end
 
+      # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
       def count
         #https://www.parse.com/docs/rest#queries-counting
-        resp = resource.get(:params => {:count => 1})
-        JSON.parse(resp)['count'].to_i
+        Criteria.new(self).count(1)
       end
 
       # Find all ParseResource::Base objects for that model.
       #
       # @return [Array] an `Array` of objects that subclass `ParseResource`.
       def all
-        resp = resource.get
-        results = JSON.parse(resp)['results']
-        results.map {|r| model_name.constantize.new(r, false)}
+        Criteria.new(self).all
+      end
+
+      # Find the first object. Fairly random, not based on any specific condition.
+      #
+      def first
+        Criteria.new(self).limit(1).first
+      end
+
+      # Limits the number of objects returned
+      #
+      def limit(n)
+        Criteria.new(self).limit(n)
       end
 
       # Create a ParseResource::Base object.
@@ -164,12 +162,6 @@ module ParseResource
       def create(attributes = {})
         attributes = HashWithIndifferentAccess.new(attributes)
         new(attributes).save
-      end
-
-      # Find the first object. Fairly random, not based on any specific condition.
-      #
-      def first
-        all.first
       end
 
       def destroy_all

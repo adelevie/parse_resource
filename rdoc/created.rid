@@ -1,4 +1,6 @@
-Sun, 09 Oct 2011 16:07:54 -0400
-README.md	Mon, 03 Oct 2011 07:24:09 -0400
+Thu, 08 Dec 2011 23:26:29 -0500
+README.md	Tue, 06 Dec 2011 20:23:21 -0500
+lib/criteria.rb	Thu, 08 Dec 2011 23:18:08 -0500
 lib/examples/post.rb	Sat, 01 Oct 2011 16:18:47 -0400
-lib/parse_resource.rb	Sun, 09 Oct 2011 16:07:13 -0400
+lib/parse_resource.rb	Thu, 08 Dec 2011 18:14:05 -0500
+lib/base.rb	Thu, 08 Dec 2011 23:22:58 -0500

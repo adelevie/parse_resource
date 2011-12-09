@@ -6,7 +6,7 @@
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-	<title>parse_resource 1.5.11</title>
+	<title>parse_resource 1.6.0</title>
 
 	<link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
 
@@ -19,10 +19,10 @@
 <body class="indexpage">
 
 	
-	<h1>parse_resource 1.5.11</h1>
+	<h1>parse_resource 1.6.0</h1>
 
 	
-	<p>This is the API documentation for 'parse_resource 1.5.11'.</p>
+	<p>This is the API documentation for 'parse_resource 1.6.0'.</p>
 	
 
 	
@@ -31,7 +31,13 @@
 	<h2 id="classes">Classes/Modules</h2>
 	<ul>
 		
-		<li class="class"><a href="ParseResource.html">ParseResource</a></li>
+		<li class="module"><a href="ParseResource.html">ParseResource</a></li>
+		
+		<li class="class"><a href="ParseResource/Base.html">ParseResource::Base</a></li>
+		
+		<li class="module"><a href="ParseResource/Base/ClassMethods.html">ParseResource::Base::ClassMethods</a></li>
+		
+		<li class="class"><a href="Criteria.html">Criteria</a></li>
 		
 		<li class="class"><a href="Post.html">Post</a></li>
 		
@@ -40,57 +46,79 @@
 	<h2 id="methods">Methods</h2>
 	<ul>
 		
-			<li><a href="ParseResource.html#method-c-all">::all &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-all">::all &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-class_attributes">::class_attributes &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-class_attributes">::class_attributes &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-create">::create &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-count">::count &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-field">::field &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-create">::create &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-fields">::fields &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-destroy_all">::destroy_all &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-find">::find &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-field">::field &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-first">::first &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-fields">::fields &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-load%21">::load! &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-find">::find &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-new">::new &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-first">::first &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-resource">::resource &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-included">::included &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-c-where">::where &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-limit">::limit &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-attributes">#attributes &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-load%21">::load! &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-attributes%3D">#attributes= &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-new">::new &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-create">#create &mdash; ParseResource</a></li>
+			<li><a href="Criteria.html#method-c-new">::new &mdash; Criteria</a></li>
 		
-			<li><a href="ParseResource.html#method-i-create_setters%21">#create_setters! &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-resource">::resource &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-created_at">#created_at &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-c-where">::where &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-destroy">#destroy &mdash; ParseResource</a></li>
+			<li><a href="Criteria.html#method-i-all">#all &mdash; Criteria</a></li>
 		
-			<li><a href="ParseResource.html#method-i-id">#id &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-attributes">#attributes &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-instance_resource">#instance_resource &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-attributes%3D">#attributes= &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-new%3F">#new? &mdash; ParseResource</a></li>
+			<li><a href="Criteria.html#method-i-count">#count &mdash; Criteria</a></li>
 		
-			<li><a href="ParseResource.html#method-i-persisted%3F">#persisted? &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-create">#create &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-resource">#resource &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-create_setters%21">#create_setters! &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-save">#save &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-created_at">#created_at &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-update">#update &mdash; ParseResource</a></li>
+			<li><a href="Criteria.html#method-i-criteria">#criteria &mdash; Criteria</a></li>
 		
-			<li><a href="ParseResource.html#method-i-update_attributes">#update_attributes &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-destroy">#destroy &mdash; ParseResource::Base</a></li>
 		
-			<li><a href="ParseResource.html#method-i-updated_at">#updated_at &mdash; ParseResource</a></li>
+			<li><a href="ParseResource/Base.html#method-i-id">#id &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-instance_resource">#instance_resource &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="Criteria.html#method-i-limit">#limit &mdash; Criteria</a></li>
+		
+			<li><a href="Criteria.html#method-i-method_missing">#method_missing &mdash; Criteria</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-new%3F">#new? &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-persisted%3F">#persisted? &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-resource">#resource &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-save">#save &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-update">#update &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-update_attributes">#update_attributes &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="ParseResource/Base.html#method-i-updated_at">#updated_at &mdash; ParseResource::Base</a></li>
+		
+			<li><a href="Criteria.html#method-i-where">#where &mdash; Criteria</a></li>
 		
 	</ul>
 

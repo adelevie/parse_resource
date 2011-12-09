@@ -79,13 +79,30 @@ class TestParseResource < Test::Unit::TestCase
     assert_equal Post.count, 0
   end
 
-  #def test_chained_finders
-  #  p1 = Post.create(:title => "where1", :author => "where2")
-  #  p2 = Post.create(:title => "where1", :author => "foobar")
-  #  p = Post.where(:title => "where1").where(:author => "where2")
-  #  assert_equal p.length, 0
-  #  assert_equal p.first.title, p1.title 
-  #  assert_equal p.first.author, p1.author
+  def test_chained_wheres
+    Post.destroy_all
+    p1 = Post.create(:title => "where1", :author => "where2")
+    p2 = Post.create(:title => "where1", :author => "foobar")
+    p = Post.where(:title => "where1").where(:author => "where2")
+    assert_equal 1, p.length
+    assert_equal p.first.title, p1.title 
+    assert_equal p.first.author, p1.author
+  end
+
+  def test_limit
+    15.times do |i|
+      Post.create(:title => "foo_"+i.to_s)
+    end
+    posts = Post.limit(5).all
+    assert_equal posts.length, 5
+  end
+
+  #def test_skip
+  #  15.times do |i|
+  #    Post.create(:title => "skip", :author => i)
+  #  end
+  #  post = Post.where(:title => "skip").skip(14).first
+  #  assert_equal post.author, 15
   #end
 
   def test_all
