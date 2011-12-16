@@ -150,6 +150,7 @@ To-do
 *   Callbacks
 *   Push notifications
 *   Better type-casting
+*   HTTP request error handling
 
 User authentication is my top priority feature. Several people have specifically requested it, and Parse just began exposing [User objects in the REST API](https://www.parse.com/docs/rest#users).
 
