@@ -24,7 +24,7 @@ class Query
   #  self
   #end
 
-  def count(count)
+  def count(count=1)
     criteria[:count] = count
     #self
     all

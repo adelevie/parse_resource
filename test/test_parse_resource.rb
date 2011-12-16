@@ -32,9 +32,11 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_count
+    Author.destroy_all
     p1 = Author.create(:name => "bar")
     p2 = Author.create(:name => "jab")
     assert_equal Author.count, 2
+    assert_equal Author.where(:name => "jab").count, 1
     p1.destroy
     p2.destroy
     assert_equal Author.count, 0
