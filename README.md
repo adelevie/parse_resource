@@ -5,6 +5,8 @@ ParseResource makes it easy to interact with Parse.com's REST API. It adheres to
 
 Ruby/Rails developers should feel right at home.
 
+If you're used to `Post.create(:title => "Hello, world", :author => "Octocat")`, then this is for you.
+
 Features
 ---------------
 *   ActiveRecord-like API, almost no learning curve
@@ -17,26 +19,6 @@ Use cases
 *   Use the same database for your web and native apps
 *   Pre-collect data for use in iOS and Android apps
 
-To-do
---------------
-*   User authentication
-*   Better documentation
-*   Associations
-*   Callbacks
-*   Push notifications
-*   Better type-casting
-
-User authentication is my top priority feature. Several people have specifically requested it, and Parse just began exposing [`User` objects in the REST API](https://www.parse.com/docs/rest#users).
-
-Let me know of any other features you want.
-
-
-Words of caution
----------------
-
-ParseResource is brand new. Test coverage is decent.
-
-This is my first gem. Be afraid.
 
 Installation
 ------------
@@ -142,23 +124,37 @@ posts.map {|p| p.title} #=> ["Unpaid blogger", "Uncrunched"]
 id = "DjiH4Qffke"
 p = Post.find(id) #simple find by id
 
-#you can chain method calls, just like in ActiveRecord
+# you can chain method calls, just like in ActiveRecord
 Post.where(:param1 => "foo").where(:param2 => "bar").all
 
-#destroy all objects
+# destroy all objects
 Post.destroy_all
 
-#limit the query
+# limit the query
 posts = Post.limit(5).where(:foo => "bar")
 posts.length #=> 5
 
-#get a count
+# get a count
 Post.where(:bar => "foo").count #=> 1337
 ```
 
 Documentation
 -------------
 [Here](http://rubydoc.info/gems/parse_resource/)
+
+To-do
+--------------
+*   User authentication
+*   Better documentation
+*   Associations
+*   Callbacks
+*   Push notifications
+*   Better type-casting
+*   HTTP request error handling
+
+User authentication is my top priority feature. Several people have specifically requested it, and Parse just began exposing [User objects in the REST API](https://www.parse.com/docs/rest#users).
+
+Let me know of any other features you want.
 
 
 Contributing to ParseResource
