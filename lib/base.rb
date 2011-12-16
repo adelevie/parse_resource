@@ -84,7 +84,14 @@ module ParseResource
             k = k.to_s
           end
 
-          @attributes[k.to_s]
+          if @attributes[k.to_s].is_a?(Hash) && !@attributes[k.to_s]["__type"].nil?
+            case @attributes[k.to_s]["__type"]
+            when "Date"
+              return result = @attributes[k.to_s]["iso"]
+            end
+          end
+
+          return @attributes[k.to_s]
         end
       end
     end
@@ -101,6 +108,15 @@ module ParseResource
         @@settings = {"app_id" => app_id, "master_key" => master_key}
       end
 
+      def settings
+        if @@settings.nil?
+          path = "config/parse_resource.yml"
+          environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+          @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+        end
+        @@settings
+      end
+
       # Creates a RESTful resource
       # sends requests to [base_uri]/[classname]
       #
@@ -110,7 +126,14 @@ module ParseResource
           environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
           @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
         end
-        base_uri   = "https://api.parse.com/1/classes/#{model_name}"
+
+        if model_name == "User" #https://parse.com/docs/rest#users-signup
+          base_uri = "https://api.parse.com/1/users"
+        else
+          base_uri = "https://api.parse.com/1/classes/#{model_name}"
+        end
+
+        #refactor to settings['app_id'] etc
         app_id     = @@settings['app_id']
         master_key = @@settings['master_key']
         RestClient::Resource.new(base_uri, app_id, master_key)
