@@ -1,7 +1,7 @@
 ParseResource 
 =============
 
-ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParceResource is fully ActiveModel compliant, meaning you can use validations and Rails forms.
+ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParseResource is fully ActiveModel compliant, meaning you can use validations and Rails forms.
 
 Ruby/Rails developers should feel right at home.
 
