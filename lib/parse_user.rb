@@ -1,5 +1,7 @@
 class ParseUser < ParseResource::Base
   fields :username, :password
+  
+  validates_presence_of :username, :password
 
   def self.login(username, password)
     base_uri   = "https://api.parse.com/1/login"
