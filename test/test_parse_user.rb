@@ -28,4 +28,13 @@ class TestParseUser < Test::Unit::TestCase
     assert_not_equal u.save, false
     assert_equal u.id.class, String
   end
+  
+  def test_login
+    user = "fake_person"
+    pass = "fake_pass"
+    u1 = User.create(:username => user, :password => pass)
+    u2 = User.login(user, pass)
+    assert_equal u1.id, u2.id
+  end
+  
 end
