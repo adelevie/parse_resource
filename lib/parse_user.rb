@@ -9,9 +9,13 @@ class ParseUser < ParseResource::Base
     master_key = settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
     
-    resp = resource.get(:params => {:username => username, :password => password})
-    user = model_name.constantize.new(JSON.parse(resp), false)
+    begin
+      resp = resource.get(:params => {:username => username, :password => password})
+      user = model_name.constantize.new(JSON.parse(resp), false)
 
-    user
+      user 
+    rescue 
+      false
+    end
   end
 end

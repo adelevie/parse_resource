@@ -35,6 +35,8 @@ class TestParseUser < Test::Unit::TestCase
     u1 = User.create(:username => user, :password => pass)
     u2 = User.login(user, pass)
     assert_equal u1.id, u2.id
+    u3 = User.login("wrong_username", "wrong_pass")
+    assert_equal u3, false
   end
   
 end
