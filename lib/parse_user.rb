@@ -3,7 +3,7 @@ class ParseUser < ParseResource::Base
   
   validates_presence_of :username, :password
 
-  def self.login(username, password)
+  def self.authenticate(username, password)
     base_uri   = "https://api.parse.com/1/login"
     app_id     = settings['app_id']
     master_key = settings['master_key']
