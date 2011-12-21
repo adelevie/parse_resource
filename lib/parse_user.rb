@@ -1,7 +1,11 @@
+require 'parse_user_validator'
+
 class ParseUser < ParseResource::Base
   fields :username, :password
   
-  validates_presence_of :username, :password
+  validates_presence_of :username
+  validates_presence_of :password, :on => :create
+  validates_with ParseUserValidator
 
   def self.authenticate(username, password)
     base_uri   = "https://api.parse.com/1/login"
@@ -12,10 +16,11 @@ class ParseUser < ParseResource::Base
     begin
       resp = resource.get(:params => {:username => username, :password => password})
       user = model_name.constantize.new(JSON.parse(resp), false)
-
+            
       user 
     rescue 
       false
     end
+    
   end
 end
