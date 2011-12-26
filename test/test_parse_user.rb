@@ -29,13 +29,23 @@ class TestParseUser < Test::Unit::TestCase
     assert_equal u.id.class, String
   end
   
-  def test_login
+  def test_username_should_be_unique
+    User.destroy_all
+    u = User.create(:username => "alan", :password => "12345")
+    u2 = User.new(:username => "alan", :password => "56789")
+    u2.save
+    assert_equal u2.errors.count, 1
+    assert_equal u2.errors.first, [:username, "must be unique"]
+    assert_equal nil, u2.id
+  end
+  
+  def test_authenticate
     user = "fake_person"
     pass = "fake_pass"
     u1 = User.create(:username => user, :password => pass)
-    u2 = User.login(user, pass)
+    u2 = User.authenticate(user, pass)
     assert_equal u1.id, u2.id
-    u3 = User.login("wrong_username", "wrong_pass")
+    u3 = User.authenticate("wrong_username", "wrong_pass")
     assert_equal u3, false
   end
   
