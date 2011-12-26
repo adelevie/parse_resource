@@ -24,8 +24,7 @@ module ParseResource
     HashWithIndifferentAccess = ActiveSupport::HashWithIndifferentAccess
 
     define_model_callbacks :save, :create, :update, :destroy
-
-
+    
     # Instantiates a ParseResource::Base object
     #
     # @params [Hash], [Boolean] a `Hash` of attributes and a `Boolean` that should be false only if the object already exists
@@ -223,13 +222,50 @@ module ParseResource
     end
 
     def create
-      resp = self.resource.post(@unsaved_attributes.to_json, :content_type => "application/json")
-      @attributes.merge!(JSON.parse(resp))
-      @attributes.merge!(@unsaved_attributes)
-      attributes = HashWithIndifferentAccess.new(attributes)
-      @unsaved_attributes = {}
-      create_setters!
-      self
+      opts = {:content_type => "application/json"}
+      attrs = @unsaved_attributes.to_json
+      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
+        
+        case resp.code 
+        when 400
+          
+          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
+          error = JSON.parse(resp)
+          case error["code"]
+          when 202
+            self.errors.add(:username, "must be unique")
+          when 111
+            self.errors.add(:base, "field set to incorrect type")
+          when 125
+            self.errors.add(:email, "must be valid")
+          when 122
+            self.errors.add(:file_name, "contains only a-zA-Z0-9_. characters and is between 1 and 36 characters.")
+          when 204
+            self.errors.add(:email, "must not be missing")
+          when 203
+            self.errors.add(:email, "has already been taken")
+          when 200
+            self.errors.add(:username, "is missing or empty")
+          when 201
+            self.errors.add(:password, "is missing or empty")
+          when 205
+            self.errors.add(:user, "with specified email not found")
+          else
+            raise "Parse error #{error['code']}: #{error['error']}"
+          end
+
+        else
+          @attributes.merge!(JSON.parse(resp))
+          @attributes.merge!(@unsaved_attributes)
+          attributes = HashWithIndifferentAccess.new(attributes)
+          @unsaved_attributes = {}
+          create_setters!
+        end
+        
+        self
+      end
+    
+      result
     end
 
     def save
@@ -244,23 +280,27 @@ module ParseResource
     end
 
     def update(attributes = {})
-      attributes = HashWithIndifferentAccess.new(attributes)
-      @unsaved_attributes.merge!(attributes)
+      begin
+        attributes = HashWithIndifferentAccess.new(attributes)
+        @unsaved_attributes.merge!(attributes)
 
-      put_attrs = @unsaved_attributes
-      put_attrs.delete('objectId')
-      put_attrs.delete('createdAt')
-      put_attrs.delete('updatedAt')
-      put_attrs = put_attrs.to_json
+        put_attrs = @unsaved_attributes
+        put_attrs.delete('objectId')
+        put_attrs.delete('createdAt')
+        put_attrs.delete('updatedAt')
+        put_attrs = put_attrs.to_json
 
-      resp = self.instance_resource.put(put_attrs, :content_type => "application/json")
+        resp = self.instance_resource.put(put_attrs, :content_type => "application/json")
 
-      @attributes.merge!(JSON.parse(resp))
-      @attributes.merge!(@unsaved_attributes)
-      @unsaved_attributes = {}
-      create_setters!
+        @attributes.merge!(JSON.parse(resp))
+        @attributes.merge!(@unsaved_attributes)
+        @unsaved_attributes = {}
+        create_setters!
 
-      self
+        self
+      rescue
+        self
+      end
     end
 
     def update_attributes(attributes = {})
