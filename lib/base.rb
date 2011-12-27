@@ -65,6 +65,7 @@ module ParseResource
     def self.fields(*args)
       args.each {|f| field(f)}
     end
+  
 
     # Creates getter and setter methods for model fields
     # 
@@ -96,6 +97,30 @@ module ParseResource
     end
 
     class << self
+      
+      def has_many(children)
+        parent_klass_name = model_name
+        parent_klass = model_name.constantize
+        child_klass_name = children.to_s.singularize.camelize
+        child_klass = child_klass_name.constantize
+        
+        send(:define_method, children) do
+          params = { child_klass_name => {"__type" => "Pointer", "className" => child_klass_name, "objectId" => self.id} }
+          query = child_klass.where(params).all
+          #puts query.inspect
+          #[1,2,3,4,5]
+          query
+        end
+        
+        send(:define_method, "#{children}<<") do |val|
+          # save child object if it hasn't already been saved
+          val.save
+          
+          params = {parent_class_name => {"__type" => "Pointer", "className" => parent_klass_name, "objectId" => self.id}}
+          val.update(params)
+        end
+        
+      end
 
       @@settings ||= nil
 
@@ -110,7 +135,8 @@ module ParseResource
       def settings
         if @@settings.nil?
           path = "config/parse_resource.yml"
-          environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+          #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+          environment = ENV["RACK_ENV"]
           @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
         end
         @@settings
