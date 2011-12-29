@@ -17,6 +17,11 @@ class Query
     criteria[:limit] = limit
     self
   end
+  
+  def include_object(parent)
+    criteria[:include] = parent.to_s
+    self
+  end
 
   #TODO: make this work
   #def skip(skip)
