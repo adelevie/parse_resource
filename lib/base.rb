@@ -6,6 +6,7 @@ require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
 require "query"
+require "children"
 
 module ParseResource
 
@@ -71,6 +72,7 @@ module ParseResource
     # 
     def create_setters!
       @attributes.each_pair do |k,v|
+        
         self.class.send(:define_method, "#{k}=") do |val|
           if k.is_a?(Symbol)
             k = k.to_s
@@ -79,45 +81,97 @@ module ParseResource
           @unsaved_attributes[k.to_s] = val
           val
         end
+        
         self.class.send(:define_method, "#{k}") do
           if k.is_a?(Symbol)
             k = k.to_s
           end
 
-          if @attributes[k.to_s].is_a?(Hash) && !@attributes[k.to_s]["__type"].nil?
+          if @attributes[k.to_s].is_a?(Hash)#["__type"]
             case @attributes[k.to_s]["__type"]
             when "Date"
-              return result = @attributes[k.to_s]["iso"]
+              result = @attributes[k.to_s]["iso"]
+            when "Pointer"
+              klass_name = @attributes[k.to_s]["className"]
+              klass_name = "User" if klass_name == "_User"
+              
+              klass = klass_name.constantize
+              if @attributes[k.to_s].keys.include?("createdAt") #implies "include" was part of the query
+                result = klass.new(@attributes, false)
+                puts result.inspect
+              else # since there was no "include", make a new query for the full object
+                result = klass.find(@attributes[k.to_s]["objectId"])
+              end
             end
+          else
+            result = @attributes[k.to_s]
           end
 
-          return @attributes[k.to_s]
+          return result
         end
       end
     end
 
     class << self
       
+      def belongs_to(parent)
+        parent_klass_name = parent.to_s.camelize
+        
+        send(:define_method, "#{parent}=") do |val|
+          val.save unless val.id
+          params = {
+            "__type" => "Pointer",
+            "className" => parent_klass_name,
+            "objectId" => val.id
+          }
+          self.update(parent.to_s => params)
+        end
+        
+        field parent
+
+        nil
+      end
+      
       def has_many(children)
         parent_klass_name = model_name
+        lowercase_parent_klass_name = parent_klass_name.downcase
         parent_klass = model_name.constantize
         child_klass_name = children.to_s.singularize.camelize
         child_klass = child_klass_name.constantize
         
-        send(:define_method, children) do
-          params = { child_klass_name => {"__type" => "Pointer", "className" => child_klass_name, "objectId" => self.id} }
-          query = child_klass.where(params).all
-          #puts query.inspect
-          #[1,2,3,4,5]
-          query
+        @@parent_klass_name = parent_klass_name
+        
+        if parent_klass_name == "User"
+          parent_klass_name = "_User"
         end
         
-        send(:define_method, "#{children}<<") do |val|
-          # save child object if it hasn't already been saved
-          val.save
+        send(:define_method, children) do
+          @@parent_id = self.id
           
-          params = {parent_class_name => {"__type" => "Pointer", "className" => parent_klass_name, "objectId" => self.id}}
-          val.update(params)
+          params = { lowercase_parent_klass_name => {
+             "__type" => "Pointer", 
+             "className" => parent_klass_name, 
+             "objectId" => self.id
+            }
+          }
+          
+          singleton = child_klass.where(params).all
+          
+          class << singleton
+            def <<(child)
+              puts "from the singleton class. #{child.inspect}"
+              child.save
+              params = {
+                "__type" => "Pointer", 
+                "className" => @@parent_klass_name,
+                "objectId" => @@parent_id
+                }
+              child.update(@@parent_klass_name.to_sym => params)
+              super(child)
+            end
+          end
+          
+          singleton
         end
         
       end
@@ -176,6 +230,13 @@ module ParseResource
       #
       def where(*args)
         Query.new(self).where(*args)
+      end
+      
+      # Include the attributes of a parent ojbect in the results
+      # Similar to ActiveRecord eager loading
+      #
+      def include_object(parent)
+        Query.new(self).include_object(parent)
       end
 
       # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
@@ -261,7 +322,7 @@ module ParseResource
           when 202
             self.errors.add(:username, "must be unique")
           when 111
-            self.errors.add(:base, "field set to incorrect type")
+            self.errors.add(:base, "field set to incorrect type. Error code #{error['code']}.")
           when 125
             self.errors.add(:email, "must be valid")
           when 122

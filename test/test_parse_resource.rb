@@ -7,11 +7,12 @@ settings = YAML.load(ERB.new(File.new(path).read).result)['test']
 ParseResource::Base.load!(settings['app_id'], settings['master_key'])
 
 class Post < ParseResource::Base
-  fields :title, :body, :author
+  fields :title, :body#, :author
   validates_presence_of :title
 end
 
 class Author < ParseResource::Base
+  has_many :posts
   field :name
 end
 
