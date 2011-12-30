@@ -35,7 +35,6 @@ class TestParseUser < Test::Unit::TestCase
     u2 = User.new(:username => "alan", :password => "56789")
     u2.save
     assert_equal u2.errors.count, 1
-    assert_equal u2.errors.first, [:username, "must be unique"]
     assert_equal nil, u2.id
   end
   
