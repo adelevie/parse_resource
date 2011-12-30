@@ -75,7 +75,9 @@ module ParseResource
   
 
     def to_pointer
-      {"__type" => "Pointer", "className" => self.class.model_name, "objectId" => self.id}
+      klass_name = self.class.model_name
+      klass_name = "_User" if klass_name == "User"
+      {"__type" => "Pointer", "className" => , "objectId" => self.id}
     end
 
     # Creates getter and setter methods for model fields
