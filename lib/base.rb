@@ -105,7 +105,9 @@ module ParseResource
             
             case @attributes[k]["__type"]
             when "Pointer"
-              result = @attributes[k]["className"].constantize.find(@attributes[k]["objectId"])
+              klass_name = @attributes[k]["className"]
+              klass_name = "User" if klass_name == "_User"
+              result = klass_name.constantize.find(@attributes[k]["objectId"])
             end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
             
           else
