@@ -6,9 +6,10 @@ require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
 require "query"
-require "children"
+require "parse_error"
 
 module ParseResource
+  
 
   class Base
     # ParseResource::Base provides an easy way to use Ruby to interace with a Parse.com backend
@@ -31,7 +32,8 @@ module ParseResource
     # @params [Hash], [Boolean] a `Hash` of attributes and a `Boolean` that should be false only if the object already exists
     # @return [ParseResource::Base] an object that subclasses `Parseresource::Base`
     def initialize(attributes = {}, new=true)
-      attributes = HashWithIndifferentAccess.new(attributes)
+      #attributes = HashWithIndifferentAccess.new(attributes)
+      
       if new
         @unsaved_attributes = attributes
       else
@@ -68,6 +70,10 @@ module ParseResource
     end
   
 
+    def to_pointer
+      {"__type" => "Pointer", "className" => self.class.model_name, "objectId" => self.id}
+    end
+
     # Creates getter and setter methods for model fields
     # 
     def create_setters!
@@ -77,60 +83,36 @@ module ParseResource
           if k.is_a?(Symbol)
             k = k.to_s
           end
+          
+          val = val.to_pointer if val.respond_to?(:to_pointer)
+
           @attributes[k.to_s] = val
           @unsaved_attributes[k.to_s] = val
+          
           val
         end
         
         self.class.send(:define_method, "#{k}") do
-          if k.is_a?(Symbol)
-            k = k.to_s
-          end
-
-          if @attributes[k.to_s].is_a?(Hash)#["__type"]
-            case @attributes[k.to_s]["__type"]
-            when "Date"
-              result = @attributes[k.to_s]["iso"]
+                  
+          case @attributes[k]
+          when Hash
+            
+            case @attributes[k]["__type"]
             when "Pointer"
-              klass_name = @attributes[k.to_s]["className"]
-              klass_name = "User" if klass_name == "_User"
-              
-              klass = klass_name.constantize
-              if @attributes[k.to_s].keys.include?("createdAt") #implies "include" was part of the query
-                result = klass.new(@attributes, false)
-                puts result.inspect
-              else # since there was no "include", make a new query for the full object
-                result = klass.find(@attributes[k.to_s]["objectId"])
-              end
-            end
+              result = @attributes[k]["className"].constantize.find(@attributes[k]["objectId"])
+            end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
+            
           else
-            result = @attributes[k.to_s]
+            result =  @attributes[k]
           end
-
-          return result
+          
+          result
         end
+        
       end
     end
 
     class << self
-      
-      def belongs_to(parent)
-        parent_klass_name = parent.to_s.camelize
-        
-        send(:define_method, "#{parent}=") do |val|
-          val.save unless val.id
-          params = {
-            "__type" => "Pointer",
-            "className" => parent_klass_name,
-            "objectId" => val.id
-          }
-          self.update(parent.to_s => params)
-        end
-        
-        field parent
-
-        nil
-      end
       
       def has_many(children)
         parent_klass_name = model_name
@@ -139,38 +121,30 @@ module ParseResource
         child_klass_name = children.to_s.singularize.camelize
         child_klass = child_klass_name.constantize
         
-        @@parent_klass_name = parent_klass_name
-        
         if parent_klass_name == "User"
           parent_klass_name = "_User"
         end
         
+        @@parent_klass_name = parent_klass_name
+        #@@parent_instance = self
+        
         send(:define_method, children) do
           @@parent_id = self.id
+          @@parent_instance = self
           
-          params = { lowercase_parent_klass_name => {
-             "__type" => "Pointer", 
-             "className" => parent_klass_name, 
-             "objectId" => self.id
-            }
-          }
           
-          singleton = child_klass.where(params).all
-          
+          singleton = child_klass.where(@@parent_klass_name.downcase => @@parent_instance.to_pointer).all
+
           class << singleton
             def <<(child)
-              puts "from the singleton class. #{child.inspect}"
-              child.save
-              params = {
-                "__type" => "Pointer", 
-                "className" => @@parent_klass_name,
-                "objectId" => @@parent_id
-                }
-              child.update(@@parent_klass_name.to_sym => params)
+              if @@parent_instance.respond_to?(:to_pointer)
+                child.send("#{@@parent_klass_name.downcase}=", @@parent_instance.to_pointer)
+                child.save
+              end
               super(child)
             end
           end
-          
+                    
           singleton
         end
         
@@ -317,30 +291,10 @@ module ParseResource
         when 400
           
           # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
-          error = JSON.parse(resp)
-          case error["code"]
-          when 202
-            self.errors.add(:username, "must be unique")
-          when 111
-            self.errors.add(:base, "field set to incorrect type. Error code #{error['code']}.")
-          when 125
-            self.errors.add(:email, "must be valid")
-          when 122
-            self.errors.add(:file_name, "contains only a-zA-Z0-9_. characters and is between 1 and 36 characters.")
-          when 204
-            self.errors.add(:email, "must not be missing")
-          when 203
-            self.errors.add(:email, "has already been taken")
-          when 200
-            self.errors.add(:username, "is missing or empty")
-          when 201
-            self.errors.add(:password, "is missing or empty")
-          when 205
-            self.errors.add(:user, "with specified email not found")
-          else
-            raise "Parse error #{error['code']}: #{error['error']}"
-          end
-
+          error_response = JSON.parse(resp)
+          pe = ParseError.new(error_response["code"]).to_array
+          self.errors.add(pe[0], pe[1])
+        
         else
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
@@ -367,27 +321,41 @@ module ParseResource
     end
 
     def update(attributes = {})
-      begin
-        attributes = HashWithIndifferentAccess.new(attributes)
-        @unsaved_attributes.merge!(attributes)
+      
+      attributes = HashWithIndifferentAccess.new(attributes)
+        
+      @unsaved_attributes.merge!(attributes)
 
-        put_attrs = @unsaved_attributes
-        put_attrs.delete('objectId')
-        put_attrs.delete('createdAt')
-        put_attrs.delete('updatedAt')
-        put_attrs = put_attrs.to_json
+      put_attrs = @unsaved_attributes
+      put_attrs.delete('objectId')
+      put_attrs.delete('createdAt')
+      put_attrs.delete('updatedAt')
+      put_attrs = put_attrs.to_json
+      
+      opts = {:content_type => "application/json"}
+      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
 
-        resp = self.instance_resource.put(put_attrs, :content_type => "application/json")
+        case resp.code
+        when 400
+          
+          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
+          error_response = JSON.parse(resp)
+          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+          self.errors.add(pe[0], pe[1])
+          
+        else
 
-        @attributes.merge!(JSON.parse(resp))
-        @attributes.merge!(@unsaved_attributes)
-        @unsaved_attributes = {}
-        create_setters!
+          @attributes.merge!(JSON.parse(resp))
+          @attributes.merge!(@unsaved_attributes)
+          @unsaved_attributes = {}
+          create_setters!
 
-        self
-      rescue
-        self
+          self
+        end
+        
+        result
       end
+     
     end
 
     def update_attributes(attributes = {})
