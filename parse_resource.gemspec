@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.6.3"
+  s.version = "1.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2011-12-16"
+  s.date = "2011-12-30"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
@@ -25,8 +25,10 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/base.rb",
+    "lib/parse_error.rb",
     "lib/parse_resource.rb",
     "lib/parse_user.rb",
+    "lib/parse_user_validator.rb",
     "lib/query.rb",
     "parse_resource.gemspec",
     "rdoc/ParseResource.html",
@@ -36,7 +38,9 @@ Gem::Specification.new do |s|
     "rdoc/rdoc.css",
     "test/active_model_lint_test.rb",
     "test/helper.rb",
+    "test/test_associations.rb",
     "test/test_parse_resource.rb",
+    "test/test_parse_user.rb",
     "test/test_query.rb"
   ]
   s.homepage = "http://github.com/adelevie/parse_resource"
