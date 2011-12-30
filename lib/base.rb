@@ -68,6 +68,10 @@ module ParseResource
     def self.fields(*args)
       args.each {|f| field(f)}
     end
+    
+    def self.belongs_to(parent)
+      field(parent)
+    end
   
 
     def to_pointer
