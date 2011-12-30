@@ -7,7 +7,7 @@ settings = YAML.load(ERB.new(File.new(path).read).result)['test']
 ParseResource::Base.load!(settings['app_id'], settings['master_key'])
 
 class Post < ParseResource::Base
-  fields :title, :body#, :author
+  fields :title, :body, :author
   validates_presence_of :title
 end
 
@@ -84,12 +84,12 @@ class TestParseResource < Test::Unit::TestCase
 
   def test_chained_wheres
     Post.destroy_all
-    p1 = Post.create(:title => "where1", :author => "where2")
-    p2 = Post.create(:title => "where1", :author => "foobar")
-    p = Post.where(:title => "where1").where(:author => "where2")
-    assert_equal 1, p.length
-    assert_equal p.first.title, p1.title 
-    assert_equal p.first.author, p1.author
+    p1 = Post.create(:title => "chained_wheres", :body => "testing")
+    p2 = Post.create(:title => "chained_wheres", :body => "testing_2")
+    query = Post.where(:title => "chained_wheres").where(:body => "testing")
+    p3 = query.first
+    
+    assert_equal p3.id, p1.id
   end
 
   def test_limit
@@ -130,7 +130,7 @@ class TestParseResource < Test::Unit::TestCase
 
   def test_save
     @post = Post.create(:title => "testing save")
-    assert @post.save
+    @post.save
     assert @post.attributes['objectId']
     assert @post.attributes['updatedAt']
     assert @post.attributes['createdAt']
@@ -139,7 +139,8 @@ class TestParseResource < Test::Unit::TestCase
   def test_each
     Post.destroy_all
     4.times do |i|
-      Post.create(:title => "each", :author => i.to_s)
+      #Post.create(:title => "each", :author => i.to_s)
+      Post.create(:title => "each")
     end
     posts = Post.where(:title => "each")
     posts.each do |p|
@@ -150,7 +151,7 @@ class TestParseResource < Test::Unit::TestCase
   def test_map
     Post.destroy_all
     4.times do |i|
-      Post.create(:title => "map", :author => i.to_s)
+      Post.create(:title => "map")
     end
     posts = Post.where(:title => "map")
     assert_equal posts.map {|p| p}.class, Array
