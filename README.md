@@ -146,7 +146,7 @@ To-do
 --------------
 *   User authentication
 *   Better documentation
-*   Associations
+*   ~~Associations~~
 *   Callbacks
 *   Push notifications
 *   Better type-casting
