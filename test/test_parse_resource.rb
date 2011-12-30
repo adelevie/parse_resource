@@ -89,7 +89,7 @@ class TestParseResource < Test::Unit::TestCase
     query = Post.where(:title => "chained_wheres").where(:body => "testing")
     p3 = query.first
     
-    assert_equal p3.id, p1.id
+    assert_equal p3.id, p1s.id
   end
 
   def test_limit
