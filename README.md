@@ -138,6 +138,34 @@ posts.length #=> 5
 Post.where(:bar => "foo").count #=> 1337
 ```
 
+Associations
+
+```ruby
+class Post < ParseResource::Base
+  belongs_to :author
+  fields :title, :body
+end
+
+class Author < ParseResource::Base
+  has_many :posts
+  field :name
+end
+
+author = Author.create(:name => "RL Stine")
+post1 = Post.create(:title => "Goosebumps 1")
+post2 = Post.create(:title => "Goosebumps 2")
+
+# assign from parent class
+author.posts << post1
+author.posts << post2 
+
+# or assign from child class
+post3 = Post.create(:title => "Goosebumps 3")
+post3.author = author
+post3.save
+```
+
+
 Documentation
 -------------
 [Here](http://rubydoc.info/gems/parse_resource/)
