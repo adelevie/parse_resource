@@ -138,6 +138,54 @@ posts.length #=> 5
 Post.where(:bar => "foo").count #=> 1337
 ```
 
+Users
+
+```ruby
+# app/models/user.rb
+class User < ParseUser
+end
+
+# create a user
+user = User.new(:username => "adelevie")
+user.password = "asecretpassword"
+user.save
+# after saving, the password is automatically hashed by Parse's server
+# user.password will return the unhashed password when the original object is in memory
+# from a new session, User.where(:username => "adelevie").first.password will return nil
+
+# check if a user is logged in
+User.authenticate("adelevie", "foooo") #=> false
+User.authenticate("adelevie", "asecretpassword") #=> #<User...>
+
+
+# A simple controller to authenticate users
+class SessionsController < ApplicationController
+  def new
+  end
+  
+  def create
+    user = User.authenticate(params[:username], params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect_to root_url, :notice => "logged in !"
+    else
+      flash.now.alert = "Invalid username or password"
+      render "new"
+    end
+  end
+  
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_url, :notice => "Logged out!"
+  end
+
+end
+
+```
+
+If you want to use parse_resource to back a simple authentication system for a Rails app, follow this [tutorial](http://asciicasts.com/episodes/250-authentication-from-scratch), and make some simple modifications.
+
+
 Associations
 
 ```ruby
