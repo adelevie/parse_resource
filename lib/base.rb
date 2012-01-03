@@ -40,6 +40,7 @@ module ParseResource
         @unsaved_attributes = {}
       end
       self.attributes = {}
+            
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
       create_setters!
@@ -103,11 +104,14 @@ module ParseResource
           case @attributes[k]
           when Hash
             
+            klass_name = @attributes[k]["className"]
+            klass_name = "User" if klass_name == "_User"
+            
             case @attributes[k]["__type"]
             when "Pointer"
-              klass_name = @attributes[k]["className"]
-              klass_name = "User" if klass_name == "_User"
               result = klass_name.constantize.find(@attributes[k]["objectId"])
+            when "Object"
+              result = klass_name.constantize.new(@attributes[k], false)
             end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
             
           else
@@ -243,6 +247,10 @@ module ParseResource
       #
       def limit(n)
         Query.new(self).limit(n)
+      end
+      
+      def order(attribute)
+        Query.new(self).order(attribute)
       end
 
       # Create a ParseResource::Base object.

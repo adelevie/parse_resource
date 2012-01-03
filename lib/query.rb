@@ -22,6 +22,12 @@ class Query
     criteria[:include] = parent
     self
   end
+  
+  def order(attribute)
+    attribute = attribute.to_sym if attribute.is_a?(String)
+    criteria[:order] = attribute
+    self
+  end
 
   #TODO: make this work
   #def skip(skip)
@@ -42,6 +48,7 @@ class Query
     params.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
     params.merge!({:count => criteria[:count].to_json}) if criteria[:count]
     params.merge!({:include => criteria[:include]}) if criteria[:include]
+    params.merge!({:order => criteria[:order]}) if criteria[:order]
 
     resp = @klass.resource.get(:params => params)
     
