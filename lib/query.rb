@@ -19,7 +19,7 @@ class Query
   end
   
   def include_object(parent)
-    criteria[:include] = parent.to_s
+    criteria[:include] = parent
     self
   end
 
@@ -41,9 +41,10 @@ class Query
     params.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
     params.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
     params.merge!({:count => criteria[:count].to_json}) if criteria[:count]
+    params.merge!({:include => criteria[:include]}) if criteria[:include]
 
     resp = @klass.resource.get(:params => params)
-
+    
     if criteria[:count] == 1
       results = JSON.parse(resp)['count']
       return results.to_i

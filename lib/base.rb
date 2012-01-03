@@ -134,15 +134,14 @@ module ParseResource
         end
         
         @@parent_klass_name = parent_klass_name
-        #@@parent_instance = self
         
         send(:define_method, children) do
           @@parent_id = self.id
           @@parent_instance = self
           
+          query = child_klass.where(@@parent_klass_name.downcase.to_sym => @@parent_instance.to_pointer)
+          singleton = query.all
           
-          singleton = child_klass.where(@@parent_klass_name.downcase => @@parent_instance.to_pointer).all
-
           class << singleton
             def <<(child)
               if @@parent_instance.respond_to?(:to_pointer)

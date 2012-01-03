@@ -43,19 +43,36 @@ class TestAssociations < Test::Unit::TestCase
   def test_relational_query
     a = Author.create(:name => "JK Rowling_relational_query")
     p = Post.create(:title => "test relational query")
-    p.author = a.to_pointer
+    p.author = a#.to_pointer
     p.save
     post = Post.include_object(:author).where(:title => "test relational query").first
     assert_equal Post, post.class
-    assert_equal true, post.author.is_a?(Author)
+    assert_equal "Object", post.attributes['author']['__type']
+    assert_equal "Author", post.attributes['author']['className']
+    assert_equal a.id, post.attributes['author']['objectId']
+    assert_equal a.name, post.attributes['author']['name']
+  end
+  
+  def test_to_pointer_duck_typing
+    a = Author.create(:name => "Duck")
+    p = Post.create(:title => "Typing")
+    p.author = a
+    p.save
+    assert_equal p.author.name, a.name
+    assert_equal a.posts.class, Array
+    assert_equal a.posts.length, 1
+    assert_equal a.posts[0].class, Post
+    assert_equal a.posts[0].id, p.id
   end
   
   def test_has_many_parent_getter
     a = Author.create(:name => "RL Stine")
     p = Post.create(:title => "Goosebumps_has_many_parent_getter")
-    p.author = a.to_pointer
+    p.author = a#.to_pointer
     p.save
-    assert_equal a.posts.class, Array
+    assert_equal Array, a.posts.class
+    assert_equal Post, a.posts.first.class
+    assert_equal p.title, a.posts.first.title
   end
   
   def test_has_many_child_getter
@@ -71,7 +88,7 @@ class TestAssociations < Test::Unit::TestCase
     Post.destroy_all  
     aa = Author.create(:name => "Shmalter Kirn")
     pp = Post.create(:title => "Shmup in the Air")
-    pp.author = aa.to_pointer
+    pp.author = aa#.to_pointer
     pp.save
     assert aa.id
     assert_equal aa.id, pp.author.id
