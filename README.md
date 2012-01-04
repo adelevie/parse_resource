@@ -26,7 +26,7 @@ Installation
 Include in your `Gemfile`:
 
 ```ruby
-gem "parse_resource", "~> 1.7.0"
+gem "parse_resource", "~> 1.7.1"
 ```
 
 Or just gem install:
