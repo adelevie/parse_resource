@@ -211,8 +211,15 @@ author.posts << post2
 post3 = Post.create(:title => "Goosebumps 3")
 post3.author = author
 post3.save
-```
 
+# relational queries
+posts = Post.include_object(:author).all
+posts.each do |post|
+	puts post.title 
+	# because you used Post#include_object, calling post.title won't execute a new query
+	# this is similar to ActiveRecord's eager loading
+end
+```
 
 Documentation
 -------------
