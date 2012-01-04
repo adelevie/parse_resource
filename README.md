@@ -215,7 +215,7 @@ post3.save
 # relational queries
 posts = Post.include_object(:author).all
 posts.each do |post|
-	puts post.author.title 
+	puts post.author.name
 	# because you used Post#include_object, calling post.title won't execute a new query
 	# this is similar to ActiveRecord's eager loading
 end
