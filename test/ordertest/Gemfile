@@ -1,0 +1,4 @@
+source "http://rubygems.org"
+
+gem "parse_resource", :git => "git@github.com:albertovilla/parse_resource.git"
+gem "rspec"
