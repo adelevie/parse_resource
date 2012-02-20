@@ -19,6 +19,13 @@ class TestQueryOptions < Test::Unit::TestCase
   def teardown
     Event.destroy_all
   end
+
+	def test_skip
+		10.times do |i|
+			Event.create(:name => i.to_s)
+		end
+		Event.skip(5).order("created_at").all.map(&:name) == ["5","6","7","8","9","10"]
+	end
   
   def test_order
     e1 = Event.create(:name => "1st")

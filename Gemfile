@@ -13,6 +13,7 @@ group :development do
   gem "rest-client"
   gem "activesupport"
   gem "activemodel"
+	gem "ruby-debug19"
 end
 
 gem "rest-client"

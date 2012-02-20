@@ -248,7 +248,11 @@ module ParseResource
       def limit(n)
         Query.new(self).limit(n)
       end
-      
+
+			def skip(n)
+				Query.new(self).skip(n)
+			end
+
       def order(attribute)
         Query.new(self).order(attribute)
       end

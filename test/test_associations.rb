@@ -58,6 +58,7 @@ class TestAssociations < Test::Unit::TestCase
     p = Post.create(:title => "Typing")
     p.author = a
     p.save
+		require 'ruby-debug/debugger'
     assert_equal p.author.name, a.name
     assert_equal a.posts.class, Array
     assert_equal a.posts.length, 1
@@ -71,6 +72,7 @@ class TestAssociations < Test::Unit::TestCase
     p.author = a#.to_pointer
     p.save
     assert_equal Array, a.posts.class
+		require 'ruby-debug/debugger'
     assert_equal Post, a.posts.first.class
     assert_equal p.title, a.posts.first.title
   end
