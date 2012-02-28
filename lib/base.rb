@@ -305,7 +305,7 @@ module ParseResource
       opts = {:content_type => "application/json"}
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        
+        puts resp
         case resp.code 
         when 400
           
