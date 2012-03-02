@@ -126,7 +126,7 @@ module ParseResource
 
     class << self
       
-      def has_many(children)
+      def has_many(children, attributes = {})
         parent_klass_name = model_name
         lowercase_parent_klass_name = parent_klass_name.downcase
         parent_klass = model_name.constantize
@@ -137,7 +137,7 @@ module ParseResource
           parent_klass_name = "_User"
         end
         
-        @@parent_klass_name = parent_klass_name
+        @@parent_klass_name = attributes[:via] || parent_klass_name
         
         send(:define_method, children) do
           @@parent_id = self.id
