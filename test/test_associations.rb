@@ -6,8 +6,14 @@ settings = YAML.load(ERB.new(File.new(path).read).result)['test']
 
 ParseResource::Base.load!(settings['app_id'], settings['master_key'])
 
+class Comment < ParseResource::Base
+	belongs_to :post
+	fields :subject, :postId
+end
+
 class Post < ParseResource::Base
   belongs_to :author
+	has_many :comments, { :via => "postId" }
   fields :title, :body
 end
 
@@ -52,12 +58,25 @@ class TestAssociations < Test::Unit::TestCase
     assert_equal a.id, post.attributes['author']['objectId']
     assert_equal a.name, post.attributes['author']['name']
   end
-  
+
+	def test_has_many_via
+		post = Post.create(:title => "test via test")
+		post.save
+		comment = Comment.create(:subject => "stupid Comment", :postId => post.to_pointer)
+		comment.save
+		comment = Comment.create(:subject => "another stupid Comment", :postId => post.to_pointer)
+		comment.save
+
+		post = Post.find(post.id)
+		assert_equal 2, post.comments.size
+	end
+
   def test_to_pointer_duck_typing
     a = Author.create(:name => "Duck")
     p = Post.create(:title => "Typing")
     p.author = a
     p.save
+		require 'ruby-debug/debugger'
     assert_equal p.author.name, a.name
     assert_equal a.posts.class, Array
     assert_equal a.posts.length, 1
@@ -71,6 +90,7 @@ class TestAssociations < Test::Unit::TestCase
     p.author = a#.to_pointer
     p.save
     assert_equal Array, a.posts.class
+		require 'ruby-debug/debugger'
     assert_equal Post, a.posts.first.class
     assert_equal p.title, a.posts.first.title
   end

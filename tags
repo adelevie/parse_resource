@@ -1,0 +1,131 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+<<	lib/base.rb	/^            def <<(child)$/;"	f	class:has_many
+ActiveModelLintTest	test/active_model_lint_test.rb	/^class ActiveModelLintTest < ActiveModel::TestCase$/;"	c
+Author	test/test_associations.rb	/^class Author < ParseResource::Base$/;"	c
+Author	test/test_parse_resource.rb	/^class Author < ParseResource::Base$/;"	c
+Base	lib/base.rb	/^  class Base$/;"	c	class:ParseResource
+Carer	test/test_pointer.rb	/^class Carer < ParseResource::Base$/;"	c
+ClassMethods	lib/base.rb	/^    module ClassMethods$/;"	m
+Event	test/test_query_options.rb	/^class Event < ParseResource::Base$/;"	c
+Kid	test/test_pointer.rb	/^class Kid < ParseResource::Base$/;"	c
+ParseError	lib/parse_error.rb	/^class ParseError$/;"	c
+ParseResource	lib/base.rb	/^module ParseResource$/;"	m
+ParseResource	lib/parse_resource.rb	/^module ParseResource$/;"	m
+ParseUser	lib/parse_user.rb	/^class ParseUser < ParseResource::Base$/;"	c
+ParseUserValidator	lib/parse_user_validator.rb	/^class ParseUserValidator < ActiveModel::Validator$/;"	c
+Post	test/active_model_lint_test.rb	/^class Post < ParseResource$/;"	c
+Post	test/test_associations.rb	/^class Post < ParseResource::Base$/;"	c
+Post	test/test_parse_resource.rb	/^class Post < ParseResource::Base$/;"	c
+Query	lib/query.rb	/^class Query$/;"	c
+Test	test/helper.rb	/^class Test::Unit::TestCase$/;"	c
+TestAssociations	test/test_associations.rb	/^class TestAssociations < Test::Unit::TestCase$/;"	c
+TestParseResource	test/test_parse_resource.rb	/^class TestParseResource < Test::Unit::TestCase$/;"	c
+TestParseUser	test/test_parse_user.rb	/^class TestParseUser < Test::Unit::TestCase$/;"	c
+TestPointer	test/test_pointer.rb	/^class TestPointer < Test::Unit::TestCase$/;"	c
+TestQuery	test/test_query.rb	/^class TestQuery < Test::Unit::TestCase$/;"	c
+TestQueryOptions	test/test_query_options.rb	/^class TestQueryOptions < Test::Unit::TestCase$/;"	c
+User	test/test_parse_user.rb	/^class User < ParseUser$/;"	c
+all	lib/base.rb	/^      def all$/;"	f
+all	lib/query.rb	/^  def all$/;"	f	class:Query
+attributes	lib/base.rb	/^    def attributes$/;"	f
+attributes=	lib/base.rb	/^    def attributes=(n)$/;"	f
+authenticate	lib/parse_user.rb	/^  def self.authenticate(username, password)$/;"	F	class:ParseUser
+belongs_to	lib/base.rb	/^    def self.belongs_to(parent)$/;"	F	class:ParseResource
+class_attributes	lib/base.rb	/^      def class_attributes$/;"	f
+count	lib/base.rb	/^      def count$/;"	f
+count	lib/query.rb	/^  def count(count=1)$/;"	f	class:Query
+create	lib/base.rb	/^      def create(attributes = {})$/;"	f
+create	lib/base.rb	/^    def create$/;"	f
+create_setters!	lib/base.rb	/^    def create_setters!$/;"	f	class:ParseResource
+created_at	lib/base.rb	/^    def created_at; self.createdAt; end$/;"	f
+criteria	lib/query.rb	/^  def criteria$/;"	f	class:Query
+destroy	lib/base.rb	/^    def destroy$/;"	f
+destroy_all	lib/base.rb	/^      def destroy_all$/;"	f
+execute	lib/query.rb	/^  def execute$/;"	f	class:Query
+field	lib/base.rb	/^    def self.field(name, val=nil)$/;"	F	class:ParseResource.Base
+fields	lib/base.rb	/^    def self.fields(*args)$/;"	F	class:ParseResource
+find	lib/base.rb	/^      def find(id)$/;"	f
+first	lib/base.rb	/^      def first$/;"	f
+has_many	lib/base.rb	/^      def has_many(children)$/;"	f
+id	lib/base.rb	/^    def id; self.objectId rescue nil; end$/;"	f
+include_object	lib/base.rb	/^      def include_object(parent)$/;"	f
+include_object	lib/query.rb	/^  def include_object(parent)$/;"	f	class:Query
+included	lib/base.rb	/^    def self.included(base)$/;"	F
+initialize	lib/base.rb	/^    def initialize(attributes = {}, new=true)$/;"	f	class:ParseResource.Base
+initialize	lib/parse_error.rb	/^  def initialize(code, msg="")$/;"	f	class:ParseError
+initialize	lib/query.rb	/^  def initialize(klass)$/;"	f	class:Query
+instance_resource	lib/base.rb	/^    def instance_resource$/;"	f
+limit	lib/base.rb	/^      def limit(n)$/;"	f
+limit	lib/query.rb	/^  def limit(limit)$/;"	f	class:Query
+load!	lib/base.rb	/^      def load!(app_id, master_key)$/;"	f
+method_missing	lib/query.rb	/^  def method_missing(meth, *args, &block)$/;"	f	class:Query
+new?	lib/base.rb	/^    def new?$/;"	f
+order	lib/base.rb	/^      def order(attribute)$/;"	f
+order	lib/query.rb	/^  def order(attribute)$/;"	f	class:Query
+persisted?	lib/base.rb	/^    def persisted?$/;"	f
+resource	lib/base.rb	/^      def resource$/;"	f
+resource	lib/base.rb	/^    def resource$/;"	f
+respond_to?	lib/query.rb	/^  def respond_to?(meth)$/;"	f	class:Query
+save	lib/base.rb	/^    def save$/;"	f
+settings	lib/base.rb	/^      def settings$/;"	f
+setup	test/active_model_lint_test.rb	/^  def setup$/;"	f	class:ActiveModelLintTest
+setup	test/test_associations.rb	/^  def setup$/;"	f	class:TestAssociations
+setup	test/test_parse_resource.rb	/^  def setup$/;"	f	class:TestParseResource
+setup	test/test_parse_user.rb	/^  def setup$/;"	f	class:TestParseUser
+setup	test/test_query_options.rb	/^  def setup$/;"	f	class:TestQueryOptions
+skip	lib/base.rb	/^			def skip(n)$/;"	f
+skip	lib/query.rb	/^  def skip(skip)$/;"	f	class:Query
+teardown	test/test_associations.rb	/^  def teardown$/;"	f	class:TestAssociations
+teardown	test/test_parse_resource.rb	/^  def teardown$/;"	f	class:TestParseResource
+teardown	test/test_parse_user.rb	/^  def teardown$/;"	f	class:TestParseUser
+teardown	test/test_query_options.rb	/^  def teardown$/;"	f	class:TestQueryOptions
+test_all	test/test_parse_resource.rb	/^  def test_all$/;"	f	class:TestParseResource
+test_attribute_getters	test/test_parse_resource.rb	/^  def test_attribute_getters$/;"	f	class:TestParseResource
+test_attribute_setters	test/test_parse_resource.rb	/^  def test_attribute_setters$/;"	f	class:TestParseResource
+test_authenticate	test/test_parse_user.rb	/^  def test_authenticate$/;"	f	class:TestParseUser
+test_belongs_to_setter	test/test_associations.rb	/^  def test_belongs_to_setter  $/;"	f	class:TestAssociations
+test_chained_wheres	test/test_parse_resource.rb	/^  def test_chained_wheres$/;"	f	class:TestParseResource
+test_count	test/test_parse_resource.rb	/^  def test_count$/;"	f	class:TestParseResource
+test_create	test/test_parse_resource.rb	/^  def test_create$/;"	f	class:TestParseResource
+test_created_at	test/test_parse_resource.rb	/^  def test_created_at$/;"	f	class:TestParseResource
+test_destroy	test/test_parse_resource.rb	/^  def test_destroy$/;"	f	class:TestParseResource
+test_destroy_all	test/test_parse_resource.rb	/^  def test_destroy_all$/;"	f	class:TestParseResource
+test_each	test/test_parse_resource.rb	/^  def test_each$/;"	f	class:TestParseResource
+test_find	test/test_parse_resource.rb	/^  def test_find$/;"	f	class:TestParseResource
+test_first	test/test_parse_resource.rb	/^  def test_first$/;"	f	class:TestParseResource
+test_has_many_child_getter	test/test_associations.rb	/^  def test_has_many_child_getter$/;"	f	class:TestAssociations
+test_has_many_parent_getter	test/test_associations.rb	/^  def test_has_many_parent_getter$/;"	f	class:TestAssociations
+test_has_many_returns_an_array	test/test_associations.rb	/^  def test_has_many_returns_an_array$/;"	f	class:TestAssociations
+test_has_many_setter	test/test_associations.rb	/^  def test_has_many_setter$/;"	f	class:TestAssociations
+test_id	test/test_parse_resource.rb	/^  def test_id$/;"	f	class:TestParseResource
+test_initialize_with_args	test/test_parse_resource.rb	/^  def test_initialize_with_args$/;"	f	class:TestParseResource
+test_initialize_without_args	test/test_parse_resource.rb	/^  def test_initialize_without_args$/;"	f	class:TestParseResource
+test_limit	test/test_parse_resource.rb	/^  def test_limit$/;"	f	class:TestParseResource
+test_map	test/test_parse_resource.rb	/^  def test_map$/;"	f	class:TestParseResource
+test_order	test/test_query_options.rb	/^  def test_order$/;"	f	class:TestQueryOptions
+test_pointer_type	test/test_pointer.rb	/^	def test_pointer_type$/;"	f	class:TestPointer
+test_relational_query	test/test_associations.rb	/^  def test_relational_query$/;"	f	class:TestAssociations
+test_respond_to	test/test_query.rb	/^  def test_respond_to$/;"	f	class:TestQuery
+test_responds_to_has_many	test/test_associations.rb	/^  def test_responds_to_has_many$/;"	f	class:TestAssociations
+test_save	test/test_parse_resource.rb	/^  def test_save$/;"	f	class:TestParseResource
+test_skip	test/test_query_options.rb	/^	def test_skip$/;"	f	class:TestQueryOptions
+test_to_pointer_duck_typing	test/test_associations.rb	/^  def test_to_pointer_duck_typing$/;"	f	class:TestAssociations
+test_update	test/test_parse_resource.rb	/^  def test_update$/;"	f	class:TestParseResource
+test_updated_at	test/test_parse_resource.rb	/^  def test_updated_at$/;"	f	class:TestParseResource
+test_user_should_not_save_without_username_and_password	test/test_parse_user.rb	/^  def test_user_should_not_save_without_username_and_password$/;"	f	class:TestParseUser
+test_username_should_be_unique	test/test_parse_user.rb	/^  def test_username_should_be_unique$/;"	f	class:TestParseUser
+test_validation	test/test_parse_resource.rb	/^  def test_validation$/;"	f	class:TestParseResource
+test_where	test/test_parse_resource.rb	/^  def test_where$/;"	f	class:TestParseResource
+to_array	lib/parse_error.rb	/^  def to_array$/;"	f	class:ParseError
+to_pointer	lib/base.rb	/^    def to_pointer$/;"	f	class:ParseResource
+update	lib/base.rb	/^    def update(attributes = {})$/;"	f
+update_attributes	lib/base.rb	/^    def update_attributes(attributes = {})$/;"	f
+updated_at	lib/base.rb	/^    def updated_at; self.updatedAt rescue nil; end$/;"	f
+validate	lib/parse_user_validator.rb	/^  def validate(record)$/;"	f	class:ParseUserValidator
+where	lib/base.rb	/^      def where(*args)$/;"	f
+where	lib/query.rb	/^  def where(args)$/;"	f	class:Query

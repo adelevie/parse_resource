@@ -126,7 +126,7 @@ module ParseResource
 
     class << self
       
-      def has_many(children)
+      def has_many(children, attributes = {})
         parent_klass_name = model_name
         lowercase_parent_klass_name = parent_klass_name.downcase
         parent_klass = model_name.constantize
@@ -137,7 +137,7 @@ module ParseResource
           parent_klass_name = "_User"
         end
         
-        @@parent_klass_name = parent_klass_name
+        @@parent_klass_name = attributes[:via] || parent_klass_name
         
         send(:define_method, children) do
           @@parent_id = self.id
@@ -248,7 +248,11 @@ module ParseResource
       def limit(n)
         Query.new(self).limit(n)
       end
-      
+
+			def skip(n)
+				Query.new(self).skip(n)
+			end
+
       def order(attribute)
         Query.new(self).order(attribute)
       end
@@ -301,7 +305,7 @@ module ParseResource
       opts = {:content_type => "application/json"}
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        
+        puts resp
         case resp.code 
         when 400
           
