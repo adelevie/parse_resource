@@ -1,0 +1,2 @@
+class RecordNotFound < ArgumentError
+end

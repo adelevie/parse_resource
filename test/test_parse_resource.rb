@@ -64,6 +64,12 @@ class TestParseResource < Test::Unit::TestCase
     assert_equal p2.id, p2.id
   end
 
+	def test_find_should_throw_an_exception_if_object_is_nil
+		assert_raise RecordNotFound do
+			Post.find("")
+		end
+	end
+
   def test_first
     Post.create(:title => "firsttt")
     p = Post.first
