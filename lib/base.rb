@@ -7,6 +7,7 @@ require "json"
 require "active_support/hash_with_indifferent_access"
 require "query"
 require "parse_error"
+require "parse_exceptions"
 
 module ParseResource
   
@@ -208,6 +209,7 @@ module ParseResource
       # @param [String] id the ID of the Parse object you want to find.
       # @return [ParseResource] an object that subclasses ParseResource.
       def find(id)
+				raise RecordNotFound if id.blank?
         where(:objectId => id).first
       end
 
