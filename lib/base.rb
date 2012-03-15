@@ -176,7 +176,11 @@ module ParseResource
         if @@settings.nil?
           path = "config/parse_resource.yml"
           #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-          environment = ENV["RACK_ENV"]
+          if (!ENV["RACK_ENV"].nil?)
+            environment = ENV["RACK_ENV"]
+          else # Since Pow.cx does not declare RACK_ENV, use development as a fallback
+            environment = "development"
+          end
           @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
         end
         @@settings
