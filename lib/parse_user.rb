@@ -23,4 +23,29 @@ class ParseUser < ParseResource::Base
     end
     
   end
+  
+  def self.authenticate_with_facebook(user_id, access_token, expires)
+    base_uri   = "https://api.parse.com/1/users"
+    app_id     = settings['app_id']
+    master_key = settings['master_key']
+    resource = RestClient::Resource.new(base_uri, app_id, master_key)
+
+    begin
+      resp = resource.post(
+          { "authData" =>
+                            { "facebook" =>
+                                  {
+                                      "id" => user_id,
+                                      "access_token" => access_token,
+                                      "expiration_date" => Time.now + expires.to_i
+                                  }
+                            }
+                      }.to_json,
+                     :content_type => 'application/json', :accept => :json)
+      user = model_name.constantize.new(JSON.parse(resp), false)
+      user
+    rescue
+      false
+    end
+  end
 end
