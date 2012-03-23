@@ -48,4 +48,18 @@ class ParseUser < ParseResource::Base
       false
     end
   end
+  
+  def self.reset_password(email)
+      base_uri   = "https://api.parse.com/1/requestPasswordReset"
+      app_id     = settings['app_id']
+      master_key = settings['master_key']
+      resource = RestClient::Resource.new(base_uri, app_id, master_key)
+
+      begin
+        resp = resource.post(:email => email)
+        true
+      rescue
+        false
+      end
+  end
 end
