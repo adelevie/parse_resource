@@ -76,6 +76,21 @@ class TestParseResource < Test::Unit::TestCase
     assert p.is_a?(Post)
   end
 
+  def test_find_by
+    p1    = Post.create(:title => "Welcome111")
+    where = Post.where(:title => "Welcome111").first
+    find  = Post.find_by_title("Welcome111")
+    assert_equal where.id, find.id
+  end
+
+  def test_find_all_by
+    p1    = Post.create(:title => "Welcome111")
+    where = Post.where(:title => "Welcome111").all
+    find  = Post.find_all_by_title("Welcome111")
+    assert_equal where.first.id, find.first.id 
+    assert_equal find.class, Array
+  end
+
   def test_where
     p1 = Post.create(:title => "Welcome111")
     p2 = Post.where(:title => "Welcome111").first

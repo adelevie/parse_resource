@@ -44,7 +44,7 @@ module ParseResource
             
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
-      create_setters!
+      create_setters_and_getters!
     end
 
     # Explicitly adds a field to the model.
@@ -82,198 +82,221 @@ module ParseResource
       {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
     end
 
-    # Creates getter and setter methods for model fields
-    # 
-    def create_setters!
-      @attributes.each_pair do |k,v|
-        
-        self.class.send(:define_method, "#{k}=") do |val|
-          if k.is_a?(Symbol)
-            k = k.to_s
-          end
-          
-          val = val.to_pointer if val.respond_to?(:to_pointer)
+    # Creates setter methods for model fields
+    def create_setters!(k,v)
+      self.class.send(:define_method, "#{k}=") do |val|
+        val = val.to_pointer if val.respond_to?(:to_pointer)
 
-          @attributes[k.to_s] = val
-          @unsaved_attributes[k.to_s] = val
-          
-          val
-        end
+        @attributes[k.to_s] = val
+        @unsaved_attributes[k.to_s] = val
         
-        self.class.send(:define_method, "#{k}") do
-                  
-          case @attributes[k]
-          when Hash
-            
-            klass_name = @attributes[k]["className"]
-            klass_name = "User" if klass_name == "_User"
-            
-            case @attributes[k]["__type"]
-            when "Pointer"
-              result = klass_name.constantize.find(@attributes[k]["objectId"])
-            when "Object"
-              result = klass_name.constantize.new(@attributes[k], false)
-            end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
-            
-          else
-            result =  @attributes[k]
-          end
-          
-          result
-        end
-        
+        val
       end
     end
 
-    class << self
-      
-      def has_many(children)
-        parent_klass_name = model_name
-        lowercase_parent_klass_name = parent_klass_name.downcase
-        parent_klass = model_name.constantize
-        child_klass_name = children.to_s.singularize.camelize
-        child_klass = child_klass_name.constantize
-        
-        if parent_klass_name == "User"
-          parent_klass_name = "_User"
+    def self.method_missing(name, *args)
+      name = name.to_s
+      if name.start_with?("find_by_")
+        attribute   = name.gsub(/^find_by_/,"")
+        finder_name = "find_all_by_#{attribute}"
+
+        define_singleton_method(finder_name) do |target_value|
+          where({attribute.to_sym => target_value}).first
         end
-        
-        @@parent_klass_name = parent_klass_name
-        
-        send(:define_method, children) do
-          @@parent_id = self.id
-          @@parent_instance = self
+
+        send(finder_name, args[0])
+
+      elsif name.start_with?("find_all_by_")
+        attribute   = name.gsub(/^find_all_by_/,"")
+        finder_name = "find_all_by_#{attribute}"
+
+        define_singleton_method(finder_name) do |target_value|
+          where({attribute.to_sym => target_value}).all
+        end
+
+        send(finder_name, args[0])
+      else
+        super(name.to_sym, *args)
+      end
+    end
+
+    # Creates getter methods for model fields
+    def create_getters!(k,v)
+      self.class.send(:define_method, "#{k}") do
+                
+        case @attributes[k]
+        when Hash
           
-          query = child_klass.where(@@parent_klass_name.downcase.to_sym => @@parent_instance.to_pointer)
-          singleton = query.all
+          klass_name = @attributes[k]["className"]
+          klass_name = "User" if klass_name == "_User"
           
-          class << singleton
-            def <<(child)
-              if @@parent_instance.respond_to?(:to_pointer)
-                child.send("#{@@parent_klass_name.downcase}=", @@parent_instance.to_pointer)
-                child.save
-              end
-              super(child)
-            end
-          end
-                    
-          singleton
-        end
-        
-      end
-
-      @@settings ||= nil
-
-      # Explicitly set Parse.com API keys.
-      #
-      # @param [String] app_id the Application ID of your Parse database
-      # @param [String] master_key the Master Key of your Parse database
-      def load!(app_id, master_key)
-        @@settings = {"app_id" => app_id, "master_key" => master_key}
-      end
-
-      def settings
-        if @@settings.nil?
-          path = "config/parse_resource.yml"
-          #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-          environment = ENV["RACK_ENV"]
-          @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-        end
-        @@settings
-      end
-
-      # Creates a RESTful resource
-      # sends requests to [base_uri]/[classname]
-      #
-      def resource
-        if @@settings.nil?
-          path = "config/parse_resource.yml"
-          environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-          @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-        end
-
-        if model_name == "User" #https://parse.com/docs/rest#users-signup
-          base_uri = "https://api.parse.com/1/users"
+          case @attributes[k]["__type"]
+          when "Pointer"
+            result = klass_name.constantize.find(@attributes[k]["objectId"])
+          when "Object"
+            result = klass_name.constantize.new(@attributes[k], false)
+          end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
+          
         else
-          base_uri = "https://api.parse.com/1/classes/#{model_name}"
+          result =  @attributes[k]
         end
+        
+        result
+      end      
+    end
 
-        #refactor to settings['app_id'] etc
-        app_id     = @@settings['app_id']
-        master_key = @@settings['master_key']
-        RestClient::Resource.new(base_uri, app_id, master_key)
+    def create_setters_and_getters!
+      @attributes.each_pair do |k,v|
+        create_setters!(k,v)
+        create_getters!(k,v)
       end
-
-      # Find a ParseResource::Base object by ID
-      #
-      # @param [String] id the ID of the Parse object you want to find.
-      # @return [ParseResource] an object that subclasses ParseResource.
-      def find(id)
-				raise RecordNotFound if id.blank?
-        where(:objectId => id).first
-      end
-
-      # Find a ParseResource::Base object by chaining #where method calls.
-      #
-      def where(*args)
-        Query.new(self).where(*args)
+    end
+      
+    def self.has_many(children)
+      parent_klass_name = model_name
+      lowercase_parent_klass_name = parent_klass_name.downcase
+      parent_klass = model_name.constantize
+      child_klass_name = children.to_s.singularize.camelize
+      child_klass = child_klass_name.constantize
+      
+      if parent_klass_name == "User"
+        parent_klass_name = "_User"
       end
       
-      # Include the attributes of a parent ojbect in the results
-      # Similar to ActiveRecord eager loading
-      #
-      def include_object(parent)
-        Query.new(self).include_object(parent)
-      end
-
-      # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
-      def count
-        #https://www.parse.com/docs/rest#queries-counting
-        Query.new(self).count(1)
-      end
-
-      # Find all ParseResource::Base objects for that model.
-      #
-      # @return [Array] an `Array` of objects that subclass `ParseResource`.
-      def all
-        Query.new(self).all
-      end
-
-      # Find the first object. Fairly random, not based on any specific condition.
-      #
-      def first
-        Query.new(self).limit(1).first
-      end
-
-      # Limits the number of objects returned
-      #
-      def limit(n)
-        Query.new(self).limit(n)
+      @@parent_klass_name = parent_klass_name
+      
+      send(:define_method, children) do
+        @@parent_id = self.id
+        @@parent_instance = self
+        
+        query = child_klass.where(@@parent_klass_name.downcase.to_sym => @@parent_instance.to_pointer)
+        singleton = query.all
+        
+        class << singleton
+          def <<(child)
+            if @@parent_instance.respond_to?(:to_pointer)
+              child.send("#{@@parent_klass_name.downcase}=", @@parent_instance.to_pointer)
+              child.save
+            end
+            super(child)
+          end
+        end
+                  
+        singleton
       end
       
-      def order(attribute)
-        Query.new(self).order(attribute)
+    end
+
+    @@settings ||= nil
+
+    # Explicitly set Parse.com API keys.
+    #
+    # @param [String] app_id the Application ID of your Parse database
+    # @param [String] master_key the Master Key of your Parse database
+    def self.load!(app_id, master_key)
+      @@settings = {"app_id" => app_id, "master_key" => master_key}
+    end
+
+    def self.settings
+      if @@settings.nil?
+        path = "config/parse_resource.yml"
+        #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+        environment = ENV["RACK_ENV"]
+        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+      end
+      @@settings
+    end
+
+    # Creates a RESTful resource
+    # sends requests to [base_uri]/[classname]
+    #
+    def self.resource
+      if @@settings.nil?
+        path = "config/parse_resource.yml"
+        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
       end
 
-      # Create a ParseResource::Base object.
-      #
-      # @param [Hash] attributes a `Hash` of attributes
-      # @return [ParseResource] an object that subclasses `ParseResource`. Or returns `false` if object fails to save.
-      def create(attributes = {})
-        attributes = HashWithIndifferentAccess.new(attributes)
-        new(attributes).save
+      if model_name == "User" #https://parse.com/docs/rest#users-signup
+        base_uri = "https://api.parse.com/1/users"
+      else
+        base_uri = "https://api.parse.com/1/classes/#{model_name}"
       end
 
-      def destroy_all
-        all.each do |object|
-          object.destroy
-        end
-      end
+      #refactor to settings['app_id'] etc
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
+      RestClient::Resource.new(base_uri, app_id, master_key)
+    end
 
-      def class_attributes
-        @class_attributes ||= {}
-      end
+    # Find a ParseResource::Base object by ID
+    #
+    # @param [String] id the ID of the Parse object you want to find.
+    # @return [ParseResource] an object that subclasses ParseResource.
+    def self.find(id)
+			raise RecordNotFound if id.blank?
+      where(:objectId => id).first
+    end
 
+    # Find a ParseResource::Base object by chaining #where method calls.
+    #
+    def self.where(*args)
+      Query.new(self).where(*args)
+    end
+    
+    # Include the attributes of a parent ojbect in the results
+    # Similar to ActiveRecord eager loading
+    #
+    def self.include_object(parent)
+      Query.new(self).include_object(parent)
+    end
+
+    # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
+    def self.count
+      #https://www.parse.com/docs/rest#queries-counting
+      Query.new(self).count(1)
+    end
+
+    # Find all ParseResource::Base objects for that model.
+    #
+    # @return [Array] an `Array` of objects that subclass `ParseResource`.
+    def self.all
+      Query.new(self).all
+    end
+
+    # Find the first object. Fairly random, not based on any specific condition.
+    #
+    def self.first
+      Query.new(self).limit(1).first
+    end
+
+    # Limits the number of objects returned
+    #
+    def self.limit(n)
+      Query.new(self).limit(n)
+    end
+    
+    def self.order(attribute)
+      Query.new(self).order(attribute)
+    end
+
+    # Create a ParseResource::Base object.
+    #
+    # @param [Hash] attributes a `Hash` of attributes
+    # @return [ParseResource] an object that subclasses `ParseResource`. Or returns `false` if object fails to save.
+    def self.create(attributes = {})
+      attributes = HashWithIndifferentAccess.new(attributes)
+      new(attributes).save
+    end
+
+    def self.destroy_all
+      all.each do |object|
+        object.destroy
+      end
+    end
+
+    def self.class_attributes
+      @class_attributes ||= {}
     end
 
     def persisted?
@@ -317,7 +340,7 @@ module ParseResource
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
           @unsaved_attributes = {}
-          create_setters!
+          create_setters_and_getters!
         end
         
         self
@@ -365,7 +388,7 @@ module ParseResource
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           @unsaved_attributes = {}
-          create_setters!
+          create_setters_and_getters!
 
           self
         end
