@@ -124,6 +124,10 @@ posts.map {|p| p.title} #=> ["Unpaid blogger", "Uncrunched"]
 id = "DjiH4Qffke"
 p = Post.find(id) #simple find by id
 
+# ActiveRecord style find commands
+Post.find_by_title("Uncrunched") #=> A Post object
+Post.find_all_by_author("Arrington") #=> An Array of Posts
+
 # you can chain method calls, just like in ActiveRecord
 Post.where(:param1 => "foo").where(:param2 => "bar").all
 
