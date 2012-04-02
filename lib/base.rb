@@ -9,7 +9,8 @@ require "query"
 require "parse_error"
 require "parse_exceptions"
 
-require "client"
+require 'parse-ruby-client'
+require 'client'
 
 module ParseResource
   
