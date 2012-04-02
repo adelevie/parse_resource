@@ -9,6 +9,8 @@ require "query"
 require "parse_error"
 require "parse_exceptions"
 
+require "client"
+
 module ParseResource
   
 
@@ -35,6 +37,8 @@ module ParseResource
     def initialize(attributes = {}, new=true)
       #attributes = HashWithIndifferentAccess.new(attributes)
       
+      Parse.client
+
       if new
         @unsaved_attributes = attributes
       else

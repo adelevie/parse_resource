@@ -1,3 +1,9 @@
+PATH
+  remote: ../parse-ruby-client
+  specs:
+    parse-ruby-client (0.0.3)
+      patron
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -16,6 +22,7 @@ GEM
       rake
     mime-types (1.17.2)
     multi_json (1.0.4)
+    patron (0.4.17)
     rake (0.9.2.2)
     rcov (0.9.11)
     reek (1.2.8)
@@ -39,6 +46,7 @@ DEPENDENCIES
   activesupport
   bundler (~> 1.0.0)
   jeweler (~> 1.6.4)
+  parse-ruby-client!
   rcov
   reek (~> 1.2.8)
   rest-client
