@@ -18,6 +18,3 @@ end
 gem "rest-client"
 gem "activesupport"
 gem "activemodel"
-gem "parse-ruby-client", :path => "../parse-ruby-client"
-
-
