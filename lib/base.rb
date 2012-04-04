@@ -37,8 +37,6 @@ module ParseResource
     # @return [ParseResource::Base] an object that subclasses `Parseresource::Base`
     def initialize(attributes = {}, new=true)
       #attributes = HashWithIndifferentAccess.new(attributes)
-      
-      Parse.client
 
       if new
         @unsaved_attributes = attributes
