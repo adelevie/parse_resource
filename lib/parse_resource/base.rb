@@ -168,14 +168,19 @@ module ParseResource
       send(:define_method, children) do
         @@parent_id = self.id
         @@parent_instance = self
+
+        parent_klass_name = @@parent_klass_name.downcase unless @@parent_klass_name == "User"
+        parent_klass_name = "_User" if @@parent_klass_name == "User"
         
-        query = child_klass.where(@@parent_klass_name.downcase.to_sym => @@parent_instance.to_pointer)
+        query = child_klass.where(parent_klass_name.to_sym => @@parent_instance.to_pointer)
         singleton = query.all
         
         class << singleton
           def <<(child)
+            parent_klass_name = @@parent_klass_name.downcase unless @@parent_klass_name == "User"
+            parent_klass_name = @@parent_klass_name if @@parent_klass_name == "User"
             if @@parent_instance.respond_to?(:to_pointer)
-              child.send("#{@@parent_klass_name.downcase}=", @@parent_instance.to_pointer)
+              child.send("#{parent_klass_name}=", @@parent_instance.to_pointer)
               child.save
             end
             super(child)
