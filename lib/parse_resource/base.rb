@@ -5,9 +5,9 @@ require "erb"
 require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
-require "query"
-require "parse_error"
-require "parse_exceptions"
+require "parse_resource/query"
+require "parse_resource/parse_error"
+require "parse_resource/parse_exceptions"
 
 module ParseResource
   
