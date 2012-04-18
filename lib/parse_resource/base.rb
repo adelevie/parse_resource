@@ -8,6 +8,7 @@ require "active_support/hash_with_indifferent_access"
 require "parse_resource/query"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
+require "parse_resource/associations"
 
 module ParseResource
   
@@ -18,6 +19,8 @@ module ParseResource
     #  class Post < ParseResource::Base
     #    fields :title, :author, :body
     #  end
+    
+    include Associations
 
     include ActiveModel::Validations
     include ActiveModel::Conversion
@@ -71,9 +74,9 @@ module ParseResource
       args.each {|f| field(f)}
     end
     
-    def self.belongs_to(parent)
-      field(parent)
-    end
+    #def self.belongs_to(parent)
+    #  field(parent)
+    #end
   
 
     def to_pointer
