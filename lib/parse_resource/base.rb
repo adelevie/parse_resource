@@ -9,6 +9,10 @@ require "parse_resource/query"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
 require "parse_resource/associations"
+require "parse_resource/finders"
+require "parse_resource/default_attributes"
+require "parse_resource/dynamic_methods"
+require "parse_resource/client"
 
 module ParseResource
   
@@ -22,6 +26,9 @@ module ParseResource
     
     extend Associations
     extend Finders
+    extend Client
+    include DefaultAttributes
+    include DynamicMethods
 
     include ActiveModel::Validations
     include ActiveModel::Conversion
@@ -86,18 +93,6 @@ module ParseResource
       {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
     end
 
-    # Creates setter methods for model fields
-    def create_setters!(k,v)
-      self.class.send(:define_method, "#{k}=") do |val|
-        val = val.to_pointer if val.respond_to?(:to_pointer)
-
-        @attributes[k.to_s] = val
-        @unsaved_attributes[k.to_s] = val
-        
-        val
-      end
-    end
-
     def self.method_missing(name, *args)
       name = name.to_s
       if name.start_with?("find_by_")
@@ -124,38 +119,6 @@ module ParseResource
       end
     end
 
-    # Creates getter methods for model fields
-    def create_getters!(k,v)
-      self.class.send(:define_method, "#{k}") do
-                
-        case @attributes[k]
-        when Hash
-          
-          klass_name = @attributes[k]["className"]
-          klass_name = "User" if klass_name == "_User"
-          
-          case @attributes[k]["__type"]
-          when "Pointer"
-            result = klass_name.constantize.find(@attributes[k]["objectId"])
-          when "Object"
-            result = klass_name.constantize.new(@attributes[k], false)
-          end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
-          
-        else
-          result =  @attributes[k]
-        end
-        
-        result
-      end      
-    end
-
-    def create_setters_and_getters!
-      @attributes.each_pair do |k,v|
-        create_setters!(k,v)
-        create_getters!(k,v)
-      end
-    end
-
     # def self.has_many
 
     @@settings ||= nil
@@ -176,45 +139,6 @@ module ParseResource
         @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
       end
       @@settings
-    end
-
-    # Creates a RESTful resource
-    # sends requests to [base_uri]/[classname]
-    #
-    def self.resource
-      if @@settings.nil?
-        path = "config/parse_resource.yml"
-        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-      end
-
-      if model_name == "User" #https://parse.com/docs/rest#users-signup
-        base_uri = "https://api.parse.com/1/users"
-      else
-        base_uri = "https://api.parse.com/1/classes/#{model_name}"
-      end
-
-      #refactor to settings['app_id'] etc
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
-      RestClient::Resource.new(base_uri, app_id, master_key)
-    end
-
-    #finders
-
-    # Create a ParseResource::Base object.
-    #
-    # @param [Hash] attributes a `Hash` of attributes
-    # @return [ParseResource] an object that subclasses `ParseResource`. Or returns `false` if object fails to save.
-    def self.create(attributes = {})
-      attributes = HashWithIndifferentAccess.new(attributes)
-      new(attributes).save
-    end
-
-    def self.destroy_all
-      all.each do |object|
-        object.destroy
-      end
     end
 
     def self.class_attributes
@@ -340,20 +264,6 @@ module ParseResource
     def attributes=(n)
       @attributes = n
       @attributes
-    end
-
-    # aliasing for idiomatic Ruby
-    def id; self.objectId rescue nil; end
-
-    def created_at; self.createdAt; end
-
-    def updated_at; self.updatedAt rescue nil; end
-
-    def self.included(base)
-      base.extend(ClassMethods)
-    end
-
-    module ClassMethods
     end
 
   end
