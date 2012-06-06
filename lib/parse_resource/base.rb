@@ -57,8 +57,11 @@ module ParseResource
           @attributes[name] ? @attributes[name] : @unsaved_attributes[name]
         end
         define_method("#{name}=") do |val|
+          val = val.to_pointer if val.respond_to?(:to_pointer)
+          
           @attributes[name] = val
           @unsaved_attributes[name] = val
+          
           val
         end
       end
