@@ -71,11 +71,13 @@ module ParseResource
       args.each {|f| field(f)}
     end
     
-    def self.belongs_to(parent)
+    # Similar to its ActiveRecord counterpart.
+    #
+    # @param [Hash] options Added so that you can specify :class_name => '...'. It does nothing at all, but helps you write self-documenting code.
+    def self.belongs_to(parent, options = {})
       field(parent)
     end
-  
-
+    
     def to_pointer
       klass_name = self.class.model_name
       klass_name = "_User" if klass_name == "User"
