@@ -28,7 +28,7 @@ class ParseError
   
   def to_array
     @error[1] = @error[1] + " " + @msg
+    @error
   end
   
 end
-
