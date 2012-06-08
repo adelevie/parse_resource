@@ -172,15 +172,16 @@ module ParseResource
       
       @@parent_klass_name = parent_klass_name
       @@options ||= {}
-      @@options.merge!(options)
+      @@options[children] ||= {}
+      @@options[children].merge!(options)
       
       send(:define_method, children) do
         @@parent_id = self.id
         @@parent_instance = self
         
         parent_klass_name = case
-          when @@options['inverse_of']        then @@options['inverse_of'].downcase
-          when @@parent_klass_name == "User"  then "_User"
+          when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
+          when @@parent_klass_name == "User" then "_User"
           else @@parent_klass_name.downcase
         end
         
@@ -190,8 +191,8 @@ module ParseResource
         class << singleton
           def <<(child)
             parent_klass_name = case
-              when @@options['inverse_of']        then @@options['inverse_of'].downcase
-              when @@parent_klass_name == "User"  then @@parent_klass_name
+              when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
+              when @@parent_klass_name == "User" then @@parent_klass_name
               else @@parent_klass_name.downcase
             end
             if @@parent_instance.respond_to?(:to_pointer)
@@ -201,7 +202,7 @@ module ParseResource
             super(child)
           end
         end
-                  
+        
         singleton
       end
       
