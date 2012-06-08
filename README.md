@@ -144,9 +144,19 @@ Post.where(:bar => "foo").count #=> 1337
 
 Users
 
+Note: Because users are special in the Parse API, you must name your class User if you want to subclass ParseUser.
+
 ```ruby
 # app/models/user.rb
 class User < ParseUser
+  # no validations included, but feel free to add your own
+  validates_presence_of :username
+  
+  # you can add fields, like any other kind of Object...
+  fields :name, :bio
+  
+  # but note that email is a special field in the Parse API.
+  fields :email
 end
 
 # create a user
@@ -194,12 +204,14 @@ Associations
 
 ```ruby
 class Post < ParseResource::Base
-  belongs_to :author
+  # As with ActiveRecord, associations names can differ from class names...
+  belongs_to :author, :class_name => 'User'
   fields :title, :body
 end
 
-class Author < ParseResource::Base
-  has_many :posts
+class User < ParseUser
+  # ... but on the other end, use :inverse_of to complete the link.
+  has_many :posts, :inverse_of => :author
   field :name
 end
 
