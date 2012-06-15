@@ -3,8 +3,8 @@ require 'parse_resource/parse_user_validator'
 class ParseUser < ParseResource::Base
   fields :username, :password
   
-  validates_presence_of :username
-  validates_presence_of :password
+  # validates_presence_of :username
+  # validates_presence_of :password
   #validates_with ParseUserValidator, :on => :create, :on => :save
 
   def self.authenticate(username, password)
