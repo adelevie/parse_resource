@@ -307,7 +307,9 @@ module ParseResource
     # @return [ParseResource] an object that subclasses `ParseResource`. Or returns `false` if object fails to save.
     def self.create(attributes = {})
       attributes = HashWithIndifferentAccess.new(attributes)
-      new(attributes).save
+      obj = new(attributes)
+      obj.save
+      obj
     end
 
     def self.destroy_all
@@ -363,17 +365,16 @@ module ParseResource
           @unsaved_attributes = {}
           create_setters_and_getters!
         end
-        
-        self
       end
-    
-      result
+      
+      self
     end
 
     def save
       if valid?
         run_callbacks :save do
           new? ? create : update
+          persisted?
         end
       else
         false
@@ -404,6 +405,7 @@ module ParseResource
           pe = ParseError.new(error_response["code"], error_response["error"]).to_array
           self.errors.add(pe[0], pe[1])
           
+          self
         else
 
           @attributes.merge!(JSON.parse(resp))
@@ -413,10 +415,9 @@ module ParseResource
 
           self
         end
-        
-        result
       end
-     
+      
+      self
     end
 
     def update_attributes(attributes = {})
@@ -430,12 +431,23 @@ module ParseResource
       nil
     end
 
+    def reload
+      return false if new?
+      
+      fresh_object = self.class.find(id)
+      @attributes.update(fresh_object.instance_variable_get('@attributes'))
+      @unsaved_attributes = {}
+      
+      self
+    end
+
     # provides access to @attributes for getting and setting
     def attributes
       @attributes ||= self.class.class_attributes
       @attributes
     end
 
+    # AKN 2012-06-18: Shouldn't this also be setting @unsaved_attributes?
     def attributes=(n)
       @attributes = n
       @attributes
