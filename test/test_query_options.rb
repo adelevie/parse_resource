@@ -22,7 +22,6 @@ class TestQueryOptions < Test::Unit::TestCase
   
   def test_order
     e1 = Event.create(:name => "1st")
-    sleep 1
     e2 = Event.create(:name => "2nd")
     events = Event.order("created_at").all
     puts events[0].created_at
