@@ -29,11 +29,10 @@ class Query
     self
   end
 
-  #TODO: make this work
-  #def skip(skip)
-  #  criteria[:skip] = skip
-  #  self
-  #end
+  def skip(skip)
+   criteria[:skip] = skip
+   self
+  end
 
   def count(count=1)
     criteria[:count] = count
