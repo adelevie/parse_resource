@@ -52,7 +52,7 @@ class ParseUser < ParseResource::Base
       resource = RestClient::Resource.new(base_uri, app_id, master_key)
 
       begin
-        resp = resource.post(:email => email)
+        resp = resource.post({:email => email}.to_json, :content_type => 'application/json')
         true
       rescue
         false
