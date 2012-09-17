@@ -363,24 +363,26 @@ module ParseResource
           error_response = JSON.parse(resp)
           pe = ParseError.new(error_response["code"]).to_array
           self.errors.add(pe[0], pe[1])
-        
+          return false
         else
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
           @unsaved_attributes = {}
           create_setters_and_getters!
+          return true
         end
       end
-      
-      self
     end
 
     def save
       if valid?
         run_callbacks :save do
-          new? ? create : update
-          persisted?
+          if new?
+            return create 
+          else
+            return update
+          end
         end
       else
         false
@@ -402,7 +404,6 @@ module ParseResource
       
       opts = {:content_type => "application/json"}
       result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-
         case resp.code
         when 400
           
@@ -411,7 +412,7 @@ module ParseResource
           pe = ParseError.new(error_response["code"], error_response["error"]).to_array
           self.errors.add(pe[0], pe[1])
           
-          self
+          return false
         else
 
           @attributes.merge!(JSON.parse(resp))
@@ -419,11 +420,9 @@ module ParseResource
           @unsaved_attributes = {}
           create_setters_and_getters!
 
-          self
+          return true
         end
       end
-      
-      self
     end
 
     def update_attributes(attributes = {})
@@ -435,10 +434,8 @@ module ParseResource
         @attributes = {}
         @unsaved_attributes = {}
         return true
-      else
-        return false
       end
-      nil
+      false
     end
 
     def reload
