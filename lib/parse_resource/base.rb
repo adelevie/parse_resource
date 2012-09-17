@@ -431,9 +431,13 @@ module ParseResource
     end
 
     def destroy
-      self.instance_resource.delete
-      @attributes = {}
-      @unsaved_attributes = {}
+      if self.instance_resource.delete
+        @attributes = {}
+        @unsaved_attributes = {}
+        return true
+      else
+        return false
+      end
       nil
     end
 
