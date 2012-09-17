@@ -250,6 +250,33 @@ module ParseResource
       RestClient::Resource.new(base_uri, app_id, master_key)
     end
 
+    # Creates a RESTful resource for file uploads
+    # sends requests to [base_uri]/files
+    #
+    def self.upload(file_instance, filename, options={})
+      if @@settings.nil?
+        path = "config/parse_resource.yml"
+        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+      end
+
+      base_uri = "https://api.parse.com/1/files"
+      
+      #refactor to settings['app_id'] etc
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
+
+      options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
+      file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
+
+      private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
+      private_resource.post(file_instance, options) do |resp, req, res, &block|
+        return false if resp.code == 400
+        return resp
+      end
+      false
+    end
+
     # Find a ParseResource::Base object by ID
     #
     # @param [String] id the ID of the Parse object you want to find.
