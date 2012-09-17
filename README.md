@@ -103,7 +103,7 @@ p.save #=> true
 p.updated_at #=> "2011-09-19T01:32:37.930Z" # more magic from Parse's servers
 
 # destroying an object
-p.destroy #=> nil 
+p.destroy #=> true 
 p.title #=> nil
 ```
 
