@@ -237,6 +237,15 @@ posts.each do |post|
 end
 ```
 
+File Upload
+
+```ruby
+  @post = Post.first()
+  result = Post.upload(uploaded_file.tempfile, uploaded_file.original_filename, content_type: uploaded_file.content_type)
+  @post.thumbnail = {"name" => result["name"], "__type" => "File"}
+```
+
+
 Documentation
 -------------
 [Here](http://rubydoc.info/gems/parse_resource/)
