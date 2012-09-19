@@ -142,6 +142,8 @@ module ParseResource
             result = klass_name.constantize.new(@attributes[k], false)
           when "Date"
             result = DateTime.parse(@attributes[k]["iso"])
+          when "File"
+            result = @attributes[k]["url"]
           end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
           
         else
@@ -250,6 +252,33 @@ module ParseResource
       app_id     = @@settings['app_id']
       master_key = @@settings['master_key']
       RestClient::Resource.new(base_uri, app_id, master_key)
+    end
+
+    # Creates a RESTful resource for file uploads
+    # sends requests to [base_uri]/files
+    #
+    def self.upload(file_instance, filename, options={})
+      if @@settings.nil?
+        path = "config/parse_resource.yml"
+        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
+      end
+
+      base_uri = "https://api.parse.com/1/files"
+      
+      #refactor to settings['app_id'] etc
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
+
+      options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
+      file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
+
+      private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
+      private_resource.post(file_instance, options) do |resp, req, res, &block|
+        return false if resp.code == 400
+        return JSON.parse(resp)
+      end
+      false
     end
 
     # Find a ParseResource::Base object by ID
@@ -365,24 +394,26 @@ module ParseResource
           error_response = JSON.parse(resp)
           pe = ParseError.new(error_response["code"]).to_array
           self.errors.add(pe[0], pe[1])
-        
+          return false
         else
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
           @unsaved_attributes = {}
           create_setters_and_getters!
+          return true
         end
       end
-      
-      self
     end
 
     def save
       if valid?
         run_callbacks :save do
-          new? ? create : update
-          persisted?
+          if new?
+            return create 
+          else
+            return update
+          end
         end
       else
         false
@@ -404,7 +435,6 @@ module ParseResource
       
       opts = {:content_type => "application/json"}
       result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-
         case resp.code
         when 400
           
@@ -413,7 +443,7 @@ module ParseResource
           pe = ParseError.new(error_response["code"], error_response["error"]).to_array
           self.errors.add(pe[0], pe[1])
           
-          self
+          return false
         else
 
           @attributes.merge!(JSON.parse(resp))
@@ -421,11 +451,9 @@ module ParseResource
           @unsaved_attributes = {}
           create_setters_and_getters!
 
-          self
+          return true
         end
       end
-      
-      self
     end
 
     def update_attributes(attributes = {})
@@ -433,10 +461,12 @@ module ParseResource
     end
 
     def destroy
-      self.instance_resource.delete
-      @attributes = {}
-      @unsaved_attributes = {}
-      nil
+      if self.instance_resource.delete
+        @attributes = {}
+        @unsaved_attributes = {}
+        return true
+      end
+      false
     end
 
     def reload
