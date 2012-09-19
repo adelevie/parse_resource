@@ -54,16 +54,14 @@ module ParseResource
     def self.field(name, val=nil)
       unless self.respond_to? "#{name}"
         class_eval do
-          define_method(name.to_s) do
-            attribute(name.to_s)
+          define_method(name) do
+            attribute(name)
           end
         end
       end
       unless self.respond_to? "#{name}="
         class_eval do
           define_method("#{name}=") do |val|
-            val = val.to_pointer if val.respond_to?(:to_pointer)
-            
             set_attribute name, val
             
             val
@@ -96,10 +94,7 @@ module ParseResource
     def create_setters!(k,v)
       unless self.respond_to? "#{k}="
         self.class.send(:define_method, "#{k}=") do |val|
-          val = val.to_pointer if val.respond_to?(:to_pointer)
-
-          @attributes[k.to_s] = val
-          @unsaved_attributes[k.to_s] = val
+          set_attribute k, val
           
           val
         end
@@ -136,24 +131,7 @@ module ParseResource
     def create_getters!(k,v)
       unless self.respond_to? "#{k}"
         self.class.send(:define_method, "#{k}") do
-          case @attributes[k]
-          when Hash
-            klass_name = @attributes[k]["className"]
-            klass_name = "User" if klass_name == "_User"
-            case @attributes[k]["__type"]
-            when "Pointer"
-              result = klass_name.constantize.find(@attributes[k]["objectId"])
-            when "Object"
-              result = klass_name.constantize.new(@attributes[k], false)
-            when "Date"
-              result = DateTime.parse(@attributes[k]["iso"])
-            when "File"
-              result = @attributes[k]["url"]
-            end #todo: support other types https://www.parse.com/docs/rest#objects-types
-          else
-            result =  @attributes["#{k}"]
-          end          
-          result
+          attribute(k)
         end      
       end
     end
@@ -495,11 +473,34 @@ module ParseResource
       @attributes
     end
 
-    def attribute(name)
-      @unsaved_attributes[name.to_s] ? @unsaved_attributes[name.to_s] : @attributes[name.to_s]
+    def attribute(k)
+      attrs = @unsaved_attributes[k.to_s] ? @unsaved_attributes : @attributes
+      case attrs[k]
+      when Hash
+        klass_name = attrs[k]["className"]
+        klass_name = "User" if klass_name == "_User"
+        case attrs[k]["__type"]
+        when "Pointer"
+          result = klass_name.constantize.find(attrs[k]["objectId"])
+        when "Object"
+          result = klass_name.constantize.new(attrs[k], false)
+        when "Date"
+          result = DateTime.parse(attrs[k]["iso"])
+        when "File"
+          result = attrs[k]["url"]
+        end #todo: support other types https://www.parse.com/docs/rest#objects-types
+      else
+        result =  attrs["#{k}"]
+      end          
+      result
     end
 
     def set_attribute(k, v)
+      if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
+        v = {"__type" => "Date", "iso" => v.iso8601}
+      else
+        v = v.to_pointer if v.respond_to?(:to_pointer)
+      end
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
