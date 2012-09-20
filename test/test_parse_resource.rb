@@ -68,7 +68,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_initialize_with_args
-    @spoon = Spoon.new("length" => :title1, :width => "ipso")
+    @spoon = Spoon.new(:length => "title1", :width => "ipso")
     assert @spoon.is_a?(Spoon)
     assert_equal @spoon.length, "title1"
     assert_equal @spoon.width, "ipso"
