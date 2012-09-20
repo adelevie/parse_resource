@@ -51,16 +51,16 @@ module ParseResource
     #
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
-    def self.field(name, val=nil)
+    def self.field(fname, val=nil)
       class_eval do
-        define_method(name) do
-          get_attribute("#{name}")
+        define_method(fname) do
+          get_attribute("#{fname}")
         end
       end
-      unless self.respond_to? "#{name}="
+      unless self.respond_to? "#{fname}="
         class_eval do
-          define_method("#{name}=") do |val|
-            set_attribute("#{name}", "#{val}")
+          define_method("#{fname}=") do |val|
+            set_attribute("#{fname}", "#{val}")
             
             val
           end
@@ -91,7 +91,6 @@ module ParseResource
     # Creates setter methods for model fields
     def create_setters!(k,v)
       unless self.respond_to? "#{k}="
-        puts "Generating setter for #{k}"
         self.class.send(:define_method, "#{k}=") do |val|
           set_attribute("#{k}", "#{val}")
           
@@ -100,10 +99,10 @@ module ParseResource
       end
     end
 
-    def self.method_missing(name, *args)
-      name = name.to_s
-      if name.start_with?("find_by_")
-        attrib   = name.gsub(/^find_by_/,"")
+    def self.method_missing(method_name, *args)
+      method_name = method_name.to_s
+      if method_name.start_with?("find_by_")
+        attrib   = method_name.gsub(/^find_by_/,"")
         finder_name = "find_all_by_#{attrib}"
 
         define_singleton_method(finder_name) do |target_value|
@@ -112,8 +111,8 @@ module ParseResource
 
         send(finder_name, args[0])
 
-      elsif name.start_with?("find_all_by_")
-        attrib   = name.gsub(/^find_all_by_/,"")
+      elsif method_name.start_with?("find_all_by_")
+        attrib   = method_name.gsub(/^find_all_by_/,"")
         finder_name = "find_all_by_#{attrib}"
 
         define_singleton_method(finder_name) do |target_value|
@@ -122,19 +121,16 @@ module ParseResource
 
         send(finder_name, args[0])
       else
-        super(name.to_sym, *args)
+        super(method_name.to_sym, *args)
       end
     end
 
     # Creates getter methods for model fields
     def create_getters!(k,v)
       unless self.respond_to? "#{k}"
-        puts "Generating getter for #{k}"
         self.class.send(:define_method, "#{k}") do
           get_attribute("#{k}")
         end
-      else
-        puts "Getter already exists for #{k}"
       end
     end
 
