@@ -199,7 +199,7 @@ end
 
 If you want to use parse_resource to back a simple authentication system for a Rails app, follow this [tutorial](http://asciicasts.com/episodes/250-authentication-from-scratch), and make some simple modifications.
 
-
+DEPRECATED
 Associations
 
 ```ruby
