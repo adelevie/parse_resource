@@ -52,17 +52,15 @@ module ParseResource
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
     def self.field(name, val=nil)
-      # unless self.respond_to? "#{name}"
       class_eval do
         define_method(name) do
-          get_attribute(name)
+          get_attribute("#{name}")
         end
       end
-      # end
       unless self.respond_to? "#{name}="
         class_eval do
           define_method("#{name}=") do |val|
-            set_attribute(name, val)
+            set_attribute("#{name}", "#{val}")
             
             val
           end
@@ -95,7 +93,7 @@ module ParseResource
       unless self.respond_to? "#{k}="
         puts "Generating setter for #{k}"
         self.class.send(:define_method, "#{k}=") do |val|
-          set_attribute(k, val)
+          set_attribute("#{k}", "#{val}")
           
           val
         end
@@ -133,7 +131,7 @@ module ParseResource
       unless self.respond_to? "#{k}"
         puts "Generating getter for #{k}"
         self.class.send(:define_method, "#{k}") do
-          get_attribute(k)
+          get_attribute("#{k}")
         end
       else
         puts "Getter already exists for #{k}"
@@ -512,7 +510,8 @@ module ParseResource
 
 
     # aliasing for idiomatic Ruby
-    def id; self.objectId rescue nil; end
+    def id; get_attribute("objectId") rescue nil; end
+    def objectId; get_attribute("objectId") rescue nil; end
 
     def created_at; self.createdAt; end
 
