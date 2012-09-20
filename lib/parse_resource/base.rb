@@ -37,6 +37,7 @@ module ParseResource
 
       if new
         @unsaved_attributes = attributes
+        @unsaved_attributes.stringify_keys!
       else
         @unsaved_attributes = {}
       end
@@ -52,6 +53,7 @@ module ParseResource
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
     def self.field(fname, val=nil)
+      fname = fname.to_sym
       class_eval do
         define_method(fname) do
           get_attribute("#{fname}")
