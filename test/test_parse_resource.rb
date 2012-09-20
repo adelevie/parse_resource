@@ -12,7 +12,6 @@ class Post < ParseResource::Base
 end
 
 class Author < ParseResource::Base
-  has_many :posts
   field :name
 end
 

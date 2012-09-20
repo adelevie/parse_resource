@@ -158,57 +158,6 @@ module ParseResource
         create_getters!(k,v)
       end
     end
-      
-    def self.has_many(children, options = {})
-      options.stringify_keys!
-      
-      parent_klass_name = model_name
-      lowercase_parent_klass_name = parent_klass_name.downcase
-      parent_klass = model_name.constantize
-      child_klass_name = options['class_name'] || children.to_s.singularize.camelize
-      child_klass = child_klass_name.constantize
-      
-      if parent_klass_name == "User"
-        parent_klass_name = "_User"
-      end
-      
-      @@parent_klass_name = parent_klass_name
-      @@options ||= {}
-      @@options[children] ||= {}
-      @@options[children].merge!(options)
-      
-      send(:define_method, children) do
-        @@parent_id = self.id
-        @@parent_instance = self
-        
-        parent_klass_name = case
-          when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
-          when @@parent_klass_name == "User" then "_User"
-          else @@parent_klass_name.downcase
-        end
-        
-        query = child_klass.where(parent_klass_name.to_sym => @@parent_instance.to_pointer)
-        singleton = query.all
-        
-        class << singleton
-          def <<(child)
-            parent_klass_name = case
-              when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
-              when @@parent_klass_name == "User" then @@parent_klass_name
-              else @@parent_klass_name.downcase
-            end
-            if @@parent_instance.respond_to?(:to_pointer)
-              child.send("#{parent_klass_name}=", @@parent_instance.to_pointer)
-              child.save
-            end
-            super(child)
-          end
-        end
-        
-        singleton
-      end
-      
-    end
 
     @@settings ||= nil
 
@@ -332,9 +281,9 @@ module ParseResource
       Query.new(self).skip(n)
     end
     
-    def self.order(attribute)
-      Query.new(self).order(attribute)
-    end
+    #def self.order(attribute)
+    #  Query.new(self).order(attribute)
+    #end
 
     # Create a ParseResource::Base object.
     #

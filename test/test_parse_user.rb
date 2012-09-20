@@ -18,16 +18,17 @@ class TestParseUser < Test::Unit::TestCase
     User.destroy_all
   end
   
-  def test_user_should_not_save_without_username_and_password
-    u = User.new
-    assert_equal u.valid?, false
-    u.username = "fakename"
-    assert_equal u.valid?, false
-    u.password = "fakepass"
-    assert_equal u.valid?, true
-    assert_not_equal u.save, false
-    assert_equal u.id.class, String
-  end
+  # deprecated since validations aren't built in. Add them as necessary.
+  #def test_user_should_not_save_without_username_and_password
+  #  u = User.new
+  #  assert_equal u.valid?, false
+  #  u.username = "fakename"
+  #  assert_equal u.valid?, false
+  #  u.password = "fakepass"
+  #  assert_equal u.valid?, true
+  #  assert_not_equal u.save, false
+  #  assert_equal u.id.class, String
+  #end
   
   def test_username_should_be_unique
     User.destroy_all
