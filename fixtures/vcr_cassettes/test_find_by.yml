@@ -1,0 +1,157 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Post
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"Welcome111"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '22'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Access-Control-Allow-Origin:
+      - https://parse.com, https://www.parse.com
+      Access-Control-Request-Method:
+      - ! '*'
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 20 Sep 2012 04:31:45 GMT
+      Location:
+      - https://api.parse.com/1/classes/Post/HKWHSsET9H
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWM1ZTQ4OGQyNDAxZDZkY2U3MTEzZDY4NjJjMWEyMDM%3D--42ccad36bbe260f8c2c857e38794c7ce36eb17f6;
+        domain=.parse.com; path=/; expires=Tue, 20-Sep-2022 04:31:45 GMT; HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.038513'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2012-09-20T04:31:45.557Z","objectId":"HKWHSsET9H"}'
+    http_version: 
+  recorded_at: Thu, 20 Sep 2012 04:31:45 GMT
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Post?where=%7B%22title%22:%22Welcome111%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - https://parse.com, https://www.parse.com
+      Access-Control-Request-Method:
+      - ! '*'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 20 Sep 2012 04:31:45 GMT
+      Etag:
+      - ! '"71f4d19c72a27b48f594eeabf6b014a9"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYWJmYTA2NjJiZTY0MjYyNjczNzFiZDNmMDNhZmUzM2M%3D--6fbf1684c04019039f303bda99ddbd7501f3d125;
+        domain=.parse.com; path=/; expires=Tue, 20-Sep-2022 04:31:45 GMT; HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.027724'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '263'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"title":"Welcome111","createdAt":"2012-09-20T04:31:45.557Z","updatedAt":"2012-09-20T04:31:45.557Z","objectId":"HKWHSsET9H"},{"title":"Welcome111","createdAt":"2012-09-20T04:31:44.836Z","updatedAt":"2012-09-20T04:31:44.836Z","objectId":"ZwjYQFBuv6"}]}'
+    http_version: 
+  recorded_at: Thu, 20 Sep 2012 04:31:45 GMT
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Post?where=%7B%22title%22:%22Welcome111%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Origin:
+      - https://parse.com, https://www.parse.com
+      Access-Control-Request-Method:
+      - ! '*'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 20 Sep 2012 04:31:45 GMT
+      Etag:
+      - ! '"71f4d19c72a27b48f594eeabf6b014a9"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlN2EzNDM4MDlkMTZhOTgxYmI5OTYxZDUxM2MwNzhlOTk%3D--243e4d8590e49510bb4a6b2f80b0f3b7a5fc4fe9;
+        domain=.parse.com; path=/; expires=Tue, 20-Sep-2022 04:31:45 GMT; HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.022508'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '263'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"title":"Welcome111","createdAt":"2012-09-20T04:31:45.557Z","updatedAt":"2012-09-20T04:31:45.557Z","objectId":"HKWHSsET9H"},{"title":"Welcome111","createdAt":"2012-09-20T04:31:44.836Z","updatedAt":"2012-09-20T04:31:44.836Z","objectId":"ZwjYQFBuv6"}]}'
+    http_version: 
+  recorded_at: Thu, 20 Sep 2012 04:31:46 GMT
+recorded_with: VCR 2.2.4

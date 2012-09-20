@@ -13,9 +13,12 @@ group :development do
   gem "rest-client"
   gem "activesupport"
   gem "activemodel"
+  gem "vcr"
+  gem "webmock"
 end
 
 gem "rest-client"
 gem "activesupport"
 gem "activemodel"
 gem "json"
+
