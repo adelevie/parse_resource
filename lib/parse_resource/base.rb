@@ -52,17 +52,17 @@ module ParseResource
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
     def self.field(name, val=nil)
-      unless self.respond_to? "#{name}"
-        class_eval do
-          define_method(name) do
-            attribute(name)
-          end
+      # unless self.respond_to? "#{name}"
+      class_eval do
+        define_method(name) do
+          get_attribute(name)
         end
       end
+      # end
       unless self.respond_to? "#{name}="
         class_eval do
           define_method("#{name}=") do |val|
-            set_attribute name, val
+            set_attribute(name, val)
             
             val
           end
@@ -93,8 +93,9 @@ module ParseResource
     # Creates setter methods for model fields
     def create_setters!(k,v)
       unless self.respond_to? "#{k}="
+        puts "Generating setter for #{k}"
         self.class.send(:define_method, "#{k}=") do |val|
-          set_attribute k, val
+          set_attribute(k, val)
           
           val
         end
@@ -130,9 +131,12 @@ module ParseResource
     # Creates getter methods for model fields
     def create_getters!(k,v)
       unless self.respond_to? "#{k}"
+        puts "Generating getter for #{k}"
         self.class.send(:define_method, "#{k}") do
-          attribute(k)
-        end      
+          get_attribute(k)
+        end
+      else
+        puts "Getter already exists for #{k}"
       end
     end
 
@@ -328,7 +332,7 @@ module ParseResource
       attributes = HashWithIndifferentAccess.new(attributes)
       obj = new(attributes)
       obj.save
-      obj
+      obj # This won't return true/false it will return object or nil...
     end
 
     def self.destroy_all
@@ -473,7 +477,7 @@ module ParseResource
       @attributes
     end
 
-    def attribute(k)
+    def get_attribute(k)
       attrs = @unsaved_attributes[k.to_s] ? @unsaved_attributes : @attributes
       case attrs[k]
       when Hash
