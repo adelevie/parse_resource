@@ -245,6 +245,20 @@ File Upload
   @post.thumbnail = {"name" => result["name"], "__type" => "File"}
 ```
 
+Custom Getters and Setters
+
+```ruby
+  def name
+    val = get_attribute("name")
+    # custom getter actions here
+    val
+  end
+
+  def name=(val)
+    # custom setter actions to val here
+    set_attribute("name", val)
+  end
+```
 
 Documentation
 -------------
