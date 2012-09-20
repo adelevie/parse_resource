@@ -277,9 +277,13 @@ Contributing to ParseResource
 *   Create `parse_resource.yml` in the root of the gem folder. Using the same format as `parse_resource.yml` in the instructions (except only creating a `test` environment, add your own API keys.
 *   Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
+[![Build Status](https://secure.travis-ci.org/adelevie/parse_resource.png)](http://travis-ci.org/adelevie/parse_resource)
+
+As you can see, the tests fail pretty miserably in Travis-CI. However they work just fine on my local setup (OSX, Ruby 1.9.3), and I'm sure they will for you, too. Nevertheless, I really want this to work on Travis. Any help in that department will go a long way towards improving the codebase. It will make it easier for me to merge pull requests, and to conduct a much-needed refactoring of the codebase.
+
 Copyright
 ---------
 
-Copyright (c) 2011 Alan deLevie. See LICENSE.txt for
+Copyright (c) 2012 Alan deLevie. See LICENSE.txt for
 further details.
 

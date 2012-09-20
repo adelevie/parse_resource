@@ -33,7 +33,7 @@ class TestParseUser < Test::Unit::TestCase
   #end
   
   def test_username_should_be_unique
-    User.destroy_all
+    #User.destroy_all
     u = User.create(:username => "alan", :password => "12345")
     u2 = User.new(:username => "alan", :password => "56789")
     u2.save
