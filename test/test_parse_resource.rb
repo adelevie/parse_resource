@@ -16,16 +16,38 @@ class Author < ParseResource::Base
   field :name
 end
 
+class Spoon < ParseResource::Base
+  fields :width, :length
+end
+
+class Fork < ParseResource::Base
+  fields :points
+end
+
+class Knife < ParseResource::Base
+  fields :is_shiny
+end
+
+class Straw < ParseResource::Base
+  fields :title, :body
+end
+
 class TestParseResource < Test::Unit::TestCase
 
   def setup
     Post.destroy_all
     Author.destroy_all
+    Spoon.destroy_all
+    Fork.destroy_all
+    Straw.destroy_all
   end
 
   def teardown
     Post.destroy_all
     Author.destroy_all
+    Spoon.destroy_all
+    Fork.destroy_all
+    Straw.destroy_all
   end
 
   def test_initialize_without_args
@@ -44,23 +66,22 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_initialize_with_args
-    @post = Post.new(:title => "title1", :body => "ipso")
-    assert @post.is_a?(Post)
-    assert_equal @post.title, "title1"
-    assert_equal @post.body, "ipso"
+    @spoon = Spoon.new(:length => "title1", :width => "ipso")
+    assert @spoon.is_a?(Spoon)
+    assert_equal @spoon.length, "title1"
+    assert_equal @spoon.width, "ipso"
   end
 
   def test_create
-    p = Post.create(:title => "1234567890created!")
-    assert p.is_a?(Post)
-    @find_id = p.id
-    assert p.id
-    assert p.created_at
+    s = Spoon.create(:length => "1234567890created!")
+    assert s.is_a?(Spoon)
+    assert s.id
+    assert s.created_at
   end
 
   def test_find
-    p1 = Post.create(:title => "Welcome")
-    p2 = Post.find(p1.id)
+    p1 = Spoon.create(:length => "Welcome")
+    p2 = Spoon.find(p1.id)
     assert_equal p2.id, p2.id
   end
 
@@ -71,9 +92,11 @@ class TestParseResource < Test::Unit::TestCase
 	end
 
   def test_first
-    Post.create(:title => "firsttt")
-    p = Post.first
-    assert p.is_a?(Post)
+    f = Fork.create(:points => "firsttt")
+    p = Fork.first
+    assert p.is_a?(Fork)
+    assert f.id, p.id
+    assert f.points, p.points
   end
 
   def test_find_by
@@ -98,16 +121,15 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_destroy_all
-    p = Post.create(:title => "arbitrary")
-    Post.destroy_all
-    assert_equal Post.count, 0
+    p = Knife.create(:is_shiny => "arbitrary")
+    Knife.destroy_all
+    assert_equal Knife.count, 0
   end
 
   def test_chained_wheres
-    Post.destroy_all
-    p1 = Post.create(:title => "chained_wheres", :body => "testing")
-    p2 = Post.create(:title => "chained_wheres", :body => "testing_2")
-    query = Post.where(:title => "chained_wheres").where(:body => "testing")
+    p1 = Straw.create(:title => "chained_wheres", :body => "testing")
+    p2 = Straw.create(:title => "chained_wheres", :body => "testing_2")
+    query = Straw.where(:title => "chained_wheres").where(:body => "testing")
     p3 = query.first
     
     assert_equal p3.id, p1.id
@@ -158,7 +180,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_each
-    Post.destroy_all
+    #Post.destroy_all
     4.times do |i|
       #Post.create(:title => "each", :author => i.to_s)
       Post.create(:title => "each")
@@ -170,7 +192,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_map
-    Post.destroy_all
+    #Post.destroy_all
     4.times do |i|
       Post.create(:title => "map")
     end
