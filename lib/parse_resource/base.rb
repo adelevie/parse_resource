@@ -51,18 +51,19 @@ module ParseResource
     #
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
-    def self.field(name, val=nil)
+    def self.field(fname, val=nil)
       class_eval do
-        define_method(name) do
-          @attributes[name] ? @attributes[name] : @unsaved_attributes[name]
+        define_method(fname) do
+          get_attribute("#{fname}")
         end
-        define_method("#{name}=") do |val|
-          val = val.to_pointer if val.respond_to?(:to_pointer)
-          
-          @attributes[name] = val
-          @unsaved_attributes[name] = val
-          
-          val
+      end
+      unless self.respond_to? "#{fname}="
+        class_eval do
+          define_method("#{fname}=") do |val|
+            set_attribute("#{fname}", "#{val}")
+            
+            val
+          end
         end
       end
     end
@@ -89,67 +90,48 @@ module ParseResource
 
     # Creates setter methods for model fields
     def create_setters!(k,v)
-      self.class.send(:define_method, "#{k}=") do |val|
-        val = val.to_pointer if val.respond_to?(:to_pointer)
-
-        @attributes[k.to_s] = val
-        @unsaved_attributes[k.to_s] = val
-        
-        val
+      unless self.respond_to? "#{k}="
+        self.class.send(:define_method, "#{k}=") do |val|
+          set_attribute("#{k}", "#{val}")
+          
+          val
+        end
       end
     end
 
-    def self.method_missing(name, *args)
-      name = name.to_s
-      if name.start_with?("find_by_")
-        attribute   = name.gsub(/^find_by_/,"")
-        finder_name = "find_all_by_#{attribute}"
+    def self.method_missing(method_name, *args)
+      method_name = method_name.to_s
+      if method_name.start_with?("find_by_")
+        attrib   = method_name.gsub(/^find_by_/,"")
+        finder_name = "find_all_by_#{attrib}"
 
         define_singleton_method(finder_name) do |target_value|
-          where({attribute.to_sym => target_value}).first
+          where({attrib.to_sym => target_value}).first
         end
 
         send(finder_name, args[0])
 
-      elsif name.start_with?("find_all_by_")
-        attribute   = name.gsub(/^find_all_by_/,"")
-        finder_name = "find_all_by_#{attribute}"
+      elsif method_name.start_with?("find_all_by_")
+        attrib   = method_name.gsub(/^find_all_by_/,"")
+        finder_name = "find_all_by_#{attrib}"
 
         define_singleton_method(finder_name) do |target_value|
-          where({attribute.to_sym => target_value}).all
+          where({attrib.to_sym => target_value}).all
         end
 
         send(finder_name, args[0])
       else
-        super(name.to_sym, *args)
+        super(method_name.to_sym, *args)
       end
     end
 
     # Creates getter methods for model fields
     def create_getters!(k,v)
-      self.class.send(:define_method, "#{k}") do
-                
-        case @attributes[k]
-        when Hash
-          
-          klass_name = @attributes[k]["className"]
-          klass_name = "User" if klass_name == "_User"
-          
-          case @attributes[k]["__type"]
-          when "Pointer"
-            result = klass_name.constantize.find(@attributes[k]["objectId"])
-          when "Object"
-            result = klass_name.constantize.new(@attributes[k], false)
-          when "File"
-            result = @attributes[k]["url"]
-          end #todo: support Dates and other types https://www.parse.com/docs/rest#objects-types
-          
-        else
-          result =  @attributes[k]
+      unless self.respond_to? "#{k}"
+        self.class.send(:define_method, "#{k}") do
+          get_attribute("#{k}")
         end
-        
-        result
-      end      
+      end
     end
 
     def create_setters_and_getters!
@@ -293,7 +275,7 @@ module ParseResource
       attributes = HashWithIndifferentAccess.new(attributes)
       obj = new(attributes)
       obj.save
-      obj
+      obj # This won't return true/false it will return object or nil...
     end
 
     def self.destroy_all
@@ -438,8 +420,43 @@ module ParseResource
       @attributes
     end
 
+    def get_attribute(k)
+      attrs = @unsaved_attributes[k.to_s] ? @unsaved_attributes : @attributes
+      case attrs[k]
+      when Hash
+        klass_name = attrs[k]["className"]
+        klass_name = "User" if klass_name == "_User"
+        case attrs[k]["__type"]
+        when "Pointer"
+          result = klass_name.constantize.find(attrs[k]["objectId"])
+        when "Object"
+          result = klass_name.constantize.new(attrs[k], false)
+        when "Date"
+          result = DateTime.parse(attrs[k]["iso"])
+        when "File"
+          result = attrs[k]["url"]
+        end #todo: support other types https://www.parse.com/docs/rest#objects-types
+      else
+        result =  attrs["#{k}"]
+      end          
+      result
+    end
+
+    def set_attribute(k, v)
+      if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
+        v = {"__type" => "Date", "iso" => v.iso8601}
+      else
+        v = v.to_pointer if v.respond_to?(:to_pointer)
+      end
+      @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] || @unsaved_attributes[k.to_s]
+      @attributes[k.to_s] = v
+      v
+    end
+
+
     # aliasing for idiomatic Ruby
-    def id; self.objectId rescue nil; end
+    def id; get_attribute("objectId") rescue nil; end
+    def objectId; get_attribute("objectId") rescue nil; end
 
     def created_at; self.createdAt; end
 
