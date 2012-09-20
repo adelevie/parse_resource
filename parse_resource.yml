@@ -1,0 +1,12 @@
+development:
+  app_id: <%= ENV["PARSE_RESOURCE_APPLICATION_ID"] %>
+  master_key: <%= ENV["PARSE_RESOURCE_MASTER_KEY"] %>
+
+test:
+  app_id: <%= ENV["PARSE_RESOURCE_APPLICATION_ID"] %>
+  master_key: <%= ENV["PARSE_RESOURCE_MASTER_KEY"] %>
+
+
+production:
+  app_id: <%= ENV["PARSE_RESOURCE_APPLICATION_ID"] %>
+  master_key: <%= ENV["PARSE_RESOURCE_MASTER_KEY"] %>
