@@ -258,7 +258,7 @@ module ParseResource
       private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
       private_resource.post(file_instance, options) do |resp, req, res, &block|
         return false if resp.code == 400
-        return JSON.parse(resp)
+        return JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
       end
       false
     end
@@ -370,20 +370,18 @@ module ParseResource
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
         
         case resp.code 
-        when 400
-          
-          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(error_response["code"]).to_array
-          self.errors.add(pe[0], pe[1])
-          return false
-        else
+        when 200
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
           @unsaved_attributes = {}
           create_setters_and_getters!
           return true
+        else
+          error_response = JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
+          pe = ParseError.new(error_response["code"]).to_array
+          self.errors.add(pe[0], pe[1])
+          return false
         end
       end
     end
@@ -418,15 +416,7 @@ module ParseResource
       opts = {:content_type => "application/json"}
       result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
         case resp.code
-        when 400
-          
-          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
-          self.errors.add(pe[0], pe[1])
-          
-          return false
-        else
+        when 200
 
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
@@ -434,6 +424,12 @@ module ParseResource
           create_setters_and_getters!
 
           return true
+        else
+          error_response = JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
+          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+          self.errors.add(pe[0], pe[1])
+          
+          return false
         end
       end
     end
