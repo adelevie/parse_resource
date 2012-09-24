@@ -3,25 +3,26 @@ class ParseError
   def initialize(code, msg="")
     @msg = msg
     case code
-    when 202
-      @error = [:username, "must be unique"]
-    when 111
-      @error = [:base, "field set to incorrect type. Error code #{code}. #{msg}"]
-    when 125
-      @error = [:email, "must be valid"]
-    when 122
-      @error = [:file_name, "contains only a-zA-Z0-9_. characters and is between 1 and 36 characters."]
-    when 204
-      @error = [:email, "must not be missing"]
-    when 203
-      @error = [:email, "has already been taken"]
-    when 200
-      @error = [:username, "is missing or empty"]
-    when 201
-      @error = [:password, "is missing or empty"]
-    when 205
-      @error = [:user, "with specified email not found"]
+    when "400"
+      @error = "Bad Request: The request cannot be fulfilled due to bad syntax."
+    when "401"
+      @error = "Unauthorized: Check your App ID & Master Key."
+    when "403"
+      @error = "Forbidden: You do not have permission to access or modify this."
+    when "408"
+      @error = "Request Timeout: The request was not completed within the time the server was prepared to wait."
+    when "415"
+      @error = "Unsupported Media Type"
+    when "500"
+      @error = "Internal Server Error"
+    when "502"
+      @error = "Bad Gateway"
+    when "503"
+      @error = "Service Unavailable"
+    when "508"
+      @error = "Loop Detected"
     else
+      @error = "Unknown Error"
       raise "Parse error #{code}: #{@error}"
     end
   end

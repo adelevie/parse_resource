@@ -63,7 +63,7 @@ module ParseResource
       unless self.respond_to? "#{fname}="
         class_eval do
           define_method("#{fname}=") do |val|
-            set_attribute("#{fname}", "#{val}")
+            set_attribute("#{fname}", val)
             
             val
           end
@@ -95,7 +95,7 @@ module ParseResource
     def create_setters!(k,v)
       unless self.respond_to? "#{k}="
         self.class.send(:define_method, "#{k}=") do |val|
-          set_attribute("#{k}", "#{val}")
+          set_attribute("#{k}", val)
           
           val
         end
@@ -205,10 +205,12 @@ module ParseResource
       options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
       file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
 
+      filename = filename.parameterize
+
       private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
       private_resource.post(file_instance, options) do |resp, req, res, &block|
         return false if resp.code == 400
-        return JSON.parse(resp)
+        return JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
       end
       false
     end
@@ -280,22 +282,18 @@ module ParseResource
       opts = {:content_type => "application/json"}
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        
-        case resp.code 
-        when 400
-          
-          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(error_response["code"]).to_array
-          self.errors.add(pe[0], pe[1])
-          return false
-        else
+        if resp.code.to_s == "200" || resp.code.to_s == "201"
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
           @unsaved_attributes = {}
           create_setters_and_getters!
           return true
+        else
+          error_response = JSON.parse(resp)
+          pe = ParseError.new(resp.code.to_s).to_array
+          self.errors.add(pe[0], pe[1])
+          return false
         end
       end
     end
@@ -329,23 +327,17 @@ module ParseResource
       
       opts = {:content_type => "application/json"}
       result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        case resp.code
-        when 400
-          
-          # https://www.parse.com/docs/ios/api/Classes/PFConstants.html
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
-          self.errors.add(pe[0], pe[1])
-          
-          return false
-        else
-
+        if resp.code.to_s == "200" || resp.code.to_s == "201"
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           @unsaved_attributes = {}
           create_setters_and_getters!
-
           return true
+        else
+          error_response = JSON.parse(resp)
+          pe = ParseError.new(resp.code.to_s, error_response["error"]).to_array
+          self.errors.add(pe[0], pe[1])        
+          return false
         end
       end
     end
@@ -413,7 +405,7 @@ module ParseResource
       else
         v = v.to_pointer if v.respond_to?(:to_pointer)
       end
-      @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] || @unsaved_attributes[k.to_s]
+      @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
     end
