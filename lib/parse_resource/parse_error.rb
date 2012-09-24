@@ -22,6 +22,7 @@ class ParseError
     when 205
       @error = [:user, "with specified email not found"]
     else
+      @error = "Unknown Error"
       raise "Parse error #{code}: #{@error}"
     end
   end
