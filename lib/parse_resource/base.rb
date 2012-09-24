@@ -491,7 +491,7 @@ module ParseResource
       else
         v = v.to_pointer if v.respond_to?(:to_pointer)
       end
-      @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] || @unsaved_attributes[k.to_s]
+      @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
     end
