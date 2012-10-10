@@ -88,6 +88,10 @@ module ParseResource
       {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
     end
 
+    def self.to_date_object(date)
+      {"__type" => "Date", "iso" => date.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
+    end
+
     # Creates setter methods for model fields
     def create_setters!(k,v)
       unless self.respond_to? "#{k}="
@@ -487,9 +491,9 @@ module ParseResource
 
     def set_attribute(k, v)
       if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
-        v = {"__type" => "Date", "iso" => v.iso8601}
-      else
-        v = v.to_pointer if v.respond_to?(:to_pointer)
+        v = self.to_date_object(v)
+      elsif v.respond_to?(:to_pointer)
+        v = v.to_pointer 
       end
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
