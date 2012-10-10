@@ -491,7 +491,7 @@ module ParseResource
 
     def set_attribute(k, v)
       if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
-        v = self.to_date_object(v)
+        v = {"__type" => "Date", "iso" => v.iso8601}
       elsif v.respond_to?(:to_pointer)
         v = v.to_pointer 
       end
