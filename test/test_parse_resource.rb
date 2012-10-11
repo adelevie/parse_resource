@@ -224,4 +224,13 @@ class TestParseResource < Test::Unit::TestCase
     assert p.valid?
   end
 
+  def test_to_pointer
+
+  end
+
+  def test_to_date_object
+    date = DateTime.strptime("Thu, 11 Oct 2012 10:20:40 -0700", '%a, %d %b %Y %H:%M:%S %z')
+    assert_equal {"__type"=>"Date", "iso"=>"2012-10-11T10:20:40-07:00"}, Post.to_date_object(date)
+  end
+
 end
