@@ -225,7 +225,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_to_pointer
-
+    p = Post.create
+    assert_equal {"__type" => "Pointer", "className" => Post, "objectId" => p.id}, p.to_pointer
   end
 
   def test_to_date_object
