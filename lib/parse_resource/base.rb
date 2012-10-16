@@ -6,7 +6,6 @@ require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
 require "parse_resource/query"
-require "parse_resource/cloud"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
 
