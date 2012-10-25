@@ -479,7 +479,7 @@ module ParseResource
         when "Object"
           result = klass_name.constantize.new(attrs[k], false)
         when "Date"
-          result = DateTime.parse(attrs[k]["iso"])
+          result = DateTime.parse(attrs[k]["iso"]).to_time_in_current_zone
         when "File"
           result = attrs[k]["url"]
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
