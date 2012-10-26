@@ -24,11 +24,11 @@ class Query
   end
   
   # deprecating until it works
-  #def order(attribute)
-  #  attribute = attribute.to_sym if attribute.is_a?(String)
-  #  criteria[:order] = attribute
-  #  self
-  #end
+  def order(attribute)
+    attribute = attribute.to_sym if attribute.is_a?(String)
+    criteria[:order] = attribute
+    self
+  end
 
   def skip(skip)
    criteria[:skip] = skip
