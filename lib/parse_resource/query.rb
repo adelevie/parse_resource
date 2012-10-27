@@ -25,8 +25,10 @@ class Query
   
   # deprecating until it works
   def order(attribute)
-    attribute = attribute.to_sym if attribute.is_a?(String)
-    criteria[:order] = attribute
+    orders = attribute.split(" ")
+    if orders.count > 1
+      criteria[:order] = orders[1] == "desc" ? "-#{orders[0]}" : "+#{orders[0]}"
+    end
     self
   end
 

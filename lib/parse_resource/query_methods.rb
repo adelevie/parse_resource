@@ -44,7 +44,7 @@ module ParseResource
 	      Query.new(self).skip(n)
 	    end
 	    
-	    def self.order(attribute)
+	    def order(attribute)
 	      Query.new(self).order(attribute)
 	    end
 		end
