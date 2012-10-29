@@ -1,8 +1,6 @@
 require 'helper'
 require 'parse_resource'
 
-#path = "parse_resource.yml"
-#settings = YAML.load(ERB.new(File.new(path).read).result)['test']
 ParseResource::Base.load!(ENV["PARSE_RESOURCE_APPLICATION_ID"], ENV["PARSE_RESOURCE_MASTER_KEY"])
 
 class Bowl < ParseResource
