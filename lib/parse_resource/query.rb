@@ -24,10 +24,10 @@ class Query
   end
   
   # deprecating until it works
-  def order(attribute)
-    orders = attribute.split(" ")
+  def order(attr)
+    orders = attr.split(" ")
     if orders.count > 1
-      criteria[:order] = orders[1] == "desc" ? "-#{orders[0]}" : "+#{orders[0]}"
+      criteria[:order] = orders[1] == "desc" ? "-#{orders[0]}" : "#{orders[0]}"
     end
     self
   end
