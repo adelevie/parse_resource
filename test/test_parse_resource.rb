@@ -1,10 +1,6 @@
 require 'helper'
 require 'parse_resource'
 
-#path = "parse_resource.yml"
-#settings = YAML.load(ERB.new(File.new(path).read).result)['test']
-#ParseResource::Base.load!(settings['app_id'], settings['master_key'])
-
 ParseResource::Base.load!(ENV["PARSE_RESOURCE_APPLICATION_ID"], ENV["PARSE_RESOURCE_MASTER_KEY"])
 
 class Post < ParseResource::Base
@@ -163,6 +159,30 @@ class TestParseResource < Test::Unit::TestCase
       posts = Post.limit(5).all
       assert_equal posts.length, 5
     end
+  end
+
+  def test_order_descending
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("name desc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "2nd")
+  end
+
+  def test_order_ascending
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("name asc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "1st")
+  end
+
+  def test_order_no_field
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("desc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "1st")
   end
 
   #def test_skip
