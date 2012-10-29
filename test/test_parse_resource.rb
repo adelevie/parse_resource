@@ -161,6 +161,30 @@ class TestParseResource < Test::Unit::TestCase
     end
   end
 
+  def test_order_descending
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("name desc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "2nd")
+  end
+
+  def test_order_ascending
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("name asc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "1st")
+  end
+
+  def test_order_no_field
+    e1 = Event.create(:name => "1st")
+    e2 = Event.create(:name => "2nd")
+    events = Event.order("desc").all
+    Event.destroy_all
+    assert_equal true, (events[0].name == "1st")
+  end
+
   #def test_skip
   #  15.times do |i|
   #    Post.create(:title => "skip", :author => i)

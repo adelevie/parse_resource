@@ -17,32 +17,6 @@ class TestQueryOptions < Test::Unit::TestCase
   #def teardown
   #  Event.destroy_all
   #end
-  
-  def test_order_descending
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("name desc").all
-    Event.destroy_all
-    assert_equal true, (events[0].name == "2nd")
-  end
-
-  def test_order_ascending
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("name asc").all
-    Event.destroy_all
-    assert_equal true, (events[0].name == "1st")
-  end
-
-  def test_order_no_field
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("desc").all
-    Event.destroy_all
-    puts events[0].name
-    puts events[1].name
-    assert_equal true, (events[0].name == "1st")
-  end
 
   def test_skip
     VCR.use_cassette('test_skip', :record => :new_episodes) do
@@ -57,7 +31,6 @@ class TestQueryOptions < Test::Unit::TestCase
         all_events += results
         count += results.count
       end while not results.empty?
-      
       assert_equal true, (all_events.count == num_to_test)
 
       found_names = []
