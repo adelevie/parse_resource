@@ -88,6 +88,12 @@ module ParseResource
       {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
     end
 
+    def self.to_pointer
+      klass_name = self.class.model_name
+      klass_name = "_User" if klass_name == "User"
+      {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
+    end
+
     def self.to_date_object(date)
       {"__type" => "Date", "iso" => date.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
     end
