@@ -69,6 +69,11 @@ class Query
     execute
   end
 
+  def first
+    limit(1)
+    execute.first
+  end
+
   def method_missing(meth, *args, &block)
     if Array.method_defined?(meth)
       all.send(meth, *args, &block)
