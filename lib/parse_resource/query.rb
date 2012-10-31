@@ -51,7 +51,7 @@ class Query
 
     resp = @klass.resource.get(:params => params)
     
-    if self.class.class.settings[:log_queries]
+    if settings[:log_queries]
       puts "parse_resource query: #{params.to_json}"
     end
 
@@ -84,4 +84,7 @@ class Query
     end
   end
 
+  def settings
+    ParseResource::Base.settings
+  end
 end
