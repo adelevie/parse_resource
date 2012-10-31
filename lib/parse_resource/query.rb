@@ -52,7 +52,8 @@ class Query
     resp = @klass.resource.get(:params => params)
     
     if settings[:log_queries]
-      puts "parse_resource query: #{params.to_json}"
+      self.class.increment_queries
+      puts "parse_resource query ##{self.class.queries_executed}: #{params.to_json}"
     end
 
     if criteria[:count] == 1
@@ -86,5 +87,14 @@ class Query
 
   def settings
     ParseResource::Base.settings
+  end
+
+  def self.queries_executed
+    @queries_executed ||= 0
+  end
+
+  def self.increment_queries
+    @queries_executed ||= 0
+    @queries_executed += 1
   end
 end
