@@ -51,6 +51,10 @@ class Query
 
     resp = @klass.resource.get(:params => params)
     
+    if self.class.settings[:log_queries]
+      puts "parse_resource query: #{params.to_json}"
+    end
+
     if criteria[:count] == 1
       results = JSON.parse(resp)['count']
       return results.to_i
