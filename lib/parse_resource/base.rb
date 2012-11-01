@@ -391,6 +391,7 @@ module ParseResource
           error_response = JSON.parse(resp)
           pe = ParseError.new(resp.code.to_s).to_array
           self.errors.add(pe[0], pe[1])
+          self.add_error_instance pe
           return false
         end
       end
@@ -434,10 +435,19 @@ module ParseResource
         else
           error_response = JSON.parse(resp)
           pe = ParseError.new(resp.code.to_s, error_response["error"]).to_array
-          self.errors.add(pe[0], pe[1])
+          self.errors.add(pe[0], pe[1])        
+          self.add_error_instance pe
           return false
         end
       end
+    end
+
+    def error_instances
+      @error_instances ||= []
+    end
+
+    def add_error_instance(e)
+      @error_instances << e
     end
 
     def update_attributes(attributes = {})
