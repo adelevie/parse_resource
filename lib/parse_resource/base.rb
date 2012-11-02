@@ -325,10 +325,6 @@ module ParseResource
       Query.new(self).order(attribute)
     end
 
-    def self.cloud_function(function)
-      Cloud.new(self).order(function)
-    end
-
     # Create a ParseResource::Base object.
     #
     # @param [Hash] attributes a `Hash` of attributes
