@@ -511,13 +511,13 @@ module ParseResource
           result = attrs[k]["url"]
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
 
-        # if result
-        #   if @unsaved_attributes[k.to_s]
-        #     @unsaved_attributes[k.to_s] = result
-        #   else
-        #     @attributes[k.to_s] = result
-        #   end
-        # end
+        if result
+          if @unsaved_attributes[k.to_s]
+            @unsaved_attributes[k.to_s] = result
+          else
+            @attributes[k.to_s] = result
+          end
+        end
       else
         result =  attrs["#{k}"]
       end          
