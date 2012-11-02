@@ -60,11 +60,38 @@ class Query
     end
   end
 
+  def first
+    limit(1)
+    execute.first
+  end
+
   def all
     execute
   end
 
   def method_missing(meth, *args, &block)
+    method_name = method_name.to_s
+    if method_name.start_with?("find_by_")
+      attrib   = method_name.gsub(/^find_by_/,"")
+      finder_name = "find_all_by_#{attrib}"
+
+      define_singleton_method(finder_name) do |target_value|
+        where({attrib.to_sym => target_value}).first
+      end
+
+      send(finder_name, args[0])
+
+    elsif method_name.start_with?("find_all_by_")
+      attrib   = method_name.gsub(/^find_all_by_/,"")
+      finder_name = "find_all_by_#{attrib}"
+
+      define_singleton_method(finder_name) do |target_value|
+        where({attrib.to_sym => target_value}).all
+      end
+
+      send(finder_name, args[0])
+    end
+
     if Array.method_defined?(meth)
       all.send(meth, *args, &block)
     else
