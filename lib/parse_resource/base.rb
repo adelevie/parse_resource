@@ -224,6 +224,11 @@ module ParseResource
       @@settings
     end
 
+    def self.last_query
+      self.resource.last
+    end 
+
+
     # Creates a RESTful resource
     # sends requests to [base_uri]/[classname]
     #
