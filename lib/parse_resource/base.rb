@@ -381,6 +381,7 @@ module ParseResource
       @unsaved_attributes = @unsaved_attributes.map { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
 
       attrs = @unsaved_attributes.to_json
+      puts attrs
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
         if resp.code.to_s == "200" || resp.code.to_s == "201"
           @attributes.merge!(JSON.parse(resp))
@@ -511,13 +512,13 @@ module ParseResource
           result = attrs[k]["url"]
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
 
-        # if result
-        #   if @unsaved_attributes[k.to_s]
-        #     @unsaved_attributes[k.to_s] = result
-        #   else
-        #     @attributes[k.to_s] = result
-        #   end
-        # end
+        if result
+          if @unsaved_attributes[k.to_s]
+            @unsaved_attributes[k.to_s] = result
+          else
+            @attributes[k.to_s] = result
+          end
+        end
       else
         result =  attrs["#{k}"]
       end          
