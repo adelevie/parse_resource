@@ -9,6 +9,7 @@ require "parse_resource/query"
 require "parse_resource/query_methods"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
+require "parse_resource/types/parse_geopoint"
 
 module ParseResource
   
@@ -396,6 +397,8 @@ module ParseResource
           result = DateTime.parse(attrs[k]["iso"])
         when "File"
           result = attrs[k]["url"]
+        when "GeoPoint"
+          result = ParseGeoPoint.new(attrs[k])
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
       else
         result =  attrs["#{k}"]
