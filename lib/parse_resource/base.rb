@@ -206,10 +206,6 @@ module ParseResource
       @@settings = {"app_id" => app_id, "master_key" => master_key}
     end
 
-    def self.log_queries(value)
-      @@settings[:log_queries] = value
-    end
-
     def self.settings
       if @@settings.nil?
         path = "config/parse_resource.yml"
