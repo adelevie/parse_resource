@@ -261,22 +261,6 @@ Custom Getters and Setters
   end
 ```
 
-Debug Logging
-
-You can output all of the queries that parse_resource makes by adding this to your initializer:
-
-```ruby
-ParseResource::Base.log_queries(true)
-```
-
-Lazy loading with Parse.com is often a bad idea since Parse charges per request. You can choose to have 
-parse_resource warn you when this happens by adding this to your initializer:
-
-```ruby
-ParseResource::Base.warn_on_lazy_loading(true)
-```
-
-
 Documentation
 -------------
 [Here](http://rubydoc.info/gems/parse_resource/)

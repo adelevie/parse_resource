@@ -210,10 +210,6 @@ module ParseResource
       @@settings[:log_queries] = value
     end
 
-    def self.warn_on_lazy_loading(value)
-      @@settings[:warn_on_lazy_loading] = value
-    end
-
     def self.settings
       if @@settings.nil?
         path = "config/parse_resource.yml"
@@ -482,11 +478,6 @@ module ParseResource
       when Hash
         klass_name = attrs[k]["className"]
         klass_name = "User" if klass_name == "_User"
-
-        if self.class.settings[:warn_on_lazy_loading]
-          puts "parse_resource lazy loading warning: #{self.class.to_s} - #{klass_name}"
-        end
-
         case attrs[k]["__type"]
         when "Pointer"
           result = klass_name.constantize.find(attrs[k]["objectId"])
@@ -497,8 +488,6 @@ module ParseResource
         when "File"
           result = attrs[k]["url"]
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
-
-        attrs["#{k}"] = result if result
       else
         result =  attrs["#{k}"]
       end          
