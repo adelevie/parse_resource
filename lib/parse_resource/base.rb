@@ -378,6 +378,8 @@ module ParseResource
 
     def create
       opts = {:content_type => "application/json"}
+      @unsaved_attributes.map! { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
+      
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
         if resp.code.to_s == "200" || resp.code.to_s == "201"
@@ -417,7 +419,8 @@ module ParseResource
       attributes = HashWithIndifferentAccess.new(attributes)
         
       @unsaved_attributes.merge!(attributes)
-
+      @unsaved_attributes.map! { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
+      
       put_attrs = @unsaved_attributes
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
