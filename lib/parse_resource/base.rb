@@ -379,7 +379,6 @@ module ParseResource
     def create
       opts = {:content_type => "application/json"}
       @unsaved_attributes = @unsaved_attributes.each { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
-
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
         if resp.code.to_s == "200" || resp.code.to_s == "201"
