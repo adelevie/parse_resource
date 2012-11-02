@@ -419,7 +419,6 @@ module ParseResource
         
       @unsaved_attributes.merge!(attributes)
       @unsaved_attributes = @unsaved_attributes.each { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
-      
       put_attrs = @unsaved_attributes
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
