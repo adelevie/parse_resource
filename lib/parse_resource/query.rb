@@ -51,7 +51,7 @@ class Query
 
     resp = @klass.resource.get(:params => params)
     
-    if settings && settings[:log_queries]
+    if settings[:log_queries]
       puts "parse_resource query: #{params.to_json}"
     end
 
