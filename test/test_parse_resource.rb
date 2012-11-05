@@ -64,6 +64,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_initialize_with_args
+    Spoon.destroy_all
     @spoon = Spoon.new(:length => "title1", :width => "ipso")
     assert @spoon.is_a?(Spoon)
     assert_equal @spoon.length, "title1"
@@ -71,6 +72,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_create
+    Spoon.destroy_all
     VCR.use_cassette('test_create', :record => :new_episodes) do
       s = Spoon.create(:length => "1234567890created!")
       assert s.is_a?(Spoon)
@@ -80,6 +82,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_find
+    Spoon.destroy_all
     VCR.use_cassette('test_find', :record => :new_episodes) do
       p1 = Spoon.create(:length => "Welcome")
       p2 = Spoon.find(p1.id)
@@ -96,6 +99,7 @@ class TestParseResource < Test::Unit::TestCase
 	end
 
   def test_first
+    Fork.destroy_all
     VCR.use_cassette('test_first', :record => :new_episodes) do
       f = Fork.create(:points => "firsttt")
       p = Fork.first
@@ -141,6 +145,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_chained_wheres
+    Straw.destroy_all
     VCR.use_cassette('test_chained_wheres', :record => :new_episodes) do
       p1 = Straw.create(:title => "chained_wheres", :body => "testing")
       p2 = Straw.create(:title => "chained_wheres", :body => "testing_2")
@@ -152,6 +157,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_limit
+    Post.destroy_all
     VCR.use_cassette('test_limit', :record => :new_episodes) do
       15.times do |i|
         Post.create(:title => "foo_"+i.to_s)
@@ -194,6 +200,7 @@ class TestParseResource < Test::Unit::TestCase
   #end
 
   def test_all
+    Post.destroy_all
     VCR.use_cassette('test_all', :record => :new_episodes) do
       Post.create(:title => "11222")
       Post.create(:title => "112ssd22")
@@ -204,6 +211,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_attribute_getters
+    Post.destroy_all
     VCR.use_cassette('test_attribute_getters', :record => :new_episodes) do
       @post = Post.create(:title => "title1")
       assert_equal @post.attributes['title'], "title1"
@@ -212,6 +220,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_attribute_setters
+    Post.destroy_all
     VCR.use_cassette('test_attribute_setters', :record => :new_episodes) do
       @post = Post.create(:title => "1")
       @post.body = "newerbody"
@@ -220,6 +229,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_save
+    Post.destroy_all
     VCR.use_cassette('test_save', :record => :new_episodes) do
       @post = Post.create(:title => "testing save")
       @post.save
@@ -230,6 +240,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_each
+    Post.destroy_all
     VCR.use_cassette('test_each', :record => :new_episodes) do
       #Post.destroy_all
       4.times do |i|
@@ -244,6 +255,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_map
+    Post.destroy_all
     VCR.use_cassette('test_map', :record => :new_episodes) do
       #Post.destroy_all
       4.times do |i|
@@ -255,6 +267,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_id
+    Post.destroy_all
     VCR.use_cassette('test_id', :record => :new_episodes) do
       @post = Post.create(:title => "testing id")
       assert @post.respond_to?(:id)
@@ -264,6 +277,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_created_at
+    Post.destroy_all
     VCR.use_cassette('test_created_at', :record => :new_episodes) do
       @post = Post.create(:title => "testing created_at")
       assert @post.respond_to?(:created_at)
@@ -273,6 +287,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_updated_at
+    Post.destroy_all
     VCR.use_cassette('test_updated_at', :record => :new_episodes) do
       @post = Post.create(:title => "testing updated_at")
       @post.title = "something else"
@@ -282,6 +297,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_update
+    Post.destroy_all
     VCR.use_cassette('test_update', :record => :new_episodes) do
       @post = Post.create(:title => "stale title")
       updated_once = @post.updated_at
@@ -294,6 +310,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_destroy
+    Post.destroy_all
     VCR.use_cassette('test_destroy', :record => :new_episodes) do
       p = Post.create(:title => "hello1234567890abc!")
       id = p.id
