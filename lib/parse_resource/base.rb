@@ -371,7 +371,7 @@ module ParseResource
     def pointerize(hash)
       new_hash = {}
       hash.each do |k, v|
-        if a.respond_to?(:to_pointer)
+        if v.respond_to?(:to_pointer)
           new_hash[k] = v.to_pointer
         else
           new_hash[k] = v
