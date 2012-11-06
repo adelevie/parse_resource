@@ -2,7 +2,7 @@ class ParseError
   
   def initialize(code, msg="")
     @msg = msg
-    case code
+    case code.to_s
     when "111"
       @error = "Invalid type."
     when "400"
