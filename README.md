@@ -206,27 +206,36 @@ If you want to use parse_resource to back a simple authentication system for a R
 GeoPoints
 
 ```ruby
-    class Place < ParseResource::Base
-      fields :location
-    end
+class Place < ParseResource::Base
+  fields :location
+end
 
-    place = Place.new
-    place.location = ParseGeoPoint.new :latitude => 34.09300844216167, :longitude => -118.3780094460731
-    place.save
-    place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+place = Place.new
+place.location = ParseGeoPoint.new :latitude => 34.09300844216167, :longitude => -118.3780094460731
+place.save
+place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
 
 
-    place = Place.new
-    place.location = ParseGeoPoint.new
-    place.location.latitude = 34.09300844216167
-    place.location.longitude = -118.3780094460731
-    place.save
-    place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+place = Place.new
+place.location = ParseGeoPoint.new
+place.location.latitude = 34.09300844216167
+place.location.longitude = -118.3780094460731
+place.save
+place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
 
-    server_place = Place.find(place.objectId)
-    server_place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
-    server_place.location.latitude #=> 34.09300844216167
-    server_place.location.longitude #=> -118.3780094460731
+server_place = Place.find(place.objectId)
+server_place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+server_place.location.latitude #=> 34.09300844216167
+server_place.location.longitude #=> -118.3780094460731
+```
+
+Querying by GeoPoints
+
+```ruby
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInMiles => 10).all
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInKilometers => 10).all
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInRadians => 10/3959).all
+Place.within_box(:location, [33.81637559726026, -118.3783150233789], [34.09300844216167, -118.3780094460731]).all
 ```
 
 DEPRECATED

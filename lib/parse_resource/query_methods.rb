@@ -46,7 +46,15 @@ module ParseResource
 	    
 	    def order(attr)
 	      Query.new(self).order(attr)
-	    end
+      end
+
+      def near(near, geo_point, options={})
+        Query.new(self).near(near, geo_point, options)
+      end
+
+      def within_box(near, geo_point_south, geo_point_north)
+        Query.new(self).within_box(near, geo_point_south, geo_point_north)
+      end
 		end
 
 		def self.included(base)
