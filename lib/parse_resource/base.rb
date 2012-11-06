@@ -409,7 +409,11 @@ module ParseResource
           return true
         else
           error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s).to_array
+          if error_response["error"]
+            pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+          else
+            pe = ParseError.new(resp.code.to_s).to_array
+          end
           self.errors.add(pe[0], pe[1])
           return false
         end
@@ -438,7 +442,11 @@ module ParseResource
           return true
         else
           error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s, error_response["error"]).to_array
+          if error_response["error"]
+            pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+          else
+            pe = ParseError.new(resp.code.to_s).to_array
+          end
           self.errors.add(pe[0], pe[1])        
           return false
         end
