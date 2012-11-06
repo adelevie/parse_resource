@@ -368,9 +368,36 @@ module ParseResource
       self.class.resource["#{self.id}"]
     end
 
+    def pointerize(hash)
+      new_hash = {}
+      hash.each do |k, v|
+        if a.respond_to?(:to_pointer)
+          new_hash[k] = v.to_pointer
+        else
+          new_hash[k] = v
+        end
+      end
+      new_hash
+    end
+
+    def save
+      if valid?
+        run_callbacks :save do
+          if new?
+            return create 
+          else
+            return update
+          end
+        end
+      else
+        false
+      end
+      rescue false
+    end
+
     def create
       opts = {:content_type => "application/json"}
-      @unsaved_attributes = @unsaved_attributes.each { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
+      @unsaved_attributes = pointerize(@unsaved_attributes)
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
         if resp.code.to_s == "200" || resp.code.to_s == "201"
@@ -389,27 +416,12 @@ module ParseResource
       end
     end
 
-    def save
-      if valid?
-        run_callbacks :save do
-          if new?
-            return create 
-          else
-            return update
-          end
-        end
-      else
-        false
-      end
-      rescue false
-    end
-
     def update(attributes = {})
       
       attributes = HashWithIndifferentAccess.new(attributes)
         
       @unsaved_attributes.merge!(attributes)
-      @unsaved_attributes = @unsaved_attributes.each { |a| a.respond_to?(:to_pointer) ? a.to_pointer : a }
+      @unsaved_attributes = pointerize(@unsaved_attributes)
       put_attrs = @unsaved_attributes
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
