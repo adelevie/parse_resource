@@ -49,7 +49,7 @@ class Query
     params.merge!({:include => criteria[:include]}) if criteria[:include]
     params.merge!({:order => criteria[:order]}) if criteria[:order]
 
-    resp = @klass.resource.get(:params => params)
+    resp = @klass.resource.post(:params => params)
     
     if criteria[:count] == 1
       results = JSON.parse(resp)['count']
