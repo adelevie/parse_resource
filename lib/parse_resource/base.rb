@@ -26,6 +26,8 @@ module ParseResource
     extend ActiveModel::Callbacks
     HashWithIndifferentAccess = ActiveSupport::HashWithIndifferentAccess
 
+    attr_accessor :error_instances
+
     define_model_callbacks :save, :create, :update, :destroy
     
     # Instantiates a ParseResource::Base object
@@ -41,6 +43,7 @@ module ParseResource
         @unsaved_attributes = {}
       end
       self.attributes = {}
+      self.error_instances = []
             
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
@@ -415,6 +418,7 @@ module ParseResource
             pe = ParseError.new(resp.code.to_s).to_array
           end
           self.errors.add(pe[0], pe[1])
+          self.error_instances << pe     
           return false
         end
       end
@@ -447,7 +451,8 @@ module ParseResource
           else
             pe = ParseError.new(resp.code.to_s).to_array
           end
-          self.errors.add(pe[0], pe[1])        
+          self.errors.add(pe[0], pe[1])
+          self.error_instances << pe     
           return false
         end
       end
