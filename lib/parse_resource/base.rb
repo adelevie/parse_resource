@@ -536,6 +536,16 @@ module ParseResource
       
       self
     end
+    
+    # Needs to be saved
+    def dirty?
+      @unsaved_attributes.length > 0
+    end
+    
+    # Doesn't need to be saved...clean object
+    def clean?
+      !dirty?
+    end
 
     # provides access to @attributes for getting and setting
     def attributes
