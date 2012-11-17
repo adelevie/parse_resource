@@ -92,6 +92,7 @@ module ParseResource
     end
 
     def self.to_date_object(date)
+      date = date.to_time if date.respond_to?(:to_time)
       {"__type" => "Date", "iso" => date.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
     end
 
@@ -210,13 +211,7 @@ module ParseResource
     end
 
     def self.settings
-      if @@settings.nil?
-        path = "config/parse_resource.yml"
-        #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        environment = ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-      end
-      @@settings
+      load_settings
     end
     
     # Gets the current class's model name for the URI
@@ -224,7 +219,7 @@ module ParseResource
       if self.model_name == "User"
         "users"
       else
-        self.model_name
+        "classes/#{self.model_name}"
       end
     end
     
@@ -256,7 +251,6 @@ module ParseResource
     #
     def self.batch_save(objects)
       load_settings
-
       
       # attributes_for_saving
       batch_json = { "requests" => [] }
@@ -264,9 +258,9 @@ module ParseResource
       objects.each do |item|
         method = (item.new?) ? "POST" : "PUT"
         batch_json["requests"] << {
-          "method": method,
-          "path": "/1/classes/#{item.class.model_name_uri}",
-          "body": item.attributes_for_saving
+          "method" => method,
+          "path" => "/1/#{item.class.model_name_uri}",
+          "body" => item.attributes_for_saving
         }
       end
       
@@ -274,12 +268,29 @@ module ParseResource
       app_id     = @@settings['app_id']
       master_key = @@settings['master_key']
       
-      opts = {:content_type => "application/json"}
       res = RestClient::Resource.new(base_uri, app_id, master_key)
-      res.post(batch_json, opts) do |resp, req, res, &block|
-        puts "Received response!"
-        puts resp
+      res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
+        return false if resp.code == 400
+        response = JSON.parse(resp) rescue nil
+        if response && response.is_a?(Array) && response.length == objects.length
+          merge_all_attributes(objects, response)
+        else
+          puts resp
+        end
       end
+    end
+    
+    def self.merge_all_attributes(objects, response)
+      i = 0
+      objects.each do |item|
+        item.merge_attributes(response[i]["success"]) if response[i] && response[i]["success"]
+        i += 1
+      end
+      nil
+    end
+    
+    def self.save_all(objects)
+      batch_save(objects)
     end
     
     def self.load_settings
@@ -423,6 +434,8 @@ module ParseResource
       hash.each do |k, v|
         if v.respond_to?(:to_pointer)
           new_hash[k] = v.to_pointer
+        elsif v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
+          new_hash[k] = self.class.to_date_object(v)
         else
           new_hash[k] = v
         end
@@ -466,12 +479,18 @@ module ParseResource
       end
     end
     
+    # Merges in the return value of a save and resets the unsaved_attributes
+    def merge_attributes(results)
+      @attributes.merge!(results)
+      @attributes.merge!(@unsaved_attributes)
+      @unsaved_attributes = {}
+      create_setters_and_getters!
+      @attributes
+    end
+    
     def post_result(resp, req, res, &block)
       if resp.code.to_s == "200" || resp.code.to_s == "201"
-        @attributes.merge!(JSON.parse(resp))
-        @attributes.merge!(@unsaved_attributes)
-        @unsaved_attributes = {}
-        create_setters_and_getters!
+        merge_attributes(JSON.parse(resp))
         return true
       else
         error_response = JSON.parse(resp)
@@ -554,7 +573,7 @@ module ParseResource
 
     def set_attribute(k, v)
       if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
-        v = {"__type" => "Date", "iso" => v.iso8601}
+        v = self.class.to_date_object(v)
       elsif v.respond_to?(:to_pointer)
         v = v.to_pointer 
       end
