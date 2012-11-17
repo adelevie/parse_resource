@@ -253,6 +253,12 @@ module ParseResource
     def self.batch_save(save_objects, slice_size = 100)
       load_settings
       
+      base_uri = "https://api.parse.com/1/batch"
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
+      
+      res = RestClient::Resource.new(base_uri, app_id, master_key)
+        
       # Batch saves seem to fail if they're too big. We'll slice it up into multiple posts if they are.
       save_objects.each_slice(slice_size) do |objects|
         # attributes_for_saving
@@ -266,12 +272,6 @@ module ParseResource
             "body" => item.attributes_for_saving
           }
         end
-        
-        base_uri = "https://api.parse.com/1/batch"
-        app_id     = @@settings['app_id']
-        master_key = @@settings['master_key']
-        
-        res = RestClient::Resource.new(base_uri, app_id, master_key)
         res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
           return false if resp.code == 400
           response = JSON.parse(resp) rescue nil
