@@ -248,36 +248,39 @@ module ParseResource
     
     # Batch requests
     # Sends multiple requests to /batch
+    # Set slice_size to send larger batches. Defaults to 100 to prevent timeouts.
     #
-    def self.batch_save(objects)
+    def self.batch_save(save_objects, slice_size = 100)
       load_settings
       
-      # attributes_for_saving
-      batch_json = { "requests" => [] }
-      
-      objects.each do |item|
-        method = (item.new?) ? "POST" : "PUT"
-        batch_json["requests"] << {
-          "method" => method,
-          "path" => "/1/#{item.class.model_name_uri}",
-          "body" => item.attributes_for_saving
-        }
-      end
-      
-      base_uri = "https://api.parse.com/1/batch"
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
-      
-      res = RestClient::Resource.new(base_uri, app_id, master_key)
-      res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
-        return false if resp.code == 400
-        response = JSON.parse(resp) rescue nil
-        if response && response.is_a?(Array) && response.length == objects.length
-          merge_all_attributes(objects, response)
-        else
-          puts resp
+      # Batch saves seem to fail if they're too big. We'll slice it up into multiple posts if they are.
+      save_objects.each_slice(slice_size) do |objects|
+        # attributes_for_saving
+        batch_json = { "requests" => [] }
+        
+        objects.each do |item|
+          method = (item.new?) ? "POST" : "PUT"
+          batch_json["requests"] << {
+            "method" => method,
+            "path" => "/1/#{item.class.model_name_uri}",
+            "body" => item.attributes_for_saving
+          }
+        end
+        
+        base_uri = "https://api.parse.com/1/batch"
+        app_id     = @@settings['app_id']
+        master_key = @@settings['master_key']
+        
+        res = RestClient::Resource.new(base_uri, app_id, master_key)
+        res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
+          return false if resp.code == 400
+          response = JSON.parse(resp) rescue nil
+          if response && response.is_a?(Array) && response.length == objects.length
+            merge_all_attributes(objects, response)
+          end
         end
       end
+      true
     end
     
     def self.merge_all_attributes(objects, response)
