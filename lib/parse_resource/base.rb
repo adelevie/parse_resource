@@ -396,7 +396,7 @@ module ParseResource
       obj # This won't return true/false it will return object or nil...
     end
 
-    def self.destroy_all
+    def self.destroy_all(all)
       all.each do |object|
         object.destroy
       end
