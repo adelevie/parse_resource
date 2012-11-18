@@ -248,9 +248,10 @@ module ParseResource
     
     # Batch requests
     # Sends multiple requests to /batch
-    # Set slice_size to send larger batches. Defaults to 100 to prevent timeouts.
+    # Set slice_size to send larger batches. Defaults to 20 to prevent timeouts. 
+    # Parse doesn't support batches of over 20.
     #
-    def self.batch_save(save_objects, slice_size = 100)
+    def self.batch_save(save_objects, slice_size = 20)
       load_settings
       
       base_uri = "https://api.parse.com/1/batch"
@@ -273,8 +274,11 @@ module ParseResource
           }
         end
         res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
-          return false if resp.code == 400
           response = JSON.parse(resp) rescue nil
+          if resp.code == 400
+            puts resp
+            return false
+          end
           if response && response.is_a?(Array) && response.length == objects.length
             merge_all_attributes(objects, response)
           end
