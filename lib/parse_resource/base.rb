@@ -272,7 +272,7 @@ module ParseResource
             "method" => method,
             "path" => "/1/#{item.class.model_name_uri}"            
           }
-          json["body"] = item.attributes_for_saving unless method = "DELETE"
+          json["body"] = item.attributes_for_saving unless method == "DELETE"
           batch_json["requests"] << json
         end
         res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
