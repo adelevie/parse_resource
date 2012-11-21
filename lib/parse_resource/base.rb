@@ -251,7 +251,8 @@ module ParseResource
     # Set slice_size to send larger batches. Defaults to 20 to prevent timeouts. 
     # Parse doesn't support batches of over 20.
     #
-    def self.batch_save(save_objects, slice_size = 20)
+    def self.batch_save(save_objects, slice_size = 20, method = nil)
+      return true if save_objects.blank?
       load_settings
       
       base_uri = "https://api.parse.com/1/batch"
@@ -266,12 +267,13 @@ module ParseResource
         batch_json = { "requests" => [] }
         
         objects.each do |item|
-          method = (item.new?) ? "POST" : "PUT"
-          batch_json["requests"] << {
+          method ||= (item.new?) ? "POST" : "PUT"
+          json = {
             "method" => method,
-            "path" => "/1/#{item.class.model_name_uri}",
-            "body" => item.attributes_for_saving
+            "path" => "/1/#{item.class.model_name_uri}"            
           }
+          json["body"] = item.attributes_for_saving unless method = "DELETE"
+          batch_json["requests"] << json
         end
         res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
           response = JSON.parse(resp) rescue nil
@@ -298,6 +300,14 @@ module ParseResource
     
     def self.save_all(objects)
       batch_save(objects)
+    end
+
+    def self.destroy_all(objects)
+      batch_save(objects, 20, "DELETE")
+    end
+
+    def self.delete_all(o)
+      raise StandardError.new("Parse Resource: delete_all doesn't exist. Did you mean destroy_all?")
     end
     
     def self.load_settings
