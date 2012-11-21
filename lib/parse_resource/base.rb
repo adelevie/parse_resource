@@ -282,7 +282,7 @@ module ParseResource
             return false
           end
           if response && response.is_a?(Array) && response.length == objects.length
-            merge_all_attributes(objects, response)
+            merge_all_attributes(objects, response) unless method == "DELETE"
           end
         end
       end
