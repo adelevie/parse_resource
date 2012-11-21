@@ -129,11 +129,15 @@ p = Post.find(id) #simple find by id
 Post.find_by_title("Uncrunched") #=> A Post object
 Post.find_all_by_author("Arrington") #=> An Array of Posts
 
+# batch save an array of objects
+Post.save_all(array_of_objects)
+
+# destroy all objects, updated to use Parse batch destroy
+Post.destroy_all(array_of_objects)
+
 # you can chain method calls, just like in ActiveRecord
 Post.where(:param1 => "foo").where(:param2 => "bar").all
 
-# destroy all objects
-Post.destroy_all
 
 # limit the query
 posts = Post.limit(5).where(:foo => "bar")

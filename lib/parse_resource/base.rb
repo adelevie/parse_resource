@@ -413,11 +413,12 @@ module ParseResource
       obj # This won't return true/false it will return object or nil...
     end
 
-    def self.destroy_all(all)
-      all.each do |object|
-        object.destroy
-      end
-    end
+    # Replaced with a batch destroy_all method.
+    # def self.destroy_all(all)
+    #   all.each do |object|
+    #     object.destroy
+    #   end
+    # end
 
     def self.class_attributes
       @class_attributes ||= {}
