@@ -268,9 +268,11 @@ module ParseResource
         
         objects.each do |item|
           method ||= (item.new?) ? "POST" : "PUT"
+          object_path = "/1/#{item.class.model_name_uri}"
+          object_path = "#{object_path}/#{item.id}" if item.id
           json = {
             "method" => method,
-            "path" => "/1/#{item.class.model_name_uri}"            
+            "path" => object_path
           }
           json["body"] = item.attributes_for_saving unless method == "DELETE"
           batch_json["requests"] << json
