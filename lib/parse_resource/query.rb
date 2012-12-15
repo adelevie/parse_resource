@@ -14,6 +14,9 @@ class Query
   end
 
   def limit(limit)
+    # If > 1000, set chunking, because large queries over 1000 need it with Parse
+    chunk(1000) if limit > 1000
+
     criteria[:limit] = limit
     self
   end
@@ -36,8 +39,13 @@ class Query
 
   def count(count=1)
     criteria[:count] = count
-    #self
     all
+  end
+
+  # Divides the query into multiple chunks if you're running into RestClient::BadRequest errors.
+  def chunk(count=100)
+    criteria[:chunk] = count
+    self
   end
 
   def execute
@@ -49,6 +57,8 @@ class Query
     params.merge!({:include => criteria[:include]}) if criteria[:include]
     params.merge!({:order => criteria[:order]}) if criteria[:order]
 
+    return chunk_results if criteria[:chunk]
+
     resp = @klass.resource.get(:params => params)
     
     if criteria[:count] == 1
@@ -58,6 +68,22 @@ class Query
       results = JSON.parse(resp)['results']
       return results.map {|r| @klass.model_name.constantize.new(r, false)}
     end
+  end
+
+  def chunk_results
+    start_row = criteria[:skip].to_i
+    end_row = criteria[:limit] - start_row
+    result = []
+
+    # Start at start_row, go to end_row, get results in chunks
+    [start_row..end_row].each_slice(criteria[:chunk].to_i) do |slice|
+      params[:skip] = slice.first
+      params[:limit] = criteria[:chunk]
+      resp = @klass.resource.get(:params => params)
+      results = JSON.parse(resp)['results']
+      result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
+    end
+    result
   end
 
   def first
