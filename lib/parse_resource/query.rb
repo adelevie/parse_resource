@@ -48,15 +48,20 @@ class Query
     self
   end
 
-  def execute
-    params = {}
-    params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
-    params.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
-    params.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
-    params.merge!({:count => criteria[:count].to_json}) if criteria[:count]
-    params.merge!({:include => criteria[:include]}) if criteria[:include]
-    params.merge!({:order => criteria[:order]}) if criteria[:order]
+  def params
+    @params ||= begin 
+      p = {}
+      p.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
+      p.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
+      p.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
+      p.merge!({:count => criteria[:count].to_json}) if criteria[:count]
+      p.merge!({:include => criteria[:include]}) if criteria[:include]
+      p.merge!({:order => criteria[:order]}) if criteria[:order]
+    end
+    @params
+  end
 
+  def execute
     return chunk_results if criteria[:chunk]
 
     resp = @klass.resource.get(:params => params)
