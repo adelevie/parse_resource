@@ -404,6 +404,10 @@ module ParseResource
       Query.new(self).order(attribute)
     end
 
+    def self.chunk(attribute)
+      Query.new(self).chunk(attribute)
+    end
+
     # Create a ParseResource::Base object.
     #
     # @param [Hash] attributes a `Hash` of attributes

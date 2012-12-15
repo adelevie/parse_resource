@@ -48,21 +48,16 @@ class Query
     self
   end
 
-  def params
-    @params ||= begin 
-      p = {}
-      p.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
-      p.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
-      p.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
-      p.merge!({:count => criteria[:count].to_json}) if criteria[:count]
-      p.merge!({:include => criteria[:include]}) if criteria[:include]
-      p.merge!({:order => criteria[:order]}) if criteria[:order]
-    end
-    @params
-  end
-
   def execute
-    return chunk_results if criteria[:chunk]
+    params = {}
+    params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
+    params.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
+    params.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
+    params.merge!({:count => criteria[:count].to_json}) if criteria[:count]
+    params.merge!({:include => criteria[:include]}) if criteria[:include]
+    params.merge!({:order => criteria[:order]}) if criteria[:order]
+
+    return chunk_results(params) if criteria[:chunk]
 
     resp = @klass.resource.get(:params => params)
     
@@ -75,15 +70,16 @@ class Query
     end
   end
 
-  def chunk_results
+  def chunk_results(params={})
     start_row = criteria[:skip].to_i
-    end_row = criteria[:limit] - start_row
+    end_row = criteria[:limit].to_i - start_row - 1
     result = []
-
+    
     # Start at start_row, go to end_row, get results in chunks
-    [start_row..end_row].each_slice(criteria[:chunk].to_i) do |slice|
+    (start_row..end_row).each_slice(criteria[:chunk].to_i) do |slice|
       params[:skip] = slice.first
-      params[:limit] = criteria[:chunk]
+      params[:limit] = slice.length # Either the chunk size or the end of the limited results
+
       resp = @klass.resource.get(:params => params)
       results = JSON.parse(resp)['results']
       result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
