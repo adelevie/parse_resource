@@ -1,6 +1,9 @@
 ParseResource 
 =============
 
+[![Build Status](https://secure.travis-ci.org/adelevie/parse_resource.png)](http://travis-ci.org/adelevie/parse_resource)
+
+
 ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParseResource is fully ActiveModel compliant, meaning you can use validations and Rails forms.
 
 Ruby/Rails developers should feel right at home.
@@ -204,7 +207,42 @@ end
 
 If you want to use parse_resource to back a simple authentication system for a Rails app, follow this [tutorial](http://asciicasts.com/episodes/250-authentication-from-scratch), and make some simple modifications.
 
+GeoPoints
 
+```ruby
+class Place < ParseResource::Base
+  fields :location
+end
+
+place = Place.new
+place.location = ParseGeoPoint.new :latitude => 34.09300844216167, :longitude => -118.3780094460731
+place.save
+place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+
+
+place = Place.new
+place.location = ParseGeoPoint.new
+place.location.latitude = 34.09300844216167
+place.location.longitude = -118.3780094460731
+place.save
+place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+
+server_place = Place.find(place.objectId)
+server_place.location.inspect #=> #<ParseGeoPoint:0x007fb4f39c7de0 @latitude=34.09300844216167, @longitude=-118.3780094460731>
+server_place.location.latitude #=> 34.09300844216167
+server_place.location.longitude #=> -118.3780094460731
+```
+
+Querying by GeoPoints
+
+```ruby
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInMiles => 10).all
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInKilometers => 10).all
+Place.near(:location, [34.09300844216167, -118.3780094460731], :maxDistanceInRadians => 10/3959).all
+Place.within_box(:location, [33.81637559726026, -118.3783150233789], [34.09300844216167, -118.3780094460731]).all
+```
+
+DEPRECATED
 Associations
 
 ```ruby
@@ -296,9 +334,10 @@ Contributing to ParseResource
 *   Create `parse_resource.yml` in the root of the gem folder. Using the same format as `parse_resource.yml` in the instructions (except only creating a `test` environment, add your own API keys.
 *   Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
+
 Copyright
 ---------
 
-Copyright (c) 2011 Alan deLevie. See LICENSE.txt for
+Copyright (c) 2012 Alan deLevie. See LICENSE.txt for
 further details.
 

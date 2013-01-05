@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Post
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"title1"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '18'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Access-Control-Allow-Origin:
+      - https://parse.com, https://www.parse.com
+      Access-Control-Request-Method:
+      - ! '*'
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 20 Sep 2012 04:31:37 GMT
+      Location:
+      - https://api.parse.com/1/classes/Post/0LUIcFSUQZ
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWIzYmVmN2Q3YmE0ZDMxZWVhZWYyOTI4NjhjODBiNzc%3D--82e42ed02caf03df7430dbfc4cf8db56633c2fdc;
+        domain=.parse.com; path=/; expires=Tue, 20-Sep-2022 04:31:37 GMT; HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.024802'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2012-09-20T04:31:37.855Z","objectId":"0LUIcFSUQZ"}'
+    http_version: 
+  recorded_at: Thu, 20 Sep 2012 04:31:37 GMT
+recorded_with: VCR 2.2.4

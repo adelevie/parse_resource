@@ -26,9 +26,12 @@ class Query
     self
   end
   
-  def order(attribute)
-    attribute = attribute.to_sym if attribute.is_a?(String)
-    criteria[:order] = attribute
+  # deprecating until it works
+  def order(attr)
+    orders = attr.split(" ")
+    if orders.count > 1
+      criteria[:order] = orders[1] == "desc" ? "-#{orders[0]}" : "#{orders[0]}"
+    end
     self
   end
 
@@ -45,6 +48,38 @@ class Query
   # Divides the query into multiple chunks if you're running into RestClient::BadRequest errors.
   def chunk(count=100)
     criteria[:chunk] = count
+    self
+  end
+
+  def near(klass, geo_point, options)
+    if geo_point.is_a? Array
+      geo_point = ParseGeoPoint.new :latitude => geo_point[0], :longitude => geo_point[1]
+    end
+
+    query = { "$nearSphere" => geo_point.to_pointer }
+    if options[:maxDistanceInMiles]
+      query["$maxDistanceInMiles"] = options[:maxDistanceInMiles]
+    elsif options[:maxDistanceInRadians]
+      query["$maxDistanceInRadians"] = options[:maxDistanceInRadians]
+    elsif options[:maxDistanceInKilometers]
+      query["$maxDistanceInKilometers"] = options[:maxDistanceInKilometers]
+    end
+
+    criteria[:conditions].merge!({ klass => query })
+    self
+  end
+
+  def within_box(klass, geo_point_south, geo_point_north)
+    if geo_point_south.is_a? Array
+      geo_point_south = ParseGeoPoint.new :latitude => geo_point_south[0], :longitude => geo_point_south[1]
+    end
+
+    if geo_point_north.is_a? Array
+      geo_point_north = ParseGeoPoint.new :latitude => geo_point_north[0], :longitude => geo_point_north[1]
+    end
+
+    query = { "$within" => { "$box" => [geo_point_south.to_pointer, geo_point_north.to_pointer]}}
+    criteria[:conditions].merge!({ klass => query })
     self
   end
 

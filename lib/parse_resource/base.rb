@@ -6,8 +6,10 @@ require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
 require "parse_resource/query"
+require "parse_resource/query_methods"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
+require "parse_resource/types/parse_geopoint"
 
 module ParseResource
   
@@ -39,6 +41,7 @@ module ParseResource
 
       if new
         @unsaved_attributes = attributes
+        @unsaved_attributes.stringify_keys!
       else
         @unsaved_attributes = {}
       end
@@ -55,6 +58,7 @@ module ParseResource
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
     def self.field(fname, val=nil)
+      fname = fname.to_sym
       class_eval do
         define_method(fname) do
           get_attribute("#{fname}")
@@ -147,57 +151,6 @@ module ParseResource
         create_setters!(k,v)
         create_getters!(k,v)
       end
-    end
-      
-    def self.has_many(children, options = {})
-      options.stringify_keys!
-      
-      parent_klass_name = model_name
-      lowercase_parent_klass_name = parent_klass_name.downcase
-      parent_klass = model_name.constantize
-      child_klass_name = options['class_name'] || children.to_s.singularize.camelize
-      child_klass = child_klass_name.constantize
-      
-      if parent_klass_name == "User"
-        parent_klass_name = "_User"
-      end
-      
-      @@parent_klass_name = parent_klass_name
-      @@options ||= {}
-      @@options[children] ||= {}
-      @@options[children].merge!(options)
-      
-      send(:define_method, children) do
-        @@parent_id = self.id
-        @@parent_instance = self
-        
-        parent_klass_name = case
-          when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
-          when @@parent_klass_name == "User" then "_User"
-          else @@parent_klass_name.downcase
-        end
-        
-        query = child_klass.where(parent_klass_name.to_sym => @@parent_instance.to_pointer)
-        singleton = query.all
-        
-        class << singleton
-          def <<(child)
-            parent_klass_name = case
-              when @@options[children]['inverse_of'] then @@options[children]['inverse_of'].downcase
-              when @@parent_klass_name == "User" then @@parent_klass_name
-              else @@parent_klass_name.downcase
-            end
-            if @@parent_instance.respond_to?(:to_pointer)
-              child.send("#{parent_klass_name}=", @@parent_instance.to_pointer)
-              child.save
-            end
-            super(child)
-          end
-        end
-        
-        singleton
-      end
-      
     end
 
     @@settings ||= nil
@@ -362,47 +315,9 @@ module ParseResource
       Query.new(self).where(*args)
     end
     
-    # Include the attributes of a parent ojbect in the results
-    # Similar to ActiveRecord eager loading
-    #
-    def self.include_object(parent)
-      Query.new(self).include_object(parent)
-    end
 
-    # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
-    def self.count
-      #https://www.parse.com/docs/rest#queries-counting
-      Query.new(self).count(1)
-    end
+    include ParseResource::QueryMethods
 
-    # Find all ParseResource::Base objects for that model.
-    #
-    # @return [Array] an `Array` of objects that subclass `ParseResource`.
-    def self.all
-      Query.new(self).all
-    end
-
-    # Find the first object. Fairly random, not based on any specific condition.
-    #
-    def self.first
-      Query.new(self).limit(1).first
-    end
-
-    # Limits the number of objects returned
-    #
-    def self.limit(n)
-      Query.new(self).limit(n)
-    end
-
-    # Skip the number of objects
-    #
-    def self.skip(n)
-      Query.new(self).skip(n)
-    end
-    
-    def self.order(attribute)
-      Query.new(self).order(attribute)
-    end
 
     def self.chunk(attribute)
       Query.new(self).chunk(attribute)
@@ -598,6 +513,8 @@ module ParseResource
           result = DateTime.parse(attrs[k]["iso"]).to_time_in_current_zone
         when "File"
           result = attrs[k]["url"]
+        when "GeoPoint"
+          result = ParseGeoPoint.new(attrs[k])
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
       else
         result =  attrs["#{k}"]
