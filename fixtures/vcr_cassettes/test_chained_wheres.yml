@@ -158,4 +158,153 @@ http_interactions:
       string: ! '{"results":[{"title":"chained_wheres","body":"testing","createdAt":"2012-09-20T04:31:38.398Z","updatedAt":"2012-09-20T04:31:38.398Z","objectId":"FL3FsElVDU"}]}'
     http_version: 
   recorded_at: Thu, 20 Sep 2012 04:31:39 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Straw
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"chained_wheres","body":"testing"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '43'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 00:54:42 GMT
+      Location:
+      - https://api.parse.com/1/classes/Straw/TQid07Hiwi
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmMxMWE1MWFiMzIzM2IzZDFkYzYzMjJkMjFiNGVjMzM%3D--e446d28007485f3b5630da08f3e784f56ed422aa;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 00:54:42 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.028552'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-01-08T00:54:42.770Z","objectId":"TQid07Hiwi"}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 00:54:42 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Straw
+    body:
+      encoding: UTF-8
+      string: ! '{"title":"chained_wheres","body":"testing_2"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '45'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 00:54:43 GMT
+      Location:
+      - https://api.parse.com/1/classes/Straw/YM72rdetV3
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNTdlOTQwZjgzOTU1YzBjNTg5NDQ2Njk2OWFhYjY5NTg%3D--bdbe93026d155ef269da470a90aac50dc63b17ff;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 00:54:43 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.044164'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-01-08T00:54:43.300Z","objectId":"YM72rdetV3"}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 00:54:43 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Straw?limit=1&where=%7B%22title%22:%22chained_wheres%22,%22body%22:%22testing%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 00:54:43 GMT
+      Etag:
+      - ! '"915a79d03d6bbe183c75d7d7053d2f0e"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYzFmNzBlNDNiMjFjMmRiZTRkNmIyMTE2MTVhMWZlMTg%3D--af8b354dec6ae65732dc30aab4cc8cf45e0a393d;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 00:54:43 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.056196'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '159'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"title":"chained_wheres","body":"testing","createdAt":"2013-01-08T00:54:42.770Z","updatedAt":"2013-01-08T00:54:42.770Z","objectId":"TQid07Hiwi"}]}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 00:54:43 GMT
 recorded_with: VCR 2.2.4

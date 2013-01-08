@@ -28,6 +28,8 @@ module ParseResource
     extend ActiveModel::Callbacks
     HashWithIndifferentAccess = ActiveSupport::HashWithIndifferentAccess
 
+    attr_accessor :error_instances
+
     define_model_callbacks :save, :create, :update, :destroy
     
     # Instantiates a ParseResource::Base object
@@ -44,6 +46,7 @@ module ParseResource
         @unsaved_attributes = {}
       end
       self.attributes = {}
+      self.error_instances = []
             
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
@@ -89,10 +92,11 @@ module ParseResource
     def to_pointer
       klass_name = self.class.model_name
       klass_name = "_User" if klass_name == "User"
-      {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
+      {"__type" => "Pointer", "className" => klass_name.to_s, "objectId" => self.id}
     end
 
     def self.to_date_object(date)
+      date = date.to_time if date.respond_to?(:to_time)
       {"__type" => "Date", "iso" => date.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
     end
 
@@ -160,47 +164,123 @@ module ParseResource
     end
 
     def self.settings
-      if @@settings.nil?
-        path = "config/parse_resource.yml"
-        #environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        environment = ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-      end
-      @@settings
+      load_settings
     end
+    
+    # Gets the current class's model name for the URI
+    def self.model_name_uri
+      if self.model_name == "User"
+        "users"
+      else
+        "classes/#{self.model_name}"
+      end
+    end
+    
+    # Gets the current class's Parse.com base_uri
+    def self.model_base_uri
+      "https://api.parse.com/1/#{model_name_uri}"
+    end
+    
+    # Gets the current instance's parent class's Parse.com base_uri
+    def model_base_uri
+      self.class.send(:model_base_uri)
+    end
+    
 
     # Creates a RESTful resource
     # sends requests to [base_uri]/[classname]
     #
     def self.resource
-      if @@settings.nil?
-        path = "config/parse_resource.yml"
-        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-      end
-
-      if model_name == "User" #https://parse.com/docs/rest#users-signup
-        base_uri = "https://api.parse.com/1/users"
-      else
-        base_uri = "https://api.parse.com/1/classes/#{model_name}"
-      end
+      load_settings
 
       #refactor to settings['app_id'] etc
       app_id     = @@settings['app_id']
       master_key = @@settings['master_key']
-      RestClient::Resource.new(base_uri, app_id, master_key)
+      RestClient::Resource.new(self.model_base_uri, app_id, master_key)
     end
+    
+    # Batch requests
+    # Sends multiple requests to /batch
+    # Set slice_size to send larger batches. Defaults to 20 to prevent timeouts. 
+    # Parse doesn't support batches of over 20.
+    #
+    def self.batch_save(save_objects, slice_size = 20, method = nil)
+      return true if save_objects.blank?
+      load_settings
+      
+      base_uri = "https://api.parse.com/1/batch"
+      app_id     = @@settings['app_id']
+      master_key = @@settings['master_key']
+      
+      res = RestClient::Resource.new(base_uri, app_id, master_key)
+        
+      # Batch saves seem to fail if they're too big. We'll slice it up into multiple posts if they are.
+      save_objects.each_slice(slice_size) do |objects|
+        # attributes_for_saving
+        batch_json = { "requests" => [] }
+        
+        objects.each do |item|
+          method ||= (item.new?) ? "POST" : "PUT"
+          object_path = "/1/#{item.class.model_name_uri}"
+          object_path = "#{object_path}/#{item.id}" if item.id
+          json = {
+            "method" => method,
+            "path" => object_path
+          }
+          json["body"] = item.attributes_for_saving unless method == "DELETE"
+          batch_json["requests"] << json
+        end
+        res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
+          response = JSON.parse(resp) rescue nil
+          if resp.code == 400
+            puts resp
+            return false
+          end
+          if response && response.is_a?(Array) && response.length == objects.length
+            merge_all_attributes(objects, response) unless method == "DELETE"
+          end
+        end
+      end
+      true
+    end
+    
+    def self.merge_all_attributes(objects, response)
+      i = 0
+      objects.each do |item|
+        item.merge_attributes(response[i]["success"]) if response[i] && response[i]["success"]
+        i += 1
+      end
+      nil
+    end
+    
+    def self.save_all(objects)
+      batch_save(objects)
+    end
+
+    def self.destroy_all(objects)
+      batch_save(objects, 20, "DELETE")
+    end
+
+    def self.delete_all(o)
+      raise StandardError.new("Parse Resource: delete_all doesn't exist. Did you mean destroy_all?")
+    end
+    
+    def self.load_settings
+      @@settings ||= begin
+        path = "config/parse_resource.yml"
+        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
+        YAML.load(ERB.new(File.new(path).read).result)[environment]
+      end
+      @@settings
+    end
+    
 
     # Creates a RESTful resource for file uploads
     # sends requests to [base_uri]/files
     #
     def self.upload(file_instance, filename, options={})
-      if @@settings.nil?
-        path = "config/parse_resource.yml"
-        environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        @@settings = YAML.load(ERB.new(File.new(path).read).result)[environment]
-      end
-
+      load_settings
+      
       base_uri = "https://api.parse.com/1/files"
       
       #refactor to settings['app_id'] etc
@@ -239,6 +319,10 @@ module ParseResource
     include ParseResource::QueryMethods
 
 
+    def self.chunk(attribute)
+      Query.new(self).chunk(attribute)
+    end
+
     # Create a ParseResource::Base object.
     #
     # @param [Hash] attributes a `Hash` of attributes
@@ -250,11 +334,12 @@ module ParseResource
       obj # This won't return true/false it will return object or nil...
     end
 
-    def self.destroy_all
-      all.each do |object|
-        object.destroy
-      end
-    end
+    # Replaced with a batch destroy_all method.
+    # def self.destroy_all(all)
+    #   all.each do |object|
+    #     object.destroy
+    #   end
+    # end
 
     def self.class_attributes
       @class_attributes ||= {}
@@ -283,24 +368,18 @@ module ParseResource
       self.class.resource["#{self.id}"]
     end
 
-    def create
-      opts = {:content_type => "application/json"}
-      attrs = @unsaved_attributes.to_json
-      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        if resp.code.to_s == "200" || resp.code.to_s == "201"
-          @attributes.merge!(JSON.parse(resp))
-          @attributes.merge!(@unsaved_attributes)
-          attributes = HashWithIndifferentAccess.new(attributes)
-          @unsaved_attributes = {}
-          create_setters_and_getters!
-          return true
+    def pointerize(hash)
+      new_hash = {}
+      hash.each do |k, v|
+        if v.respond_to?(:to_pointer)
+          new_hash[k] = v.to_pointer
+        elsif v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
+          new_hash[k] = self.class.to_date_object(v)
         else
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s).to_array
-          self.errors.add(pe[0], pe[1])
-          return false
+          new_hash[k] = v
         end
       end
+      new_hash
     end
 
     def save
@@ -318,33 +397,60 @@ module ParseResource
       rescue false
     end
 
+    def create
+      attrs = attributes_for_saving.to_json
+      opts = {:content_type => "application/json"}
+      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
+        return post_result(resp, req, res, &block)
+      end
+    end
+
     def update(attributes = {})
       
       attributes = HashWithIndifferentAccess.new(attributes)
         
       @unsaved_attributes.merge!(attributes)
-
+      put_attrs = attributes_for_saving.to_json
+      
+      opts = {:content_type => "application/json"}
+      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
+        return post_result(resp, req, res, &block)
+      end
+    end
+    
+    # Merges in the return value of a save and resets the unsaved_attributes
+    def merge_attributes(results)
+      @attributes.merge!(results)
+      @attributes.merge!(@unsaved_attributes)
+      @unsaved_attributes = {}
+      create_setters_and_getters!
+      @attributes
+    end
+    
+    def post_result(resp, req, res, &block)
+      if resp.code.to_s == "200" || resp.code.to_s == "201"
+        merge_attributes(JSON.parse(resp))
+        return true
+      else
+        error_response = JSON.parse(resp)
+        if error_response["error"]
+          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+        else
+          pe = ParseError.new(resp.code.to_s).to_array
+        end
+        self.errors.add(pe[0], pe[1])
+        self.error_instances << pe     
+        return false
+      end      
+    end
+    
+    def attributes_for_saving
+      @unsaved_attributes = pointerize(@unsaved_attributes)
       put_attrs = @unsaved_attributes
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
-      put_attrs = put_attrs.to_json
-      
-      opts = {:content_type => "application/json"}
-      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        if resp.code.to_s == "200" || resp.code.to_s == "201"
-          @attributes.merge!(JSON.parse(resp))
-          @attributes.merge!(@unsaved_attributes)
-          @unsaved_attributes = {}
-          create_setters_and_getters!
-          return true
-        else
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s, error_response["error"]).to_array
-          self.errors.add(pe[0], pe[1])        
-          return false
-        end
-      end
+      put_attrs
     end
 
     def update_attributes(attributes = {})
@@ -368,6 +474,16 @@ module ParseResource
       @unsaved_attributes = {}
       
       self
+    end
+    
+    # Needs to be saved
+    def dirty?
+      @unsaved_attributes.length > 0
+    end
+    
+    # Doesn't need to be saved...clean object
+    def clean?
+      !dirty?
     end
 
     # provides access to @attributes for getting and setting
@@ -394,7 +510,7 @@ module ParseResource
         when "Object"
           result = klass_name.constantize.new(attrs[k], false)
         when "Date"
-          result = DateTime.parse(attrs[k]["iso"])
+          result = DateTime.parse(attrs[k]["iso"]).to_time_in_current_zone
         when "File"
           result = attrs[k]["url"]
         when "GeoPoint"
@@ -408,7 +524,7 @@ module ParseResource
 
     def set_attribute(k, v)
       if v.is_a?(Date) || v.is_a?(Time) || v.is_a?(DateTime)
-        v = {"__type" => "Date", "iso" => v.iso8601}
+        v = self.class.to_date_object(v)
       elsif v.respond_to?(:to_pointer)
         v = v.to_pointer 
       end

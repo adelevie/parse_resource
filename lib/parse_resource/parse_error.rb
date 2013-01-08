@@ -2,7 +2,9 @@ class ParseError
   
   def initialize(code, msg="")
     @msg = msg
-    case code
+    case code.to_s
+    when "111"
+      @error = "Invalid type."
     when "400"
       @error = "Bad Request: The request cannot be fulfilled due to bad syntax."
     when "401"
@@ -23,7 +25,7 @@ class ParseError
       @error = "Loop Detected"
     else
       @error = "Unknown Error"
-      raise "Parse error #{code}: #{@error}"
+      raise "Parse error #{code}: #{@error} #{@msg}"
     end
   end
   
