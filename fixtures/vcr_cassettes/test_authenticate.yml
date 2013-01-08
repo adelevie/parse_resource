@@ -152,4 +152,147 @@ http_interactions:
       string: ! '{"code":101,"error":"invalid login parameters"}'
     http_version: 
   recorded_at: Thu, 20 Sep 2012 04:31:54 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/users
+    body:
+      encoding: UTF-8
+      string: ! '{"username":"fake_person","password":"fake_pass"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '49'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 01:00:12 GMT
+      Location:
+      - https://api.parse.com/1/users/r4QL828pN3
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZDRjMGFkYjU5Njg3NWQ5MWIwZDI3ZDZkZGI0ODQ3ZGY%3D--92702c11b8a4e370acc257dc23449e4c9aced1e7;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 01:00:12 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.651284'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '107'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-01-08T01:00:11.807Z","objectId":"r4QL828pN3","sessionToken":"84ywxy16qvje7jlkj3d869tr8"}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 01:00:12 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/login?password=fake_pass&username=fake_person
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 01:00:12 GMT
+      Etag:
+      - ! '"514671dc6b33b27c5b893b92732a7001"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMDBmODVmMjRlZTc5YWZkMzU0MjU0ZDU5Njc5M2U4OTY%3D--f5401e8740c693513219c4163d086941b430ee7d;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 01:00:12 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.169376'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '171'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"username":"fake_person","createdAt":"2013-01-08T01:00:11.807Z","updatedAt":"2013-01-08T01:00:11.807Z","objectId":"r4QL828pN3","sessionToken":"84ywxy16qvje7jlkj3d869tr8"}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 01:00:12 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/login?password=wrong_pass&username=wrong_username
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 08 Jan 2013 01:00:13 GMT
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNzY5NzAzZDQ2NjFmMTZlZGFiYzJjNWNjMDdlZWI4MDI%3D--ce2293030db989b996678858babba10c512f6347;
+        domain=.parse.com; path=/; expires=Sun, 08-Jan-2023 01:00:13 GMT; secure;
+        HttpOnly
+      Status:
+      - 404 Not Found
+      X-Runtime:
+      - '0.191693'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '47'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"code":101,"error":"invalid login parameters"}'
+    http_version: 
+  recorded_at: Tue, 08 Jan 2013 01:00:13 GMT
 recorded_with: VCR 2.2.4
