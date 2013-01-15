@@ -203,6 +203,17 @@ end
 
 If you want to use parse_resource to back a simple authentication system for a Rails app, follow this [tutorial](http://asciicasts.com/episodes/250-authentication-from-scratch), and make some simple modifications.
 
+Installations
+
+Note: Because [Installations](https://parse.com/docs/rest#installations), are special in the Parse API, you must name your class Installation if you want to manipulate installation objects.
+
+```ruby
+class Installation < ParseResource::Base
+  fields :appName, :appVersion, :badge, :channels, :deviceToken, :deviceType,
+         :installationId, :parseVersion, :timeZone
+end
+```
+
 GeoPoints
 
 ```ruby
