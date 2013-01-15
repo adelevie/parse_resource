@@ -89,6 +89,7 @@ module ParseResource
     def to_pointer
       klass_name = self.class.model_name
       klass_name = "_User" if klass_name == "User"
+      klass_name = "_Installation" if klass_name == "Installation"
       {"__type" => "Pointer", "className" => klass_name, "objectId" => self.id}
     end
 
@@ -181,6 +182,8 @@ module ParseResource
 
       if model_name == "User" #https://parse.com/docs/rest#users-signup
         base_uri = "https://api.parse.com/1/users"
+      elsif model_name == "Installation" #https://parse.com/docs/rest#installations
+        base_uri = "https://api.parse.com/1/installations"
       else
         base_uri = "https://api.parse.com/1/classes/#{model_name}"
       end
@@ -388,6 +391,7 @@ module ParseResource
       when Hash
         klass_name = attrs[k]["className"]
         klass_name = "User" if klass_name == "_User"
+        klass_name = "Installation" if klass_name == "_Installation"
         case attrs[k]["__type"]
         when "Pointer"
           result = klass_name.constantize.find(attrs[k]["objectId"])
