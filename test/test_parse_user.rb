@@ -35,6 +35,8 @@ class TestParseUser < Test::Unit::TestCase
       u2 = User.new(:username => "alan", :password => "56789")
       u2.save
       assert_equal u2.errors.count, 1
+      parse_error_response = u2.errors["400"][0]
+      assert_equal 202, parse_error_response["code"] # username alan already taken
       assert_equal nil, u2.id
     end
   end
