@@ -290,7 +290,7 @@ module ParseResource
       opts = {:content_type => "application/json"}
       attrs = @unsaved_attributes.to_json
       result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        if resp.code.to_s == "200" || resp.code.to_s == "201"
+        if resp.code == 200 || resp.code == 201
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           attributes = HashWithIndifferentAccess.new(attributes)
@@ -299,7 +299,7 @@ module ParseResource
           return true
         else
           error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s).to_array
+          pe = ParseError.new(resp.code.to_s, error_response).to_array
           self.errors.add(pe[0], pe[1])
           return false
         end
@@ -335,7 +335,7 @@ module ParseResource
       
       opts = {:content_type => "application/json"}
       result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        if resp.code.to_s == "200" || resp.code.to_s == "201"
+        if resp.code == 200 || resp.code == 201
           @attributes.merge!(JSON.parse(resp))
           @attributes.merge!(@unsaved_attributes)
           @unsaved_attributes = {}
@@ -343,7 +343,7 @@ module ParseResource
           return true
         else
           error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s, error_response["error"]).to_array
+          pe = ParseError.new(resp.code.to_s, error_response).to_array
           self.errors.add(pe[0], pe[1])        
           return false
         end

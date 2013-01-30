@@ -31,8 +31,9 @@ class TestParseUser < Test::Unit::TestCase
     i = Installation.create(:deviceToken => "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
                             :channels => [""])
     assert_equal false, i.errors.empty?
-    # TODO: actually check for the parse error code 135, once ParseError is
-    # fixed to actually represent parse error codes.
+    assert_equal false, i.errors["400"].empty?
+    parse_error_response = i.errors["400"][0]
+    assert_equal 135, parse_error_response["code"] # deviceType must be specified in this operation
   end
 
 end
