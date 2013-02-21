@@ -287,21 +287,23 @@ module ParseResource
     end
 
     def create
-      opts = {:content_type => "application/json"}
-      attrs = @unsaved_attributes.to_json
-      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        if resp.code == 200 || resp.code == 201
-          @attributes.merge!(JSON.parse(resp))
-          @attributes.merge!(@unsaved_attributes)
-          attributes = HashWithIndifferentAccess.new(attributes)
-          @unsaved_attributes = {}
-          create_setters_and_getters!
-          return true
-        else
-          error_response = JSON.parse(resp)
-          pe = ParseError.new(resp.code.to_s, error_response).to_array
-          self.errors.add(pe[0], pe[1])
-          return false
+      run_callbacks :create do
+        opts = {:content_type => "application/json"}
+        attrs = @unsaved_attributes.to_json
+        self.resource.post(attrs, opts) do |resp, req, res, &block|
+          if resp.code == 200 || resp.code == 201
+            @attributes.merge!(JSON.parse(resp))
+            @attributes.merge!(@unsaved_attributes)
+            attributes = HashWithIndifferentAccess.new(attributes)
+            @unsaved_attributes = {}
+            create_setters_and_getters!
+            return true
+          else
+            error_response = JSON.parse(resp)
+            pe = ParseError.new(resp.code.to_s, error_response).to_array
+            self.errors.add(pe[0], pe[1])
+            return false
+          end
         end
       end
     end
@@ -310,7 +312,7 @@ module ParseResource
       if valid?
         run_callbacks :save do
           if new?
-            return create 
+            return create
           else
             return update
           end
@@ -322,9 +324,9 @@ module ParseResource
     end
 
     def update(attributes = {})
-      
+
       attributes = HashWithIndifferentAccess.new(attributes)
-        
+
       @unsaved_attributes.merge!(attributes)
 
       put_attrs = @unsaved_attributes
