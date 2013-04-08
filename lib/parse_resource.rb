@@ -7,6 +7,5 @@ require 'parse_resource/parse_user_validator'
 require 'parse_resource/parse_error'
 require 'kaminari_extension'
 
-
 module ParseResource
 end
