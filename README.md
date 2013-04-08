@@ -149,7 +149,7 @@ Post.where(:bar => "foo").count #=> 1337
 
 ```
 
-Pagination with [kaminnari](https://github.com/amatsuda/kaminari):
+Pagination with [kaminari](https://github.com/amatsuda/kaminari):
 
 ```ruby
 # get second page of results (default is 25 per page)
