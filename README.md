@@ -29,12 +29,14 @@ Installation
 Include in your `Gemfile`:
 
 ```ruby
+gem "kaminari" # optional for pagination support
 gem "parse_resource", "~> 1.7.2"
 ```
 
 Or just gem install:
 
 ```ruby
+gem install kaminari # optional for pagination support
 gem install parse_resource
 ```
 
@@ -144,6 +146,18 @@ posts.length #=> 5
 
 # get a count
 Post.where(:bar => "foo").count #=> 1337
+
+```
+
+Pagination with [kaminari](https://github.com/amatsuda/kaminari):
+
+```ruby
+# get second page of results (default is 25 per page)
+Post.page(2).where(:foo => "bar")
+
+# get second page with 100 results per page
+Post.page(2).per(100).where(:foo => "bar")
+
 ```
 
 Users
