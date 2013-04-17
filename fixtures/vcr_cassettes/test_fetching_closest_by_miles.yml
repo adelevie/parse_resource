@@ -1,0 +1,756 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:33 GMT
+      Etag:
+      - ! '"fa6a23d85f46c25c732f394e537a2140"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZGQ2NTdkYjkzNzFkOWQ0YTY3NzhkMDJkMGY3YWY0NjA%3D--783b4e6b1a66d0d6013db1e796b7423ffba7d549;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:33 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.032932'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2175'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"location":{"__type":"GeoPoint","latitude":34.09300844216167,"longitude":-118.3780094460731},"createdAt":"2013-04-17T07:22:25.687Z","updatedAt":"2013-04-17T07:22:25.687Z","objectId":"URw3ycJrI8"},{"location":{"__type":"GeoPoint","latitude":34.09297074516132,"longitude":-118.3779001235962},"createdAt":"2013-04-17T07:22:26.229Z","updatedAt":"2013-04-17T07:22:26.229Z","objectId":"X6PeZv809j"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:26.763Z","updatedAt":"2013-04-17T07:22:26.763Z","objectId":"kAlvDmjEBE"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:27.299Z","updatedAt":"2013-04-17T07:22:27.299Z","objectId":"9pQTj21Fko"},{"location":{"__type":"GeoPoint","latitude":34.10020829969745,"longitude":-118.2852727109533},"createdAt":"2013-04-17T07:22:27.858Z","updatedAt":"2013-04-17T07:22:27.858Z","objectId":"ZsNWUQ3ZQy"},{"location":{"__type":"GeoPoint","latitude":33.81637559726026,"longitude":-118.3783150233789},"createdAt":"2013-04-17T07:22:28.388Z","updatedAt":"2013-04-17T07:22:28.388Z","objectId":"YSW0uCoZeR"},{"location":{"__type":"GeoPoint","latitude":36.11837535750446,"longitude":-115.1759274967512},"createdAt":"2013-04-17T07:22:28.925Z","updatedAt":"2013-04-17T07:22:28.925Z","objectId":"Ubbt5coNa5"},{"location":{"__type":"GeoPoint","latitude":48.0284736030277,"longitude":37.79059904775168},"createdAt":"2013-04-17T07:22:29.480Z","updatedAt":"2013-04-17T07:22:29.480Z","objectId":"TFKHZNCMNA"},{"location":{"__type":"GeoPoint","latitude":48.02790593385819,"longitude":37.78864582772938},"createdAt":"2013-04-17T07:22:30.011Z","updatedAt":"2013-04-17T07:22:30.011Z","objectId":"S19QLMJSDC"},{"location":{"__type":"GeoPoint","latitude":48.02776282648577,"longitude":37.78850555419922},"createdAt":"2013-04-17T07:22:30.621Z","updatedAt":"2013-04-17T07:22:30.621Z","objectId":"2W7p7bO3pO"},{"location":{"__type":"GeoPoint","latitude":48.02750452121758,"longitude":37.78846263885498},"createdAt":"2013-04-17T07:22:31.424Z","updatedAt":"2013-04-17T07:22:31.424Z","objectId":"KmhG6m7tSd"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:34 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Place/URw3ycJrI8"},{"method":"DELETE","path":"/1/classes/Place/X6PeZv809j"},{"method":"DELETE","path":"/1/classes/Place/kAlvDmjEBE"},{"method":"DELETE","path":"/1/classes/Place/9pQTj21Fko"},{"method":"DELETE","path":"/1/classes/Place/ZsNWUQ3ZQy"},{"method":"DELETE","path":"/1/classes/Place/YSW0uCoZeR"},{"method":"DELETE","path":"/1/classes/Place/Ubbt5coNa5"},{"method":"DELETE","path":"/1/classes/Place/TFKHZNCMNA"},{"method":"DELETE","path":"/1/classes/Place/S19QLMJSDC"},{"method":"DELETE","path":"/1/classes/Place/2W7p7bO3pO"},{"method":"DELETE","path":"/1/classes/Place/KmhG6m7tSd"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '641'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:34 GMT
+      Etag:
+      - ! '"5d25c8fb038e7f7d6fcb7bf4c72e3298"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMzNmYTMzYTMwY2EyOTFiZThmNGRkOTAzYzJjMmUyNjc%3D--5d32a8a44d07f5430f197f240c5912a481dd6ca5;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:34 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.172407'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '188'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true}]'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:34 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":34.09300844216167,"longitude":-118.3780094460731}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:35 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/aYuL7PJqZM
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOTJlNmUwOGUwNDk5MDhlOWM4OGEwMTkxNjBhZjdjYjA%3D--ae16e22007cb77582e8ef994d5024c7ec61a121e;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:35 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.030964'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:35.207Z","objectId":"aYuL7PJqZM"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:35 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":34.09297074516132,"longitude":-118.3779001235962}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:35 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/LUKW57uogQ
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNThmZDYyMzQ3MjZkZjIyOTg5OTA3NTA2YmRiOTBhYTU%3D--66077124b1e7b0adfa72216a82a50a90a217c3ff;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:35 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.033742'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:35.803Z","objectId":"LUKW57uogQ"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:35 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:36 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/CSXQufnyHk
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNGExNmU1NWI3MDdmMWM4OGFiZjkyZGU5ZTk4MzI2OGU%3D--fe28150404563082b71be2643481a5b686558ba0;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:36 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.035873'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:36.350Z","objectId":"CSXQufnyHk"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:36 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:36 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/vNdgbPXuNK
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlM2U4ZjBlMDRiYzNmNDg0ZmFmNDE5YWI3MDM2YmZlZWE%3D--329b387c5167fd93864c27d8a1673d53fa6bed96;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:36 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.040605'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:36.896Z","objectId":"vNdgbPXuNK"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:36 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":34.10020829969745,"longitude":-118.2852727109533}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:37 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/XjF0EQbjXg
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZjExMGExYzExNjY2MWUxYTdkYWI4ZTAzZDJmYjVjODg%3D--6fc40162a0193085c13c3d8db3a9ae98ebc2a029;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:37 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.031492'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:37.444Z","objectId":"XjF0EQbjXg"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:37 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":33.81637559726026,"longitude":-118.3783150233789}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:37 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/LhvKvRQX6H
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNjViOTk5ZmQwYzg4YjQwOGNkMDEwNjhmNzZjMGEwODM%3D--42bc02456625e31309411824ae661dc9c095b976;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:37 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.031914'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:37.984Z","objectId":"LhvKvRQX6H"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:38 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":36.11837535750446,"longitude":-115.1759274967512}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '94'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:38 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/zYnuJ0nXlR
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmFlNjJiODMyMjMxYTYzNTUxNWM5ZDBmMzZlYmM4YmY%3D--fb477a0ac45b054ac0d0b2f99a2a63c21ebfcdcb;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:38 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.029566'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:38.521Z","objectId":"zYnuJ0nXlR"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:38 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":48.0284736030277,"longitude":37.79059904775168}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '92'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:39 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/ABADFlJ0Yy
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNzJiYzQ1MjQ0ODI1YjNmZDBhNzlkZTBlN2JjMTFmNzY%3D--a86f4b4ae2ba19013bb346635ae20d54e0ce7d66;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:39 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.027409'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:39.061Z","objectId":"ABADFlJ0Yy"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:39 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":48.02790593385819,"longitude":37.78864582772938}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '93'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:39 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/h4VEnm7tMS
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjYzMjdmZmNhMTA0NTkxMWMwMjY4NDBlMmRlZmM0ZDI%3D--7c778c8fd55b43b2c55c31e541d6a4dacabb39a9;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:39 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.246468'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:39.823Z","objectId":"h4VEnm7tMS"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:39 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":48.02776282648577,"longitude":37.78850555419922}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '93'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:40 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/MLoAOggKOl
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMGMzOTQ5MzQ0ODRlZDIyMTJhNGNhMTQzYmRhN2MxODU%3D--11224395ec1db1826a62ec6094bb37051728dc94;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:40 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.038729'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:40.391Z","objectId":"MLoAOggKOl"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:40 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place
+    body:
+      encoding: UTF-8
+      string: ! '{"location":{"__type":"GeoPoint","latitude":48.02750452121758,"longitude":37.78846263885498}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '93'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:40 GMT
+      Location:
+      - https://api.parse.com/1/classes/Place/u5eLR2dte5
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTZiNWYyNzNmNDZhNzFiZjA5MzNhMzJiYjZhYTUwOTU%3D--fb9cd7b627f1b4aafc590eb25894eba05526d7d7;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:40 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.043195'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T07:22:40.960Z","objectId":"u5eLR2dte5"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:41 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place?count=1&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:41 GMT
+      Etag:
+      - ! '"c62df30215a46ec5c2099d9ffd3ac37f"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNjg3N2YxZWQ0NzI4ZWU0OTFjMTQ2ODZhYzEyOWE1M2U%3D--4ee5e21cf8f460dc68dd1082410ddddf926a5f37;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:41 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.030786'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2186'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"location":{"__type":"GeoPoint","latitude":34.09300844216167,"longitude":-118.3780094460731},"createdAt":"2013-04-17T07:22:35.207Z","updatedAt":"2013-04-17T07:22:35.207Z","objectId":"aYuL7PJqZM"},{"location":{"__type":"GeoPoint","latitude":34.09297074516132,"longitude":-118.3779001235962},"createdAt":"2013-04-17T07:22:35.803Z","updatedAt":"2013-04-17T07:22:35.803Z","objectId":"LUKW57uogQ"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:36.350Z","updatedAt":"2013-04-17T07:22:36.350Z","objectId":"CSXQufnyHk"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:36.896Z","updatedAt":"2013-04-17T07:22:36.896Z","objectId":"vNdgbPXuNK"},{"location":{"__type":"GeoPoint","latitude":34.10020829969745,"longitude":-118.2852727109533},"createdAt":"2013-04-17T07:22:37.444Z","updatedAt":"2013-04-17T07:22:37.444Z","objectId":"XjF0EQbjXg"},{"location":{"__type":"GeoPoint","latitude":33.81637559726026,"longitude":-118.3783150233789},"createdAt":"2013-04-17T07:22:37.984Z","updatedAt":"2013-04-17T07:22:37.984Z","objectId":"LhvKvRQX6H"},{"location":{"__type":"GeoPoint","latitude":36.11837535750446,"longitude":-115.1759274967512},"createdAt":"2013-04-17T07:22:38.521Z","updatedAt":"2013-04-17T07:22:38.521Z","objectId":"zYnuJ0nXlR"},{"location":{"__type":"GeoPoint","latitude":48.0284736030277,"longitude":37.79059904775168},"createdAt":"2013-04-17T07:22:39.061Z","updatedAt":"2013-04-17T07:22:39.061Z","objectId":"ABADFlJ0Yy"},{"location":{"__type":"GeoPoint","latitude":48.02790593385819,"longitude":37.78864582772938},"createdAt":"2013-04-17T07:22:39.823Z","updatedAt":"2013-04-17T07:22:39.823Z","objectId":"h4VEnm7tMS"},{"location":{"__type":"GeoPoint","latitude":48.02776282648577,"longitude":37.78850555419922},"createdAt":"2013-04-17T07:22:40.391Z","updatedAt":"2013-04-17T07:22:40.391Z","objectId":"MLoAOggKOl"},{"location":{"__type":"GeoPoint","latitude":48.02750452121758,"longitude":37.78846263885498},"createdAt":"2013-04-17T07:22:40.960Z","updatedAt":"2013-04-17T07:22:40.960Z","objectId":"u5eLR2dte5"}],"count":11}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:41 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Place?where=%7B%22location%22:%7B%22$nearSphere%22:%7B%22__type%22:%22GeoPoint%22,%22latitude%22:34.09300844216167,%22longitude%22:-118.3780094460731%7D,%22$maxDistanceInMiles%22:10%7D%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 07:22:42 GMT
+      Etag:
+      - ! '"daaea03c3a8bce660330bdec7381565d"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjI5OTM5NjQ2ODQzYTA0NzFiMWI0NjVmYmNiMWNjZmI%3D--c7ef69b8f25fd73ffde3dcc6260b90efa3c81f6f;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 07:22:42 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.035982'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '998'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"location":{"__type":"GeoPoint","latitude":34.09300844216167,"longitude":-118.3780094460731},"createdAt":"2013-04-17T07:22:35.207Z","updatedAt":"2013-04-17T07:22:35.207Z","objectId":"aYuL7PJqZM"},{"location":{"__type":"GeoPoint","latitude":34.09297074516132,"longitude":-118.3779001235962},"createdAt":"2013-04-17T07:22:35.803Z","updatedAt":"2013-04-17T07:22:35.803Z","objectId":"LUKW57uogQ"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:36.896Z","updatedAt":"2013-04-17T07:22:36.896Z","objectId":"vNdgbPXuNK"},{"location":{"__type":"GeoPoint","latitude":34.09291733023489,"longitude":-118.3780601208767},"createdAt":"2013-04-17T07:22:36.350Z","updatedAt":"2013-04-17T07:22:36.350Z","objectId":"CSXQufnyHk"},{"location":{"__type":"GeoPoint","latitude":34.10020829969745,"longitude":-118.2852727109533},"createdAt":"2013-04-17T07:22:37.444Z","updatedAt":"2013-04-17T07:22:37.444Z","objectId":"XjF0EQbjXg"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 07:22:42 GMT
+recorded_with: VCR 2.4.0

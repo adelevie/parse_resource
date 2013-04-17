@@ -7,6 +7,12 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
+begin
+  require 'turn/autorun'; 
+  # Turn.config.trace = 8
+  # Turn.config.format = :outline
+rescue LoadError
+end
 require 'test/unit'
 require 'vcr'
 require 'webmock/test_unit'

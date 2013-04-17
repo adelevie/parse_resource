@@ -3,14 +3,20 @@ class ParseError
   # HTTP response is 400, one can inspect the first element of the error
   # converted to_array for the HTTP error code and the 2nd element for the
   # parse error response.
+  attr_accessor :msg, :code, :error
   
   # @param [String] an error code, e.g. "400"
   # @param [Object] an optional error mesg/object.
   def initialize(code, msg="")
     @msg = msg
+    @code = code
     case code.to_s
     when "111"
       @error = "Invalid type."
+    when "135"
+      @error = "Unknown device type."
+    when "202"
+      @error = "Username already taken."
     when "400"
       @error = "Bad Request: The request cannot be fulfilled due to bad syntax."
     when "401"
@@ -36,8 +42,7 @@ class ParseError
   end
   
   def to_array
-    @error[1] = @error[1] + " " + @msg
-    @error
+    [ @code, @msg ]
   end
   
 end

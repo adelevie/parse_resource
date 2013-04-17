@@ -29,19 +29,19 @@ class TestParseUser < Test::Unit::TestCase
   #end
   
   def test_username_should_be_unique
-    User.destroy_all(User.all)
     VCR.use_cassette('test_username_should_be_unique', :record => :new_episodes) do
+      User.destroy_all
       u = User.create(:username => "alan", :password => "12345")
       u2 = User.new(:username => "alan", :password => "56789")
       u2.save
-      assert_equal u2.errors.count, 1
+      assert_equal 1, u2.errors.count
       assert_equal nil, u2.id
     end
   end
   
   def test_authenticate
-    User.destroy_all(User.all)
     VCR.use_cassette('test_authenticate', :record => :new_episodes) do
+      User.destroy_all
       user = "fake_person"
       pass = "fake_pass"
       u1 = User.create(:username => user, :password => pass)

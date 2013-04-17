@@ -172,6 +172,8 @@ module ParseResource
     def self.model_name_uri
       if self.model_name == "User"
         "users"
+      elsif self.model_name == "Installation"
+        "installations"
       else
         "classes/#{self.model_name}"
       end
@@ -258,7 +260,8 @@ module ParseResource
       batch_save(objects)
     end
 
-    def self.destroy_all(objects)
+    def self.destroy_all(objects=nil)
+      objects ||= self.all
       batch_save(objects, 20, "DELETE")
     end
 
@@ -332,7 +335,7 @@ module ParseResource
       attributes = HashWithIndifferentAccess.new(attributes)
       obj = new(attributes)
       obj.save
-      obj # This won't return true/false it will return object or nil...
+      obj
     end
 
     # Replaced with a batch destroy_all method.
@@ -435,11 +438,11 @@ module ParseResource
       else
         error_response = JSON.parse(resp)
         if error_response["error"]
-          pe = ParseError.new(error_response["code"], error_response["error"]).to_array
+          pe = ParseError.new(error_response["code"], error_response["error"])
         else
-          pe = ParseError.new(resp.code.to_s).to_array
+          pe = ParseError.new(resp.code.to_s)
         end
-        self.errors.add(pe[0], pe[1])
+        self.errors.add(pe.code.to_s.to_sym, pe.msg)
         self.error_instances << pe     
         return false
       end      
@@ -537,9 +540,9 @@ module ParseResource
     def id; get_attribute("objectId") rescue nil; end
     def objectId; get_attribute("objectId") rescue nil; end
 
-    def created_at; self.createdAt; end
+    def created_at; get_attribute("createdAt"); end
 
-    def updated_at; self.updatedAt rescue nil; end
+    def updated_at; get_attribute("updatedAt"); rescue nil; end
 
     def self.included(base)
       base.extend(ClassMethods)

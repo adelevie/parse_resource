@@ -28,6 +28,10 @@ class Straw < ParseResource::Base
   fields :title, :body
 end
 
+class Event < ParseResource::Base
+  field :name
+end
+
 class TestParseResource < Test::Unit::TestCase
 
   #def setup
@@ -52,28 +56,27 @@ class TestParseResource < Test::Unit::TestCase
 
   def test_count
     VCR.use_cassette('test_count', :record => :new_episodes) do
-      Author.destroy_all(Author.all)
+      Author.destroy_all
       p1 = Author.create(:name => "bar")
       p2 = Author.create(:name => "jab")
-      assert_equal Author.count, 2
-      assert_equal Author.where(:name => "jab").count, 1
+      assert_equal 2, Author.count
+      assert_equal 1, Author.where(:name => "jab").count
       p1.destroy
       p2.destroy
-      assert_equal Author.count, 0
+      assert_equal 0, Author.count
     end
   end
 
   def test_initialize_with_args
-    Spoon.destroy_all(Spoon.all)
     @spoon = Spoon.new(:length => "title1", :width => "ipso")
     assert @spoon.is_a?(Spoon)
-    assert_equal @spoon.length, "title1"
-    assert_equal @spoon.width, "ipso"
+    assert_equal "title1", @spoon.length
+    assert_equal "ipso", @spoon.width
   end
 
   def test_create
-    Spoon.destroy_all(Spoon.all)
     VCR.use_cassette('test_create', :record => :new_episodes) do
+      Spoon.destroy_all
       s = Spoon.create(:length => "1234567890created!")
       assert s.is_a?(Spoon)
       assert s.id
@@ -82,8 +85,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_find
-    Spoon.destroy_all(Spoon.all)
     VCR.use_cassette('test_find', :record => :new_episodes) do
+      Spoon.destroy_all
       p1 = Spoon.create(:length => "Welcome")
       p2 = Spoon.find(p1.id)
       assert_equal p2.id, p2.id
@@ -99,8 +102,8 @@ class TestParseResource < Test::Unit::TestCase
 	end
 
   def test_first
-    Fork.destroy_all(Fork.all)
     VCR.use_cassette('test_first', :record => :new_episodes) do
+      Fork.destroy_all
       f = Fork.create(:points => "firsttt")
       p = Fork.first
       assert p.is_a?(Fork)
@@ -139,14 +142,14 @@ class TestParseResource < Test::Unit::TestCase
   def test_destroy_all
     VCR.use_cassette('test_destroy_all', :record => :new_episodes) do
       p = Knife.create(:is_shiny => "arbitrary")
-      Knife.destroy_all(Knife.all)
+      Knife.destroy_all
       assert_equal Knife.count, 0
     end
   end
 
   def test_chained_wheres
-    Straw.destroy_all(Straw.all)
     VCR.use_cassette('test_chained_wheres', :record => :new_episodes) do
+      Straw.destroy_all
       p1 = Straw.create(:title => "chained_wheres", :body => "testing")
       p2 = Straw.create(:title => "chained_wheres", :body => "testing_2")
       query = Straw.where(:title => "chained_wheres").where(:body => "testing")
@@ -157,8 +160,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_limit
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_limit', :record => :new_episodes) do
+      Post.destroy_all
       15.times do |i|
         Post.create(:title => "foo_"+i.to_s)
       end
@@ -168,40 +171,43 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_order_descending
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("name desc").all
-    Event.destroy_all(Event.all)
-    assert_equal true, (events[0].name == "2nd")
+    VCR.use_cassette('test_order_descending', :record => :new_episodes) do
+      Event.destroy_all
+      e1 = Event.create(:name => "1st")
+      e2 = Event.create(:name => "2nd")
+      events = Event.order("name desc").all
+      assert_equal "2nd", events.first.name
+    end
   end
 
   def test_order_ascending
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("name asc").all
-    Event.destroy_all(Event.all)
-    assert_equal true, (events[0].name == "1st")
+    VCR.use_cassette('test_order_ascending', :record => :new_episodes) do
+      Author.destroy_all
+      e1 = Author.create(:name => "1st")
+      e2 = Author.create(:name => "2nd")
+      events = Author.order("name asc").all
+      assert_equal "1st", events.first.name
+    end
   end
 
-  def test_order_no_field
-    e1 = Event.create(:name => "1st")
-    e2 = Event.create(:name => "2nd")
-    events = Event.order("desc").all
-    Event.destroy_all(Event.all)
-    assert_equal true, (events[0].name == "1st")
+  def test_skip
+    VCR.use_cassette('test_skip', :record => :new_episodes) do
+      Post.destroy_all
+      posts = []
+      15.times do |i|
+        posts << Post.new(:title => "skip", :author => "#{i}-author")
+      end
+      Post.save_all(posts)
+      assert_equal 15, Post.count # Sanity check
+      
+      post = Post.where(:title => "skip").skip(14).first
+      assert_equal "14-author", post.author # Starts at 0, so this is the next one
+    end
   end
-
-  #def test_skip
-  #  15.times do |i|
-  #    Post.create(:title => "skip", :author => i)
-  #  end
-  #  post = Post.where(:title => "skip").skip(14).first
-  #  assert_equal post.author, 15
-  #end
 
   def test_all
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_all', :record => :new_episodes) do
+      Post.destroy_all
       Post.create(:title => "11222")
       Post.create(:title => "112ssd22")
       posts = Post.all
@@ -211,8 +217,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_attribute_getters
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_attribute_getters', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "title1")
       assert_equal @post.attributes['title'], "title1"
       assert_equal @post.attributes['title'], @post.title
@@ -220,8 +226,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_attribute_setters
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_attribute_setters', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "1")
       @post.body = "newerbody"
       assert_equal @post.body, "newerbody"
@@ -229,8 +235,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_save
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_save', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "testing save")
       @post.save
       assert @post.attributes['objectId']
@@ -240,13 +246,13 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_each
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_each', :record => :new_episodes) do
-      #Post.destroy_all
+      Post.destroy_all
+      ps = []
       4.times do |i|
-        #Post.create(:title => "each", :author => i.to_s)
-        Post.create(:title => "each")
+        ps << Post.create(:title => "each")
       end
+      Post.save_all(ps)
       posts = Post.where(:title => "each")
       posts.each do |p|
         assert_equal p.title, "each"
@@ -255,9 +261,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_map
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_map', :record => :new_episodes) do
-      #Post.destroy_all
+      Post.destroy_all
       4.times do |i|
         Post.create(:title => "map")
       end
@@ -267,8 +272,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_id
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_id', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "testing id")
       assert @post.respond_to?(:id)
       assert @post.id
@@ -277,8 +282,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_created_at
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_created_at', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "testing created_at")
       assert @post.respond_to?(:created_at)
       assert @post.created_at
@@ -287,8 +292,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_updated_at
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_updated_at', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "testing updated_at")
       @post.title = "something else"
       @post.save
@@ -297,8 +302,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_update
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_update', :record => :new_episodes) do
+      Post.destroy_all
       @post = Post.create(:title => "stale title")
       updated_once = @post.updated_at
       @post.update(:title => "updated title")
@@ -310,8 +315,8 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_destroy
-    Post.destroy_all(Post.all)
     VCR.use_cassette('test_destroy', :record => :new_episodes) do
+      Post.destroy_all
       p = Post.create(:title => "hello1234567890abc!")
       id = p.id
       p.destroy
@@ -328,15 +333,47 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_to_pointer
-    p = Post.create
-    array = {"__type" => "Pointer", "className"=>"Post", "objectId" => p.id}
-    assert_equal array, p.to_pointer
+    VCR.use_cassette('test_to_pointer', :record => :new_episodes) do
+      p = Post.create
+      array = {"__type" => "Pointer", "className"=>"Post", "objectId" => p.id}
+      assert_equal array, p.to_pointer
+    end
   end
 
   def test_to_date_object
-    date = DateTime.strptime("Thu, 11 Oct 2012 10:20:40 -0700", '%a, %d %b %Y %H:%M:%S %z')
-    array = {"__type"=>"Date", "iso"=>"2012-10-11T10:20:40-07:00"}
-    assert_equal array, Post.to_date_object(date)
+    VCR.use_cassette('test_to_date_object', :record => :new_episodes) do
+      date = DateTime.strptime("Thu, 11 Oct 2012 10:20:40 -0700", '%a, %d %b %Y %H:%M:%S %z')
+      array = {"__type"=>"Date", "iso"=>"2012-10-11T10:20:40-07:00"}
+      assert_equal array, Post.to_date_object(date)
+    end
+  end
+  
+  def test_save_all_and_destroy_all
+    VCR.use_cassette('test_save_all_and_destroy_all', :record => :new_episodes) do
+      Post.destroy_all
+      objs = []
+      25.times { |t| objs << Post.new(:title => "post #{t}") }
+      Post.save_all(objs)
+      assert_equal 25, Post.count
+      Post.destroy_all(objs)
+      assert_equal 0, Post.count
+    end
+  end
+
+  def test_chunk
+    VCR.use_cassette('test_chunk', :record => :new_episodes) do
+      Post.destroy_all
+      objs = []
+      25.times { |t| objs << Post.new(:title => "post") }
+      Post.save_all(objs)
+      assert_equal 25, Post.count
+      
+      posts = Post.where(:title => "post").limit(1000).chunk(5).all
+      assert_equal 25, posts.length
+      
+      Post.destroy_all(objs)
+      assert_equal 0, Post.count
+    end
   end
 
 end

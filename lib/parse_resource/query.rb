@@ -26,11 +26,10 @@ class Query
     self
   end
   
-  # deprecating until it works
   def order(attr)
     orders = attr.split(" ")
     if orders.count > 1
-      criteria[:order] = orders.first == "desc" ? "-#{orders.first}" : "#{orders.first}"
+      criteria[:order] = orders.last.downcase == "desc" ? "-#{orders.first}" : "#{orders.first}"
     else
       criteria[:order] = orders.first
     end
@@ -108,8 +107,10 @@ class Query
   end
 
   def chunk_results(params={})
+    criteria[:limit] ||= 100
+    
     start_row = criteria[:skip].to_i
-    end_row = criteria[:limit].to_i - start_row - 1
+    end_row = [criteria[:limit].to_i - start_row - 1, 1].max
     result = []
     
     # Start at start_row, go to end_row, get results in chunks
@@ -120,6 +121,7 @@ class Query
       resp = @klass.resource.get(:params => params)
       results = JSON.parse(resp)['results']
       result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
+      break if results.length < params[:limit] # Got back fewer than we asked for, so exit.
     end
     result
   end
