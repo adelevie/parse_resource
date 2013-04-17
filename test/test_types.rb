@@ -9,7 +9,7 @@ end
 
 class TestParseResource < Test::Unit::TestCase
   def test_saving_geopoint_with_coords
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     place = Place.new
     place.name = "Office"
     place.location = ParseGeoPoint.new
@@ -20,7 +20,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_saving_geo_point_with_quick_init
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     place = Place.new
     place.location = ParseGeoPoint.new :latitude => 34.09300844216167, :longitude => -118.3780094460731
     place.save
@@ -28,7 +28,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_geopoint_field
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     place = Place.new
     place.location = ParseGeoPoint.new :latitude => 34.09300844216167, :longitude => -118.3780094460731
     place.save
@@ -40,7 +40,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_closest_10
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     [[34.09300844216167, -118.3780094460731],
      [34.09297074516132, -118.3779001235962],
      [34.09291733023489, -118.3780601208767],
@@ -62,7 +62,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_closest_by_miles
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     [[34.09300844216167, -118.3780094460731],
      [34.09297074516132, -118.3779001235962],
      [34.09291733023489, -118.3780601208767],
@@ -89,7 +89,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_closest_by_kilometers
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     [[34.09300844216167, -118.3780094460731],
      [34.09297074516132, -118.3779001235962],
      [34.09291733023489, -118.3780601208767],
@@ -116,7 +116,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_closest_by_radians
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     [[34.09300844216167, -118.3780094460731],
      [34.09297074516132, -118.3779001235962],
      [34.09291733023489, -118.3780601208767],
@@ -143,7 +143,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_fetching_cloest_within_box
-    Place.destroy_all
+    Place.destroy_all(Place.all)
     [[34.09300844216167, -118.3780094460731],
      [34.09297074516132, -118.3779001235962],
      [34.09291733023489, -118.3780601208767],

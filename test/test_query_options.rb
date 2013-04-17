@@ -19,7 +19,7 @@ class TestQueryOptions < Test::Unit::TestCase
   #end
 
   def test_skip
-    Event.destroy_all
+    Event.destroy_all(Event.all)
     VCR.use_cassette('test_skip', :record => :new_episodes) do
       num_to_test = 10
       num_to_test.times do |i|

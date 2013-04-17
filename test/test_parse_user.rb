@@ -20,7 +20,7 @@ class TestParseUser < Test::Unit::TestCase
   #def test_user_should_not_save_without_username_and_password
   #  u = User.new
   #  assert_equal u.valid?, false
-  #  u.username = "fakename"
+  #  u.username = "fakename"`
   #  assert_equal u.valid?, false
   #  u.password = "fakepass"
   #  assert_equal u.valid?, true
@@ -29,20 +29,18 @@ class TestParseUser < Test::Unit::TestCase
   #end
   
   def test_username_should_be_unique
-    User.destroy_all
+    User.destroy_all(User.all)
     VCR.use_cassette('test_username_should_be_unique', :record => :new_episodes) do
       u = User.create(:username => "alan", :password => "12345")
       u2 = User.new(:username => "alan", :password => "56789")
       u2.save
       assert_equal u2.errors.count, 1
-      parse_error_response = u2.errors["400"][0]
-      assert_equal 202, parse_error_response["code"] # username alan already taken
       assert_equal nil, u2.id
     end
   end
   
   def test_authenticate
-    User.destroy_all
+    User.destroy_all(User.all)
     VCR.use_cassette('test_authenticate', :record => :new_episodes) do
       user = "fake_person"
       pass = "fake_pass"
