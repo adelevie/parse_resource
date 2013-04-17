@@ -10,7 +10,7 @@ end
 begin
   require 'turn/autorun'; 
   # Turn.config.trace = 8
-  # Turn.config.format = :outline
+  Turn.config.format = :outline
 rescue LoadError
 end
 require 'test/unit'

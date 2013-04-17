@@ -159,6 +159,7 @@ class TestParseResource < Test::Unit::TestCase
   def test_fetching_closest_within_box
     VCR.use_cassette('test_fetching_closest_within_box', :record => :new_episodes) do
       Place.destroy_all(Place.all)
+      places = []
       [[34.09300844216167, -118.3780094460731],
        [34.09297074516132, -118.3779001235962],
        [34.09291733023489, -118.3780601208767],
@@ -173,8 +174,9 @@ class TestParseResource < Test::Unit::TestCase
       ].each do |location|
         place = Place.new
         place.location = ParseGeoPoint.new :latitude => location[0], :longitude => location[1]
-        place.save
+        places << place
       end
+      Place.save_all(places)
       assert_equal Place.count, 11
       within_box = Place.within_box(:location, [33.81637559726026, -118.3783150233789], [34.09300844216167, -118.3780094460731]).all
       assert_equal within_box.count, 4
