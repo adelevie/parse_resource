@@ -196,4 +196,200 @@ http_interactions:
       string: ! '{"results":[{"name":"1st","createdAt":"2013-04-17T07:20:18.410Z","updatedAt":"2013-04-17T07:20:18.410Z","objectId":"SbiSSRw5X4"},{"name":"2nd","createdAt":"2013-04-17T07:20:19.093Z","updatedAt":"2013-04-17T07:20:19.093Z","objectId":"gFO08ufXbK"}]}'
     http_version: 
   recorded_at: Wed, 17 Apr 2013 07:20:19 GMT
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Author?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:54 GMT
+      Etag:
+      - ! '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWExYzcxYzJmYWQzODg0NDdkOTVlMDM5YWE1ZjY0Nzg%3D--3d0a9a3e7a2699df64669e5dfbd30f329ea5f0f3;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:54 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.030307'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '14'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:54 GMT
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Author
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"1st"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:54 GMT
+      Location:
+      - https://api.parse.com/1/classes/Author/63aFeYpqqY
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOGJkNTcwZTViMGE0NmViMDlmZTU2OWFiZjNiMjQxMTE%3D--e740dea9e467c8b45980f35276ec1923658e619c;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:54 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.081670'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T20:08:54.746Z","objectId":"63aFeYpqqY"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:54 GMT
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Author
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"2nd"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:54 GMT
+      Location:
+      - https://api.parse.com/1/classes/Author/CbhyEKtWkm
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmRjMzVmMzI3MTVlNDc2ODMxNTcyNDhjZmVkODM3M2E%3D--2dfd5012e030531eb7f759cf02b5b42f0fdd90ed;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:54 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.029718'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T20:08:54.892Z","objectId":"CbhyEKtWkm"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:54 GMT
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Author?order=name&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:55 GMT
+      Etag:
+      - ! '"ebfacdb76b20814565f0a473ad2e5cc5"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZWI5MmUwYzU4YTg3OTA3OTNiZjYxNGFiNGUwOGQ3NmQ%3D--91f5266b2738399a8403deb83382a0fe2884001b;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:55 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.079891'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '247'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"1st","createdAt":"2013-04-17T20:08:54.746Z","updatedAt":"2013-04-17T20:08:54.746Z","objectId":"63aFeYpqqY"},{"name":"2nd","createdAt":"2013-04-17T20:08:54.892Z","updatedAt":"2013-04-17T20:08:54.892Z","objectId":"CbhyEKtWkm"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:55 GMT
 recorded_with: VCR 2.4.0

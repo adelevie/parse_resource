@@ -196,4 +196,200 @@ http_interactions:
       string: ! '{"results":[{"length":"Welcome","createdAt":"2013-04-17T06:27:19.384Z","updatedAt":"2013-04-17T06:27:19.384Z","objectId":"L64b3pvDdS"}]}'
     http_version: 
   recorded_at: Wed, 17 Apr 2013 06:27:19 GMT
-recorded_with: VCR 2.2.4
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Spoon?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:47 GMT
+      Etag:
+      - ! '"83cada623071ad929cd583e582b60ded"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNGZkM2ZmYzJhNTMxNTg3OWU5NjY2NjNjN2E0NDYyMjc%3D--ce56d9900fbc8a6ca2e41ef49fa374838f3c8bd9;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:47 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.049159'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '147'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"length":"1234567890created!","createdAt":"2013-04-17T20:08:30.560Z","updatedAt":"2013-04-17T20:08:30.560Z","objectId":"CEjxvhwC5R"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:47 GMT
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Spoon/CEjxvhwC5R"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '71'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:47 GMT
+      Etag:
+      - ! '"6abe125b20486fefa07552105cea58f3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOTMxMTk0YWZhMGYwODBiMDg3NjIwY2FlNmQ3OTMxNjg%3D--3bf020bf1eeba8e282f7dafbe2a99dbd9e64b6a5;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:47 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.038741'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true}]'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:47 GMT
+- request:
+    method: post
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Spoon
+    body:
+      encoding: UTF-8
+      string: ! '{"length":"Welcome"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '20'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:47 GMT
+      Location:
+      - https://api.parse.com/1/classes/Spoon/ZRnT134MGm
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZTIyNGM1ZTAwZWI0ZWE3ZWFhOWI1YWMwZGNmODRmNTk%3D--3a44df3d197acf3c256d7b1e1547502e77e3fc8f;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:47 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.035499'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T20:08:47.571Z","objectId":"ZRnT134MGm"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:47 GMT
+- request:
+    method: get
+    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Spoon?limit=1&where=%7B%22objectId%22:%22ZRnT134MGm%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 20:08:47 GMT
+      Etag:
+      - ! '"18c3288f8dedb4e7d10b2ed6f656d0eb"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMDNlZjIwOGU4Y2VmZDA0Y2ExMzdmZGU2MWZiNGJhNjU%3D--3ddc59ab19d5b842aca9fa7d3adbbd91ce0689e5;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:47 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.030152'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '136'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"length":"Welcome","createdAt":"2013-04-17T20:08:47.571Z","updatedAt":"2013-04-17T20:08:47.571Z","objectId":"ZRnT134MGm"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 20:08:47 GMT
+recorded_with: VCR 2.4.0
