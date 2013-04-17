@@ -1,0 +1,250 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Event
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"1st"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 06:27:44 GMT
+      Location:
+      - https://api.parse.com/1/classes/Event/zUCY2Aal1a
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMmZlMjYzYWExYmQ2MjM4Y2Q0NjlhMGRiZWE0MTYyMTk%3D--c9e66100e513cd86d3eefa839dbf9ca32fa86550;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:27:44 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.033740'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T06:27:44.290Z","objectId":"zUCY2Aal1a"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 06:27:44 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Event
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"2nd"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 06:27:44 GMT
+      Location:
+      - https://api.parse.com/1/classes/Event/XFG4NncXHM
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZWUzYjE3ZWU0NmNlNjUwM2M4MTE5ZmVmMDFkMTA4ODQ%3D--e6fef7ba6c11de39c4e24a410010a8c5b53ce08c;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:27:44 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.032094'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-04-17T06:27:44.836Z","objectId":"XFG4NncXHM"}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 06:27:44 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Event?order=-name&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 06:27:45 GMT
+      Etag:
+      - ! '"bbd79339fa90ffe78a854fc8afbf95e8"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMTA4YmI2MTVjNjg5MmNlYjU0MmExYzIxY2U0ODQ5Y2U%3D--48312fd89dc5881c9c785a1f8f7c1aca80ff4e6e;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:27:45 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.033810'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '247'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"2nd","createdAt":"2013-04-17T06:27:44.836Z","updatedAt":"2013-04-17T06:27:44.836Z","objectId":"XFG4NncXHM"},{"name":"1st","createdAt":"2013-04-17T06:27:44.290Z","updatedAt":"2013-04-17T06:27:44.290Z","objectId":"zUCY2Aal1a"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 06:27:45 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Event?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 06:27:45 GMT
+      Etag:
+      - ! '"32e3ddd2b68361e77fc15e4c1bf518b9"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNjM2M2MyMTRlNzg0ZDQ1YTNjZjc0NWEyYjVmYzU2OWM%3D--2610f63cac5310fd9990316e589b1be52ea2b7a4;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:27:45 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.065128'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '247'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"1st","createdAt":"2013-04-17T06:27:44.290Z","updatedAt":"2013-04-17T06:27:44.290Z","objectId":"zUCY2Aal1a"},{"name":"2nd","createdAt":"2013-04-17T06:27:44.836Z","updatedAt":"2013-04-17T06:27:44.836Z","objectId":"XFG4NncXHM"}]}'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 06:27:45 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Event/zUCY2Aal1a"},{"method":"DELETE","path":"/1/classes/Event/XFG4NncXHM"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '128'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 17 Apr 2013 06:27:46 GMT
+      Etag:
+      - ! '"9f103a4fc959709a4ff9f7cb2a96d647"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWUwYzM2YjNmODI2ZjhhNGM3MjQ2NTgzYmIxNThmMTU%3D--2fa4a1df74dbefd2f80a8545953e1b270b837179;
+        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:27:46 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.053619'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '35'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true},{"success":true}]'
+    http_version: 
+  recorded_at: Wed, 17 Apr 2013 06:27:46 GMT
+recorded_with: VCR 2.2.4

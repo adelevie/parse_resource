@@ -14,6 +14,9 @@ class Query
   end
 
   def limit(limit)
+    # If > 1000, set chunking, because large queries over 1000 need it with Parse
+    chunk(1000) if limit > 1000
+
     criteria[:limit] = limit
     self
   end
@@ -23,11 +26,12 @@ class Query
     self
   end
   
-  # deprecating until it works
   def order(attr)
     orders = attr.split(" ")
     if orders.count > 1
-      criteria[:order] = orders[1] == "desc" ? "-#{orders[0]}" : "#{orders[0]}"
+      criteria[:order] = orders.last.downcase == "desc" ? "-#{orders.first}" : "#{orders.first}"
+    else
+      criteria[:order] = orders.first
     end
     self
   end
@@ -39,8 +43,13 @@ class Query
 
   def count(count=1)
     criteria[:count] = count
-    #self
     all
+  end
+
+  # Divides the query into multiple chunks if you're running into RestClient::BadRequest errors.
+  def chunk(count=100)
+    criteria[:chunk] = count
+    self
   end
 
   def near(klass, geo_point, options)
@@ -84,6 +93,8 @@ class Query
     params.merge!({:include => criteria[:include]}) if criteria[:include]
     params.merge!({:order => criteria[:order]}) if criteria[:order]
 
+    return chunk_results(params) if criteria[:chunk]
+
     resp = @klass.resource.get(:params => params)
     
     if criteria[:count] == 1
@@ -95,11 +106,58 @@ class Query
     end
   end
 
+  def chunk_results(params={})
+    criteria[:limit] ||= 100
+    
+    start_row = criteria[:skip].to_i
+    end_row = [criteria[:limit].to_i - start_row - 1, 1].max
+    result = []
+    
+    # Start at start_row, go to end_row, get results in chunks
+    (start_row..end_row).each_slice(criteria[:chunk].to_i) do |slice|
+      params[:skip] = slice.first
+      params[:limit] = slice.length # Either the chunk size or the end of the limited results
+
+      resp = @klass.resource.get(:params => params)
+      results = JSON.parse(resp)['results']
+      result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
+      break if results.length < params[:limit] # Got back fewer than we asked for, so exit.
+    end
+    result
+  end
+
+  def first
+    limit(1)
+    execute.first
+  end
+
   def all
     execute
   end
 
   def method_missing(meth, *args, &block)
+    method_name = method_name.to_s
+    if method_name.start_with?("find_by_")
+      attrib   = method_name.gsub(/^find_by_/,"")
+      finder_name = "find_all_by_#{attrib}"
+
+      define_singleton_method(finder_name) do |target_value|
+        where({attrib.to_sym => target_value}).first
+      end
+
+      send(finder_name, args[0])
+
+    elsif method_name.start_with?("find_all_by_")
+      attrib   = method_name.gsub(/^find_all_by_/,"")
+      finder_name = "find_all_by_#{attrib}"
+
+      define_singleton_method(finder_name) do |target_value|
+        where({attrib.to_sym => target_value}).all
+      end
+
+      send(finder_name, args[0])
+    end
+
     if Array.method_defined?(meth)
       all.send(meth, *args, &block)
     else

@@ -3,40 +3,46 @@ class ParseError
   # HTTP response is 400, one can inspect the first element of the error
   # converted to_array for the HTTP error code and the 2nd element for the
   # parse error response.
+  attr_accessor :msg, :code, :error
   
   # @param [String] an error code, e.g. "400"
   # @param [Object] an optional error mesg/object.
   def initialize(code, msg="")
     @msg = msg
     @code = code
-    case code
+    case code.to_s
+    when "111"
+      @error = "Invalid type."
+    when "135"
+      @error = "Unknown device type."
+    when "202"
+      @error = "Username already taken."
     when "400"
-      if msg.empty?
-        @msg = "Bad Request: The request cannot be fulfilled due to bad syntax."
-      end
-      # otherwise we should have supplied the Parse msg JSON response.
+      @error = "Bad Request: The request cannot be fulfilled due to bad syntax."
     when "401"
-      @msg = "Unauthorized: Check your App ID & Master Key."
+      @error = "Unauthorized: Check your App ID & Master Key."
     when "403"
-      @msg = "Forbidden: You do not have permission to access or modify this."
+      @error = "Forbidden: You do not have permission to access or modify this."
     when "408"
-      @msg = "Unsupported Media Type"
+      @error = "Request Timeout: The request was not completed within the time the server was prepared to wait."
+    when "415"
+      @error = "Unsupported Media Type"
     when "500"
-      @msg = "Internal Server Error"
+      @error = "Internal Server Error"
     when "502"
-      @msg = "Bad Gateway"
+      @error = "Bad Gateway"
     when "503"
-      @msg = "Service Unavailable"
+      @error = "Service Unavailable"
     when "508"
-      @msg = "Loop Detected"
+      @error = "Loop Detected"
     else
-      @msg = "Unknown Error"
-      raise "Parse msg #{code}: #{@error}"
+      @error = "Unknown Error"
+      raise "Parse error #{code}: #{@error} #{@msg}"
     end
   end
   
   def to_array
-    return [@code, @msg]
+    [ @code, @msg ]
   end
   
 end
