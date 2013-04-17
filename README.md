@@ -30,7 +30,7 @@ Include in your `Gemfile`:
 
 ```ruby
 gem "kaminari" # optional for pagination support
-gem "parse_resource", "~> 1.7.2"
+gem "parse_resource", "~> 1.8.0"
 ```
 
 Or just gem install:
