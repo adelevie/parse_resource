@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.7.3"
+  s.version = "1.8.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2012-09-20"
+  s.date = "2013-04-17"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".DS_Store",
     ".document",
     ".travis.yml",
     "Gemfile",
@@ -25,38 +26,58 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "fixtures/.DS_Store",
+    "fixtures/vcr_cassettes/.DS_Store",
     "fixtures/vcr_cassettes/test_all.yml",
     "fixtures/vcr_cassettes/test_attribute_getters.yml",
     "fixtures/vcr_cassettes/test_attribute_setters.yml",
     "fixtures/vcr_cassettes/test_authenticate.yml",
     "fixtures/vcr_cassettes/test_chained_wheres.yml",
+    "fixtures/vcr_cassettes/test_chunk.yml",
     "fixtures/vcr_cassettes/test_count.yml",
     "fixtures/vcr_cassettes/test_create.yml",
     "fixtures/vcr_cassettes/test_created_at.yml",
     "fixtures/vcr_cassettes/test_destroy.yml",
     "fixtures/vcr_cassettes/test_destroy_all.yml",
     "fixtures/vcr_cassettes/test_each.yml",
+    "fixtures/vcr_cassettes/test_fetching_closest_10.yml",
+    "fixtures/vcr_cassettes/test_fetching_closest_by_kilometers.yml",
+    "fixtures/vcr_cassettes/test_fetching_closest_by_miles.yml",
+    "fixtures/vcr_cassettes/test_fetching_closest_by_radians.yml",
+    "fixtures/vcr_cassettes/test_fetching_closest_within_box.yml",
+    "fixtures/vcr_cassettes/test_fetching_geopoint_field.yml",
     "fixtures/vcr_cassettes/test_find.yml",
     "fixtures/vcr_cassettes/test_find_all_by.yml",
     "fixtures/vcr_cassettes/test_find_by.yml",
     "fixtures/vcr_cassettes/test_first.yml",
     "fixtures/vcr_cassettes/test_id.yml",
+    "fixtures/vcr_cassettes/test_installation_creation.yml",
+    "fixtures/vcr_cassettes/test_installation_creation_validation_check.yml",
     "fixtures/vcr_cassettes/test_limit.yml",
     "fixtures/vcr_cassettes/test_map.yml",
+    "fixtures/vcr_cassettes/test_order_ascending.yml",
+    "fixtures/vcr_cassettes/test_order_descending.yml",
     "fixtures/vcr_cassettes/test_save.yml",
+    "fixtures/vcr_cassettes/test_save_all_and_destroy_all.yml",
+    "fixtures/vcr_cassettes/test_saving_geo_point_with_quick_init.yml",
+    "fixtures/vcr_cassettes/test_saving_geopoint_with_coords.yml",
     "fixtures/vcr_cassettes/test_skip.yml",
     "fixtures/vcr_cassettes/test_update.yml",
     "fixtures/vcr_cassettes/test_updated_at.yml",
     "fixtures/vcr_cassettes/test_username_should_be_unique.yml",
     "fixtures/vcr_cassettes/test_where.yml",
     "lib/.DS_Store",
+    "lib/kaminari_extension.rb",
     "lib/parse_resource.rb",
     "lib/parse_resource/base.rb",
+    "lib/parse_resource/client.rb",
     "lib/parse_resource/parse_error.rb",
     "lib/parse_resource/parse_exceptions.rb",
     "lib/parse_resource/parse_user.rb",
     "lib/parse_resource/parse_user_validator.rb",
     "lib/parse_resource/query.rb",
+    "lib/parse_resource/query_methods.rb",
+    "lib/parse_resource/types/parse_geopoint.rb",
     "parse_resource.gemspec",
     "parse_resource.yml",
     "rdoc/ParseResource.html",
@@ -66,10 +87,12 @@ Gem::Specification.new do |s|
     "rdoc/rdoc.css",
     "test/active_model_lint_test.rb",
     "test/helper.rb",
+    "test/test_parse_installation.rb",
     "test/test_parse_resource.rb",
     "test/test_parse_user.rb",
     "test/test_query.rb",
-    "test/test_query_options.rb"
+    "test/test_query_options.rb",
+    "test/test_types.rb"
   ]
   s.homepage = "http://github.com/adelevie/parse_resource"
   s.licenses = ["MIT"]
@@ -85,44 +108,41 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
       s.add_runtime_dependency(%q<activemodel>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.1.5"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<reek>, ["~> 1.2.8"])
       s.add_development_dependency(%q<rest-client>, [">= 0"])
       s.add_development_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<activemodel>, [">= 0"])
       s.add_development_dependency(%q<vcr>, [">= 0"])
       s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_development_dependency(%q<turn>, [">= 0"])
     else
       s.add_dependency(%q<rest-client>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<activemodel>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
-      s.add_dependency(%q<bundler>, ["~> 1.1.5"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<reek>, ["~> 1.2.8"])
       s.add_dependency(%q<rest-client>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<activemodel>, [">= 0"])
       s.add_dependency(%q<vcr>, [">= 0"])
       s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<turn>, [">= 0"])
     end
   else
     s.add_dependency(%q<rest-client>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<activemodel>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
-    s.add_dependency(%q<bundler>, ["~> 1.1.5"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-    s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<reek>, ["~> 1.2.8"])
     s.add_dependency(%q<rest-client>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<activemodel>, [">= 0"])
     s.add_dependency(%q<vcr>, [">= 0"])
     s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<turn>, [">= 0"])
   end
 end
 
