@@ -363,6 +363,6 @@ Contributing to ParseResource
 Copyright
 ---------
 
-Copyright (c) 2012 Alan deLevie. See LICENSE.txt for
+Copyright (c) 2013 Alan deLevie. See LICENSE.txt for
 further details.
 
