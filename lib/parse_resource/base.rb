@@ -162,9 +162,8 @@ module ParseResource
     end
 
     @@settings ||= nil
-    @@_parse_class ||= nil
-    @@parse_models ||= []
-    @@inverse_parse_models ||= []
+    @@parse_models ||= {}
+    @@inverse_parse_models ||= {}
 
     # Explicitly set Parse.com API keys.
     #
@@ -179,9 +178,9 @@ module ParseResource
     end
 
     def self.parse_model_name(klass_name)
-      @@_parse_class = klass_name
-      @@parse_models << { klass_name => self.name }
-      @@inverse_parse_models << { self.name => klass_name }
+      @parse_class ||= klass_name
+      @@parse_models[klass_name] = self.name
+      @@inverse_parse_models[self.name] = klass_name
     end
 
     def self.parse_models
@@ -192,6 +191,14 @@ module ParseResource
       @@inverse_parse_models
     end
 
+    def self.model_name_for_parse_class(parse_class)
+      @@parse_models[parse_class.to_s]
+    end
+
+    def self.parse_class_name_for_model(model_name)
+      @@inverse_parse_models[model_name.to_s]
+    end
+
     # Gets the current class's model name for the URI
     def self.model_name_uri
       if self.model_name == "User"
@@ -199,7 +206,8 @@ module ParseResource
       elsif self.model_name == "Installation"
         "installations"
       else
-        "classes/#{self.model_name}"
+        parse_class_name = ParseResource::Base.parse_class_name_for_model(self.model_name)
+        "classes/#{parse_class_name || self.model_name}"
       end
     end
 
@@ -214,7 +222,7 @@ module ParseResource
     end
 
     def self.parse_class
-      @@_parse_class || self.name
+      @parse_class || self.name
     end
 
     def parse_class
@@ -548,7 +556,10 @@ module ParseResource
         klass_name = "User" if klass_name == "_User"
         case attrs[k]["__type"]
         when "Pointer"
-          result = klass_name.constantize.find(attrs[k]["objectId"])
+          # if we are using a mapped class then we need to find that class here
+          # and call its find method
+          name = ParseResource::Base.model_name_for_parse_class(klass_name) || klass_name
+          result = name.constantize.find(attrs[k]["objectId"])
         when "Object"
           result = klass_name.constantize.new(attrs[k], false)
         when "Date"
@@ -569,6 +580,10 @@ module ParseResource
         v = self.class.to_date_object(v)
       elsif v.respond_to?(:to_pointer)
         v = v.to_pointer
+        # if we have a mapped class then we need to change back to the parse 
+        # class here.
+        klass_name = ParseResource::Base.parse_class_name_for_model(v.class)
+        v['className'] = klass_name unless klass_name.nil?
       end
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v

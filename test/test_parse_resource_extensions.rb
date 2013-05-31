@@ -13,6 +13,18 @@ module Nesty
   end 
 end
 
+module Jack
+  class Black < ParseResource::Base
+    parse_model_name "BlackJack"
+    field :name 
+  end
+  class Parent < ParseResource::Base
+    parse_model_name "RedJack"
+    field :name 
+    field :child
+  end
+end
+
 class TestParseResourceExtensions < Test::Unit::TestCase
 
   def test_initialize_without_args
@@ -24,12 +36,23 @@ class TestParseResourceExtensions < Test::Unit::TestCase
   end
 
   def test_model_registration
-    assert ParseResource::Base.parse_models.include? "Nest" => "Nesty::Nest"
-    assert ParseResource::Base.inverse_parse_models.include? "Nesty::Nest" => "Nest"
+    assert_equal ParseResource::Base.parse_models["Nest"], "Nesty::Nest"
+    assert_equal ParseResource::Base.inverse_parse_models["Nesty::Nest"], "Nest"
   end
 
-  def test_attribute_type_definition
+  def test_parse_class_name_lookup
+    assert_equal Nesty::Nest.parse_class_name_for_model(Nesty::Nest), "Nest"
+    assert_equal Jack::Black.parse_class_name_for_model(Jack::Black), "BlackJack"
+  end
 
+  def test_parse_class_name_lookup_with_string
+    assert_equal Jack::Black.parse_class_name_for_model("Nesty::Nest"), "Nest"
+    assert_equal Jack::Black.parse_class_name_for_model("Jack::Black"), "BlackJack"
+  end
+
+  def test_model_lookup
+    assert_equal Nesty::Nest.model_name_for_parse_class("Nest"), "Nesty::Nest"
+    assert_equal Jack::Black.model_name_for_parse_class("BlackJack"), "Jack::Black"
   end
 
   def test_setting_attribute_value_integer_as_integer
@@ -56,6 +79,17 @@ class TestParseResourceExtensions < Test::Unit::TestCase
     assert_equal nest.whatever, 1337
     nest.whatever = "meh"
     assert_equal nest.whatever, "meh"
+  end
+
+  def test_nested_classes_using_mapped_names
+    VCR.use_cassette('test_nested_classes_using_mapped_names', :record => :new_episodes) do
+      black = Jack::Black.create(name: "Child")
+      parent = Jack::Parent.create(name: "parent")
+      parent.child = black
+      parent.save
+      assert_not_equal parent.child, black
+      assert_equal parent.child.id, black.id
+    end
   end
 
 

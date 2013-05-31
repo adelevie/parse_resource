@@ -36,26 +36,29 @@ end
 
 class TestParseResourceCallbacks < Test::Unit::TestCase
   def test_that_update_calls_the_before_update_callback
-    caller = CallerOne.create
-    CallerOne.before_update :update_callback
-    assert_throws(:update) { caller.update_attributes(number: 1) }
+    VCR.use_cassette('test_that_update_calls_the_before_update_callback', :record => :new_episodes) do
+      CallerOne.destroy_all
+      caller = CallerOne.create
+      CallerOne.before_update :update_callback
+      assert_throws(:update) { caller.update_attributes(number: 1) }
+    end
   end
 
   def test_that_save_calls_the_before_save_callback
-    caller = CallerTwo.new
-    CallerTwo.before_save :save_callback
-    assert_throws(:save) { caller.save }
+    VCR.use_cassette('test_that_save_calls_the_before_save_callback', :record => :new_episodes) do
+      CallerTwo.destroy_all
+      caller = CallerTwo.new
+      CallerTwo.before_save :save_callback
+      assert_throws(:save) { caller.save }
+    end
   end
 
   def test_that_update_calls_the_before_save_callback
-    caller = CallerThree.create
-    CallerThree.before_save :save_callback
-    assert_throws(:save) { caller.update_attributes(number: 1) }
-  end
-
-  def teardown
-    CallerOne.destroy_all
-    CallerTwo.destroy_all
-    CallerThree.destroy_all
+    VCR.use_cassette('test_that_update_calls_the_before_save_callback', :record => :new_episodes) do
+      CallerThree.destroy_all
+      caller = CallerThree.create
+      CallerThree.before_save :save_callback
+      assert_throws(:save) { caller.update_attributes(number: 1) }
+    end
   end
 end
