@@ -866,4 +866,437 @@ http_interactions:
       string: ! '{"results":[],"count":0}'
     http_version: 
   recorded_at: Wed, 17 Apr 2013 20:09:07 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Post?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:10 GMT
+      Etag:
+      - ! '"61ff0080c4c5cb649bb87a4a7fa417cd"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMmQ4Yjk5M2QxNWUzNjljYWE3MTI5ZWE5MmY4M2QwNzQ%3D--85811e9f53e642a520ced82fdbcebf6a4663fcbd;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:10 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.066970'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '140'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"title":"testing save","createdAt":"2013-05-31T18:33:09.548Z","updatedAt":"2013-05-31T18:33:10.017Z","objectId":"PAheiJziIW"}]}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:11 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Post/PAheiJziIW"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '70'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:10 GMT
+      Etag:
+      - ! '"6abe125b20486fefa07552105cea58f3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMmY4YTQwMGY4OTBkOWUzYWM5NmNlZTcwZDY5ZTFhZDQ%3D--867deaffd4ae1ea9dc5b904b913daf502762dd9b;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:10 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.054062'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:11 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        0"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 1"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        2"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 3"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        4"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 5"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        6"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 7"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        8"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 9"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        10"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 11"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        12"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 13"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        14"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 15"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        16"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 17"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        18"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 19"}}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1404'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:11 GMT
+      Etag:
+      - ! '"119f4031579111fb0b8e7f40464a9cba"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjcwYmU5YTE0NjA3Y2FkZjkzNzVmMjEwYzk1MjRkYjA%3D--2c38bbf05ba9f7076d5e3d70dceae6b9e90d7311;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:11 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.568868'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '1541'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":{"createdAt":"2013-05-31T18:33:11.343Z","objectId":"ZUFtQqEsAS"}},{"success":{"createdAt":"2013-05-31T18:33:11.423Z","objectId":"PkQXRcF1h8"}},{"success":{"createdAt":"2013-05-31T18:33:11.443Z","objectId":"mf9kH4Pz9G"}},{"success":{"createdAt":"2013-05-31T18:33:11.484Z","objectId":"cv94oob1gA"}},{"success":{"createdAt":"2013-05-31T18:33:11.504Z","objectId":"BtS4WKsMz7"}},{"success":{"createdAt":"2013-05-31T18:33:11.543Z","objectId":"Y0xX6pbmG9"}},{"success":{"createdAt":"2013-05-31T18:33:11.562Z","objectId":"cNcn1nQGy5"}},{"success":{"createdAt":"2013-05-31T18:33:11.591Z","objectId":"WdC9VpoX9E"}},{"success":{"createdAt":"2013-05-31T18:33:11.609Z","objectId":"sFVGtZk0sg"}},{"success":{"createdAt":"2013-05-31T18:33:11.636Z","objectId":"DqXbaxg7ll"}},{"success":{"createdAt":"2013-05-31T18:33:11.655Z","objectId":"aIGXB8dEiR"}},{"success":{"createdAt":"2013-05-31T18:33:11.679Z","objectId":"Woe9fLva4g"}},{"success":{"createdAt":"2013-05-31T18:33:11.704Z","objectId":"SZxrfQoZhv"}},{"success":{"createdAt":"2013-05-31T18:33:11.724Z","objectId":"aQdxix0oQe"}},{"success":{"createdAt":"2013-05-31T18:33:11.743Z","objectId":"nt3wMzIMtw"}},{"success":{"createdAt":"2013-05-31T18:33:11.762Z","objectId":"U4CDAnBGqH"}},{"success":{"createdAt":"2013-05-31T18:33:11.782Z","objectId":"s8XRAcUROW"}},{"success":{"createdAt":"2013-05-31T18:33:11.801Z","objectId":"lFhH6s11Zy"}},{"success":{"createdAt":"2013-05-31T18:33:11.820Z","objectId":"xgBSoBc4x9"}},{"success":{"createdAt":"2013-05-31T18:33:11.840Z","objectId":"TjFSXDMvd4"}}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:12 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        20"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 21"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        22"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post 23"}},{"method":"POST","path":"/1/classes/Post","body":{"title":"post
+        24"}}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '364'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:12 GMT
+      Etag:
+      - ! '"6a51637b3a62e36aaf9b7fd7320eba50"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYzQ1NGJiMjNjNjQ2ZWFmYjc0ODA2YmE4MmYzZWQyYjk%3D--63605ec385dad266cecce0178838e0c5a49e98a4;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:12 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.112309'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '386'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":{"createdAt":"2013-05-31T18:33:12.329Z","objectId":"frJX5bOarv"}},{"success":{"createdAt":"2013-05-31T18:33:12.341Z","objectId":"OqFHOKwCE5"}},{"success":{"createdAt":"2013-05-31T18:33:12.352Z","objectId":"ZSai0KOVu0"}},{"success":{"createdAt":"2013-05-31T18:33:12.363Z","objectId":"segbU38Aec"}},{"success":{"createdAt":"2013-05-31T18:33:12.374Z","objectId":"Xo3pUKg4sx"}}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:13 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Post?count=1&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:12 GMT
+      Etag:
+      - ! '"0b8e31817c24a7668c6b4244069ac7e3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMmE0YzRhYzE3M2ZhZDUyOTYzNjllY2I0MDg3YzYzMzE%3D--e8a39f33f51a21398882d71b2f96c541f3099206;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:12 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.054316'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '3064'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"title":"post 0","createdAt":"2013-05-31T18:33:11.343Z","updatedAt":"2013-05-31T18:33:11.343Z","objectId":"ZUFtQqEsAS"},{"title":"post
+        1","createdAt":"2013-05-31T18:33:11.423Z","updatedAt":"2013-05-31T18:33:11.423Z","objectId":"PkQXRcF1h8"},{"title":"post
+        2","createdAt":"2013-05-31T18:33:11.443Z","updatedAt":"2013-05-31T18:33:11.443Z","objectId":"mf9kH4Pz9G"},{"title":"post
+        3","createdAt":"2013-05-31T18:33:11.484Z","updatedAt":"2013-05-31T18:33:11.484Z","objectId":"cv94oob1gA"},{"title":"post
+        4","createdAt":"2013-05-31T18:33:11.504Z","updatedAt":"2013-05-31T18:33:11.504Z","objectId":"BtS4WKsMz7"},{"title":"post
+        5","createdAt":"2013-05-31T18:33:11.543Z","updatedAt":"2013-05-31T18:33:11.543Z","objectId":"Y0xX6pbmG9"},{"title":"post
+        6","createdAt":"2013-05-31T18:33:11.562Z","updatedAt":"2013-05-31T18:33:11.562Z","objectId":"cNcn1nQGy5"},{"title":"post
+        7","createdAt":"2013-05-31T18:33:11.591Z","updatedAt":"2013-05-31T18:33:11.591Z","objectId":"WdC9VpoX9E"},{"title":"post
+        8","createdAt":"2013-05-31T18:33:11.609Z","updatedAt":"2013-05-31T18:33:11.609Z","objectId":"sFVGtZk0sg"},{"title":"post
+        9","createdAt":"2013-05-31T18:33:11.636Z","updatedAt":"2013-05-31T18:33:11.636Z","objectId":"DqXbaxg7ll"},{"title":"post
+        10","createdAt":"2013-05-31T18:33:11.655Z","updatedAt":"2013-05-31T18:33:11.655Z","objectId":"aIGXB8dEiR"},{"title":"post
+        11","createdAt":"2013-05-31T18:33:11.679Z","updatedAt":"2013-05-31T18:33:11.679Z","objectId":"Woe9fLva4g"},{"title":"post
+        12","createdAt":"2013-05-31T18:33:11.704Z","updatedAt":"2013-05-31T18:33:11.704Z","objectId":"SZxrfQoZhv"},{"title":"post
+        13","createdAt":"2013-05-31T18:33:11.724Z","updatedAt":"2013-05-31T18:33:11.724Z","objectId":"aQdxix0oQe"},{"title":"post
+        14","createdAt":"2013-05-31T18:33:11.743Z","updatedAt":"2013-05-31T18:33:11.743Z","objectId":"nt3wMzIMtw"},{"title":"post
+        15","createdAt":"2013-05-31T18:33:11.762Z","updatedAt":"2013-05-31T18:33:11.762Z","objectId":"U4CDAnBGqH"},{"title":"post
+        16","createdAt":"2013-05-31T18:33:11.782Z","updatedAt":"2013-05-31T18:33:11.782Z","objectId":"s8XRAcUROW"},{"title":"post
+        17","createdAt":"2013-05-31T18:33:11.801Z","updatedAt":"2013-05-31T18:33:11.801Z","objectId":"lFhH6s11Zy"},{"title":"post
+        18","createdAt":"2013-05-31T18:33:11.820Z","updatedAt":"2013-05-31T18:33:11.820Z","objectId":"xgBSoBc4x9"},{"title":"post
+        19","createdAt":"2013-05-31T18:33:11.840Z","updatedAt":"2013-05-31T18:33:11.840Z","objectId":"TjFSXDMvd4"},{"title":"post
+        20","createdAt":"2013-05-31T18:33:12.329Z","updatedAt":"2013-05-31T18:33:12.329Z","objectId":"frJX5bOarv"},{"title":"post
+        21","createdAt":"2013-05-31T18:33:12.341Z","updatedAt":"2013-05-31T18:33:12.341Z","objectId":"OqFHOKwCE5"},{"title":"post
+        22","createdAt":"2013-05-31T18:33:12.352Z","updatedAt":"2013-05-31T18:33:12.352Z","objectId":"ZSai0KOVu0"},{"title":"post
+        23","createdAt":"2013-05-31T18:33:12.363Z","updatedAt":"2013-05-31T18:33:12.363Z","objectId":"segbU38Aec"},{"title":"post
+        24","createdAt":"2013-05-31T18:33:12.374Z","updatedAt":"2013-05-31T18:33:12.374Z","objectId":"Xo3pUKg4sx"}],"count":25}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:13 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Post/ZUFtQqEsAS"},{"method":"DELETE","path":"/1/classes/Post/PkQXRcF1h8"},{"method":"DELETE","path":"/1/classes/Post/mf9kH4Pz9G"},{"method":"DELETE","path":"/1/classes/Post/cv94oob1gA"},{"method":"DELETE","path":"/1/classes/Post/BtS4WKsMz7"},{"method":"DELETE","path":"/1/classes/Post/Y0xX6pbmG9"},{"method":"DELETE","path":"/1/classes/Post/cNcn1nQGy5"},{"method":"DELETE","path":"/1/classes/Post/WdC9VpoX9E"},{"method":"DELETE","path":"/1/classes/Post/sFVGtZk0sg"},{"method":"DELETE","path":"/1/classes/Post/DqXbaxg7ll"},{"method":"DELETE","path":"/1/classes/Post/aIGXB8dEiR"},{"method":"DELETE","path":"/1/classes/Post/Woe9fLva4g"},{"method":"DELETE","path":"/1/classes/Post/SZxrfQoZhv"},{"method":"DELETE","path":"/1/classes/Post/aQdxix0oQe"},{"method":"DELETE","path":"/1/classes/Post/nt3wMzIMtw"},{"method":"DELETE","path":"/1/classes/Post/U4CDAnBGqH"},{"method":"DELETE","path":"/1/classes/Post/s8XRAcUROW"},{"method":"DELETE","path":"/1/classes/Post/lFhH6s11Zy"},{"method":"DELETE","path":"/1/classes/Post/xgBSoBc4x9"},{"method":"DELETE","path":"/1/classes/Post/TjFSXDMvd4"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1134'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:13 GMT
+      Etag:
+      - ! '"73aba4ccb55fd6e8329ceadbad2bbc4a"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYzEzMzZlZDg5NmUxZjkyMTE5YzEyOWM1NGRlMWEyZTA%3D--6d672b7754a08792e03ab339bf5c0ca12313ccdc;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:13 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.571075'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '341'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true},{"success":true}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:14 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Post/frJX5bOarv"},{"method":"DELETE","path":"/1/classes/Post/OqFHOKwCE5"},{"method":"DELETE","path":"/1/classes/Post/ZSai0KOVu0"},{"method":"DELETE","path":"/1/classes/Post/segbU38Aec"},{"method":"DELETE","path":"/1/classes/Post/Xo3pUKg4sx"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '294'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:14 GMT
+      Etag:
+      - ! '"ce743ce78185012845d9156c3362f264"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNTVjM2YyOWNhYzJjNjAzNmQ5MzU1NGQwZjgzOTZiYzg%3D--f9d439787bd3347dc6ee0a3e145314afbaec9275;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:14 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.082561'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '86'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true},{"success":true},{"success":true},{"success":true},{"success":true}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:14 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Post?count=1&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:14 GMT
+      Etag:
+      - ! '"8c97ea0119fb2eb809f32e913cb37202"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOWQzMmM0YjliZjliNGRkMjYxMDI4MTY5N2UwNWI3MDU%3D--fe140e27d0e7a338e34fbede7dd3ac0e8e75da70;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:14 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.047720'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '24'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[],"count":0}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:15 GMT
 recorded_with: VCR 2.4.0

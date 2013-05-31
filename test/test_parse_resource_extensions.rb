@@ -8,11 +8,12 @@ module Nesty
     parse_model_name "Nest"
     field number: Integer
     field date: Date
-    field :words 
-    end 
-  end
+    field words: String 
+    field :whatever 
+  end 
+end
 
-class TestParseResource < Test::Unit::TestCase
+class TestParseResourceExtensions < Test::Unit::TestCase
 
   def test_initialize_without_args
     assert Post.new.is_a?(Post)
@@ -30,4 +31,32 @@ class TestParseResource < Test::Unit::TestCase
   def test_attribute_type_definition
 
   end
+
+  def test_setting_attribute_value_integer_as_integer
+    nest = Nesty::Nest.new
+    nest.number = 1337
+    assert_equal nest.number, 1337
+  end
+
+  def test_setting_attribute_value_integer_as_string
+    nest = Nesty::Nest.new
+    nest.number = "1337"
+    assert_equal nest.number, 1337
+  end
+
+  def test_setting_attribute_value_string_as_integer
+    nest = Nesty::Nest.new
+    nest.words = 1337
+    assert_equal nest.words, "1337"
+  end
+
+  def test_setting_attribute_without_coersion
+    nest = Nesty::Nest.new
+    nest.whatever = 1337
+    assert_equal nest.whatever, 1337
+    nest.whatever = "meh"
+    assert_equal nest.whatever, "meh"
+  end
+
+
 end

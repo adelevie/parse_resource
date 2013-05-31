@@ -3,8 +3,8 @@ development:
   master_key: <%= ENV["PARSE_RESOURCE_MASTER_KEY"] %>
 
 test:
-  app_id: tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq
-  master_key: H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq
+  app_id: <%= ENV["PARSE_RESOURCE_APPLICATION_ID"] %>
+  master_key: <%= ENV["PARSE_RESOURCE_MASTER_KEY"] %>q
 
 
 production:

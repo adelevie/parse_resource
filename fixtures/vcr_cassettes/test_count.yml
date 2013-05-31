@@ -819,4 +819,490 @@ http_interactions:
       string: ! '{"results":[],"count":0}'
     http_version: 
   recorded_at: Wed, 17 Apr 2013 20:08:30 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:54 GMT
+      Etag:
+      - ! '"61aa52bf893e499b59872849b280c7a4"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMzIzYjI4YzNlNGE4NzlkYzcwZTgzNzQ0NGYzZmU2MmE%3D--917e9d0626f16ceb7b5ffbaf568e1c69ee401ea1;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:54 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.063010'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '247'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"1st","createdAt":"2013-05-31T18:25:22.660Z","updatedAt":"2013-05-31T18:25:22.660Z","objectId":"pAp8R24JnW"},{"name":"2nd","createdAt":"2013-05-31T18:25:23.103Z","updatedAt":"2013-05-31T18:25:23.103Z","objectId":"xMtVlg3eQR"}]}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:55 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Author/pAp8R24JnW"},{"method":"DELETE","path":"/1/classes/Author/xMtVlg3eQR"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '130'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:55 GMT
+      Etag:
+      - ! '"9f103a4fc959709a4ff9f7cb2a96d647"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTAzYTAzY2UyODM4ZWMzYzMwN2JmNTcxZDM3NzAzYjI%3D--80c342605f00bb34ee4eeef5805b490e7b0fef6a;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:55 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.055644'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '35'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true},{"success":true}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:56 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"bar"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:55 GMT
+      Location:
+      - https://api.parse.com/1/classes/Author/fLsfXpQQZd
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjkyYTA4YmY5YzljMzI2Njg5MTYyZWMyNmQ4ZGIzMGU%3D--593efca91a63a5108208d97f56929b8f94eeabfb;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:55 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.040901'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-05-31T18:31:55.752Z","objectId":"fLsfXpQQZd"}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:56 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"jab"}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '14'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:56 GMT
+      Location:
+      - https://api.parse.com/1/classes/Author/D7r19m4A0H
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMDhkZmVmMzNiZWVhMDQ1NTQ0OTM0NmE3ZmQ2NDc3YzE%3D--4fd70f1d5f88e673701bfb16a9967da50b49280b;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:56 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.067091'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-05-31T18:31:56.197Z","objectId":"D7r19m4A0H"}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:56 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author?count=1&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:56 GMT
+      Etag:
+      - ! '"92bd4f5e7ebe57b6e9c013df4404abb6"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTE1YjQzNzcxZmNjOTRkMDUzNTkxOGRjZjUyMmQxNGI%3D--011b7d8f622a8c9e9c30ade17de38c65991618fc;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:56 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.052946'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '257'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"bar","createdAt":"2013-05-31T18:31:55.752Z","updatedAt":"2013-05-31T18:31:55.752Z","objectId":"fLsfXpQQZd"},{"name":"jab","createdAt":"2013-05-31T18:31:56.197Z","updatedAt":"2013-05-31T18:31:56.197Z","objectId":"D7r19m4A0H"}],"count":2}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:57 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author?count=1&where=%7B%22name%22:%22jab%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:56 GMT
+      Etag:
+      - ! '"48c20d9f698c5b88a6a859d5faea6221"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNzkzODgwMzBkZWU0ZDE4ZjMzMTU4YTY0ODJmOTY4NmE%3D--65e98e372583ef2753568a159deab868dbf6169b;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:56 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.039076'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '140'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"jab","createdAt":"2013-05-31T18:31:56.197Z","updatedAt":"2013-05-31T18:31:56.197Z","objectId":"D7r19m4A0H"}],"count":1}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:57 GMT
+- request:
+    method: delete
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author/fLsfXpQQZd
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:57 GMT
+      Etag:
+      - ! '"99914b932bd37a50b983c5e7c90ae93b"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOWNjZjI0MTFlZGY4MGNhNjBkN2JjMWY5M2NhY2FkNmI%3D--fa0f3a362c5e6a912cecb2bbeb8a787d02f55132;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:57 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.123601'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:58 GMT
+- request:
+    method: delete
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author/D7r19m4A0H
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:57 GMT
+      Etag:
+      - ! '"99914b932bd37a50b983c5e7c90ae93b"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYzAxZDE4MzVhYmJkYWI1MDQ2ZTY2MWQ4OWVmZTg1ZGU%3D--0e1eac835ac0319f678c6209df494d31a1177518;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:57 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.033818'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '2'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:58 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/Author?count=1&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:31:58 GMT
+      Etag:
+      - ! '"8c97ea0119fb2eb809f32e913cb37202"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYWJiZWRlZjg5NWIxOGUzOWMyM2YyMWU0N2M5YWVkYTQ%3D--360d736e6de5fbc371d0d9ae8828c252b1306f48;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:31:58 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.052113'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '24'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[],"count":0}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:31:58 GMT
+- request:
+    method: get
+    uri: https://api.parse.com/1/classes/Author?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Access-Control-Request-Method:
+      - ! '*'
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 19:03:16 GMT
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYmFlYTUxMmU0ZjFkOTE1MTZmODJhMzdlM2ViMDJlZDU%3D--35a6e81e3c983f9a3e2fe36db9ddf8951c0a0b29;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 19:03:16 GMT; secure;
+        HttpOnly
+      Status:
+      - 401 Unauthorized
+      Www-Authenticate:
+      - Basic realm="Parse"
+      X-Runtime:
+      - '0.005140'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '24'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"unauthorized"}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 19:03:17 GMT
 recorded_with: VCR 2.4.0

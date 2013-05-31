@@ -294,4 +294,151 @@ http_interactions:
       string: ! '{"code":135,"error":"deviceType must be specified in this operation"}'
     http_version: 
   recorded_at: Wed, 17 Apr 2013 20:09:19 GMT
+- request:
+    method: get
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/installations?where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:28 GMT
+      Etag:
+      - ! '"57edb3ab7eeb03fec735b595f218e116"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOGNhNjIzNGZkYmYxMjdjMWQwMDk2MTA1YWMxYWY0MmQ%3D--f48fef85c330e3f0f80d9e2e4ada21dc5157e2a3;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:28 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.052571'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '233'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"deviceType":"ios","deviceToken":"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef","channels":[""],"createdAt":"2013-05-31T18:33:28.204Z","updatedAt":"2013-05-31T18:33:28.204Z","objectId":"xKqsrzjKXg"}]}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:29 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/installations/xKqsrzjKXg"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '71'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:29 GMT
+      Etag:
+      - ! '"6abe125b20486fefa07552105cea58f3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOGUzNDFmYjhhNDM2MTI5NTc0ZmI0N2NlODU4MTkxMTM%3D--e64d763171d33c14e8201380868dbb0bf4aaa580;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:29 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.061350'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true}]'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:29 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/installations
+    body:
+      encoding: UTF-8
+      string: ! '{"deviceToken":"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef","channels":[""]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '98'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 31 May 2013 18:33:29 GMT
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOWRkNmQwYjE3OTJkNzdiZjMzNDE4N2M3ZmFiYjlhYjk%3D--c31b5cb01e25446823eef2b8f4fb18f84d695f19;
+        domain=.parse.com; path=/; expires=Wed, 31-May-2023 18:33:29 GMT; secure;
+        HttpOnly
+      Status:
+      - 400 Bad Request
+      X-Runtime:
+      - '0.037267'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '69'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"code":135,"error":"deviceType must be specified in this operation"}'
+    http_version: 
+  recorded_at: Fri, 31 May 2013 18:33:30 GMT
 recorded_with: VCR 2.4.0

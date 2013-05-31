@@ -67,14 +67,13 @@ module ParseResource
 
       class_eval do
         define_method(fname) do
-          f_klass.nil? ? get_attribute("#{fname}") :
-            ( f_klass(get_attribute("#{fname}")) rescue nil )
+          get_attribute("#{fname}")
         end
       end
       unless self.respond_to? "#{fname}="
         class_eval do
           define_method("#{fname}=") do |val|
-            val = f_klass(val) rescue nil unless f_klass.nil?
+            val = coerce_attribute("#{f_klass}".constantize, val) if f_klass
             set_attribute("#{fname}", val)
 
             val
@@ -421,12 +420,10 @@ module ParseResource
 
     def save
       if valid?
-        run_callbacks :save do
-          if new?
-            return create
-          else
-            return update
-          end
+        if new?
+          return create
+        else
+          return update
         end
       else
         false
@@ -435,23 +432,30 @@ module ParseResource
     end
 
     def create
-      attrs = attributes_for_saving.to_json
-      opts = {:content_type => "application/json"}
-      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+      run_callbacks :update do
+        run_callbacks :save do
+          attrs = attributes_for_saving.to_json
+          opts = {:content_type => "application/json"}
+          result = self.resource.post(attrs, opts) do |resp, req, res, &block|
+            return post_result(resp, req, res, &block)
+          end
+        end
       end
     end
 
     def update(attributes = {})
+      run_callbacks :update do
+        run_callbacks :save do
+          attributes = HashWithIndifferentAccess.new(attributes)
 
-      attributes = HashWithIndifferentAccess.new(attributes)
+          @unsaved_attributes.merge!(attributes)
+          put_attrs = attributes_for_saving.to_json
 
-      @unsaved_attributes.merge!(attributes)
-      put_attrs = attributes_for_saving.to_json
-
-      opts = {:content_type => "application/json"}
-      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+          opts = {:content_type => "application/json"}
+          result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
+            return post_result(resp, req, res, &block)
+          end
+        end
       end
     end
 
@@ -569,6 +573,20 @@ module ParseResource
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
+    end
+
+    def coerce_attribute(klass, value)
+      if klass.nil? || value.class == klass
+        value
+      else
+        if(Kernel.respond_to?(klass.name))
+          Kernel.send(klass.name, value)
+        elsif klass.respond_to?(:parse)
+          klass.parse(value)
+        else
+          value
+        end
+      end
     end
 
 
