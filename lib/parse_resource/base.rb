@@ -57,16 +57,24 @@ module ParseResource
     #
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
-    def self.field(fname, val=nil)
-      fname = fname.to_sym
+    def self.field(name_or_hash, val=nil)
+      if name_or_hash.class == Hash
+        fname = name_or_hash.keys.first
+        f_klass = name_or_hash.values.first
+      else
+        fname = name_or_hash.to_sym
+      end
+
       class_eval do
         define_method(fname) do
-          get_attribute("#{fname}")
+          f_klass.nil? ? get_attribute("#{fname}") :
+            ( f_klass(get_attribute("#{fname}")) rescue nil )
         end
       end
       unless self.respond_to? "#{fname}="
         class_eval do
           define_method("#{fname}=") do |val|
+            val = f_klass(val) rescue nil unless f_klass.nil?
             set_attribute("#{fname}", val)
 
             val
@@ -155,6 +163,9 @@ module ParseResource
     end
 
     @@settings ||= nil
+    @@_parse_class ||= nil
+    @@parse_models ||= []
+    @@inverse_parse_models ||= []
 
     # Explicitly set Parse.com API keys.
     #
@@ -166,6 +177,20 @@ module ParseResource
 
     def self.settings
       load_settings
+    end
+
+    def self.parse_model_name(klass_name)
+      @@_parse_class = klass_name
+      @@parse_models << { klass_name => self.name }
+      @@inverse_parse_models << { self.name => klass_name }
+    end
+
+    def self.parse_models
+      @@parse_models
+    end
+
+    def self.inverse_parse_models
+      @@inverse_parse_models
     end
 
     # Gets the current class's model name for the URI
@@ -187,6 +212,14 @@ module ParseResource
     # Gets the current instance's parent class's Parse.com base_uri
     def model_base_uri
       self.class.send(:model_base_uri)
+    end
+
+    def self.parse_class
+      @@_parse_class || self.name
+    end
+
+    def parse_class
+      self.class.parse_class
     end
 
 
