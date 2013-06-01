@@ -592,7 +592,7 @@ module ParseResource
         v = v.to_pointer
         # if we have a mapped class then we need to change back to the parse 
         # class here.
-        klass_name = ParseResource::Base.parse_class_name_for_model(v.class)
+        klass_name = ParseResource::Base.parse_class_name_for_model(v['className'])
         v['className'] = klass_name unless klass_name.nil?
       end
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
