@@ -55,6 +55,10 @@ module ParseResource
       def within_box(near, geo_point_south, geo_point_north)
         Query.new(self).within_box(near, geo_point_south, geo_point_north)
       end
+
+      def related_to(obj, key)
+        Query.new(self).related_to(obj, key)
+      end
 		end
 
 		def self.included(base)

@@ -303,6 +303,10 @@ posts.each do |post|
 	# because you used Post#include_object, calling post.title won't execute a new query
 	# this is similar to ActiveRecord's eager loading
 end
+
+# fetch users through a relation on posts named commenters
+post = Post.first
+users = User.related_to(post, commenters)
 ```
 
 File Upload
