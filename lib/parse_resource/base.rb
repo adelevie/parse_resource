@@ -229,6 +229,14 @@ module ParseResource
       self.class.parse_class
     end
 
+    def self.to_s
+      self.obejectId
+    end
+
+    def self.parse(id)
+      self.find(id)
+    end
+
 
     # Creates a RESTful resource
     # sends requests to [base_uri]/[classname]
