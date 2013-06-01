@@ -487,6 +487,11 @@ module ParseResource
         else
           pe = ParseError.new(resp.code.to_s)
         end
+        if pe.code == 111
+          phrase = pe.msg.split("key ")
+          key = phrase[1].split(",").first if phrase.count > 1
+          self.errors.add(key, pe.msg) if key
+        end
         self.errors.add(pe.code.to_s.to_sym, pe.msg)
         self.error_instances << pe
         return false
