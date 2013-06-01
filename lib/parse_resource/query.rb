@@ -84,6 +84,12 @@ class Query
     self
   end
 
+  def related_to(obj, key)
+    query = { "$relatedTo" => { "object" => obj.to_pointer, "key" => key } }
+    criteria[:conditions].merge!(query)
+    self
+  end
+
   def execute
     params = {}
     params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
