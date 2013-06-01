@@ -21,7 +21,7 @@ module Jack
   class Parent < ParseResource::Base
     parse_model_name "RedJack"
     field :name 
-    field :child
+    field :child, Jack::Black
   end
 end
 
@@ -87,6 +87,16 @@ class TestParseResourceExtensions < Test::Unit::TestCase
       parent = Jack::Parent.create(name: "parent")
       parent.child = black
       parent.save
+      assert_not_equal parent.child, black
+      assert_equal parent.child.id, black.id
+    end
+  end
+
+  def test_nested_classes_update_using_mapped_names
+    VCR.use_cassette('test_nested_classes_update_using_mapped_names', :record => :new_episodes) do
+      black = Jack::Black.create(name: "Child")
+      parent = Jack::Parent.create(name: "parent")
+      parent.update(child: black)
       assert_not_equal parent.child, black
       assert_equal parent.child.id, black.id
     end
