@@ -455,8 +455,11 @@ module ParseResource
       run_callbacks :update do
         run_callbacks :save do
           attributes = HashWithIndifferentAccess.new(attributes)
+          attributes.keys.each do |key|
+            self.send("#{key}=", attributes[key])
+          end
 
-          @unsaved_attributes.merge!(attributes)
+          #@unsaved_attributes.merge!(attributes)
           put_attrs = attributes_for_saving.to_json
 
           opts = {:content_type => "application/json"}
