@@ -13,6 +13,10 @@ module Nesty
   end 
 end
 
+class TypeCheck < ParseResource::Base
+  field :number => Integer
+end
+
 module Jack
   class Black < ParseResource::Base
     parse_model_name "BlackJack"
@@ -26,10 +30,6 @@ module Jack
 end
 
 class TestParseResourceExtensions < Test::Unit::TestCase
-
-  def test_initialize_without_args
-    assert Post.new.is_a?(Post)
-  end
 
   def test_model_mapping
     assert_equal Nesty::Nest.new.parse_class, "Nest"
@@ -83,6 +83,8 @@ class TestParseResourceExtensions < Test::Unit::TestCase
 
   def test_nested_classes_using_mapped_names
     VCR.use_cassette('test_nested_classes_using_mapped_names', :record => :new_episodes) do
+      Jack::Black.destroy_all
+      Jack::Parent.destroy_all
       black = Jack::Black.create(name: "Child")
       parent = Jack::Parent.create(name: "parent")
       parent.child = black
@@ -94,11 +96,24 @@ class TestParseResourceExtensions < Test::Unit::TestCase
 
   def test_nested_classes_update_using_mapped_names
     VCR.use_cassette('test_nested_classes_update_using_mapped_names', :record => :new_episodes) do
+      Jack::Black.destroy_all
+      Jack::Parent.destroy_all
       black = Jack::Black.create(name: "Child")
       parent = Jack::Parent.create(name: "parent")
       parent.update(child: black)
       assert_not_equal parent.child, black
       assert_equal parent.child.id, black.id
+    end
+  end
+
+  def test_error_messages_includes_info_when_bad_type
+      VCR.use_cassette('test_error_messages_includes_info_when_bad_type', :record => :new_episodes) do
+      TypeCheck.destroy_all
+      integer_number = TypeCheck.create(number: 1337)
+
+      assert integer_number.update(number: "1337") == false
+      assert integer_number.errors.first.include? :number
+      assert integer_number.errors.first.include? "invalid type for key number, expected number, but got string"
     end
   end
 

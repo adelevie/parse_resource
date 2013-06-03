@@ -230,7 +230,11 @@ module ParseResource
     end
 
     def self.to_s
-      self.obejectId
+      if self.respond_to? "objectId"
+        self.objectId
+      else
+        super
+      end
     end
 
     def self.parse(id)
