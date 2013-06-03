@@ -23,30 +23,81 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:00 GMT
+      - Mon, 03 Jun 2013 22:22:08 GMT
       Etag:
-      - ! '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
+      - ! '"075d6b0a815b9b6169c5a3a0ad7f97ad"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTY2ZTc2ZmY5YTFkYzI1MDE4NWFhY2M3NjRlOTRkYWI%3D--07f53f443bec1286464270bdce5af2ea9fdf04b1;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:00 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNDYxZWY5N2YyM2Y5NTUwZGQ5NDYzNmUxZjUxOTc3ZjA%3D--f984b28ca9f815de31423ce05257e9df5214e4e1;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:08 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.048237'
+      - '0.333726'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '14'
+      - '132'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[]}'
+      string: ! '{"results":[{"name":"Child","createdAt":"2013-06-03T22:11:43.848Z","updatedAt":"2013-06-03T22:11:43.848Z","objectId":"pJqcLFOnuJ"}]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:00 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:08 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/BlackJack/pJqcLFOnuJ"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '75'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 03 Jun 2013 22:22:08 GMT
+      Etag:
+      - ! '"6abe125b20486fefa07552105cea58f3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWZkNTgzZDUzZDg4ODkxYTYwNjdkYzI4NWQ3ZTZjMWY%3D--c8135e744f86a51e30f531ecbcfd4fdababf9b2f;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:08 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.055675'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true}]'
+    http_version: 
+  recorded_at: Mon, 03 Jun 2013 22:22:08 GMT
 - request:
     method: get
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/RedJack?where=%7B%7D
@@ -70,30 +121,81 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:01 GMT
+      - Mon, 03 Jun 2013 22:22:08 GMT
       Etag:
-      - ! '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
+      - ! '"91665eb1fe1ccaa0b823792173555139"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZGM3YjdmNTM0NmRmM2Q5MjdmZDY5ZDFhZWJhZjkxODQ%3D--403fe9b9132729e86b5db80206cb76bbaf0c978b;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:01 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlM2Q3N2ZmYmE1YTRmODcyY2ExMjQ3MzljM2M0MjI1NjE%3D--ef9af21271bf6c269ea38c1f4cd6a10702f8751c;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:08 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.035550'
+      - '0.032918'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '14'
+      - '133'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[]}'
+      string: ! '{"results":[{"name":"parent","createdAt":"2013-06-03T22:11:44.292Z","updatedAt":"2013-06-03T22:11:44.292Z","objectId":"OHvXp0OPcv"}]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:01 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:09 GMT
+- request:
+    method: post
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/RedJack/OHvXp0OPcv"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '73'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Mon, 03 Jun 2013 22:22:09 GMT
+      Etag:
+      - ! '"6abe125b20486fefa07552105cea58f3"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYmYwMWNiMzQ2YTEwYTI3YTdhZjIwYjY0ZTE3ZmYzMDc%3D--c2769edec8ced05d8223238f130fc435e4a6eb12;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:09 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.042767'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '18'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":true}]'
+    http_version: 
+  recorded_at: Mon, 03 Jun 2013 22:22:09 GMT
 - request:
     method: post
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/BlackJack
@@ -121,19 +223,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:01 GMT
+      - Mon, 03 Jun 2013 22:22:09 GMT
       Location:
-      - https://api.parse.com/1/classes/BlackJack/w6yxKYHRuC
+      - https://api.parse.com/1/classes/BlackJack/A2QBjqFIBt
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWRmNjBjNDI2NWFmNzQ5ODJmNjYwNGU4NDgxN2M2MDY%3D--16aeb83058762d29e0c352d2b4721a298b55d9a8;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:01 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYmZlMDM0Mzk4ZTQ5MTUzZGEyMDMxM2IwNjRkNzgyMmQ%3D--2d4c0fe846ed942d28fbef38a0b58e1fac198744;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:09 GMT; secure;
         HttpOnly
       Status:
       - 201 Created
       X-Runtime:
-      - '0.075858'
+      - '0.058681'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -142,9 +244,9 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"createdAt":"2013-06-03T05:43:01.821Z","objectId":"w6yxKYHRuC"}'
+      string: ! '{"createdAt":"2013-06-03T22:22:09.882Z","objectId":"A2QBjqFIBt"}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:01 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:09 GMT
 - request:
     method: post
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/RedJack
@@ -172,19 +274,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:02 GMT
+      - Mon, 03 Jun 2013 22:22:10 GMT
       Location:
-      - https://api.parse.com/1/classes/RedJack/CaMZuH9we1
+      - https://api.parse.com/1/classes/RedJack/oXSv3sBVZ0
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYzJmMDFhMGUzYjE0MWEwMjcyODFmOGRiMDgzN2M2YmI%3D--145adafcc4cf06142d5c8c63047092e2efd77813;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:02 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNjgzNTBjMTZjZmZlMGEzMDU1NGNhMThkN2E1ZWM2ZmQ%3D--01b4e8c7e4875e2b38c4aa162322e8cea1459b05;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:10 GMT; secure;
         HttpOnly
       Status:
       - 201 Created
       X-Runtime:
-      - '0.453842'
+      - '0.033556'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -193,15 +295,15 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"createdAt":"2013-06-03T05:43:02.759Z","objectId":"CaMZuH9we1"}'
+      string: ! '{"createdAt":"2013-06-03T22:22:10.333Z","objectId":"oXSv3sBVZ0"}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:02 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:10 GMT
 - request:
     method: put
-    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/RedJack/CaMZuH9we1
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/RedJack/oXSv3sBVZ0
     body:
       encoding: UTF-8
-      string: ! '{"child":{"__type":"Pointer","className":"BlackJack","objectId":"w6yxKYHRuC"}}'
+      string: ! '{"child":{"__type":"Pointer","className":"Jack::Black","objectId":"A2QBjqFIBt"}}'
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -210,45 +312,46 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '78'
+      - '80'
       User-Agent:
       - Ruby
   response:
     status:
-      code: 400
-      message: Bad Request
+      code: 200
+      message: OK
     headers:
       Cache-Control:
-      - no-cache
+      - max-age=0, private, must-revalidate
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:03 GMT
+      - Mon, 03 Jun 2013 22:22:10 GMT
+      Etag:
+      - ! '"8fc40c5430aaf04a89fe2ac2fb9a120a"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYmZkMGVlMjcwY2VkYjczNWEyNTI4NzQ2MWJiOWVjYjM%3D--ce2c13b69facb7fb344f00fac5de1945a983bde9;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:03 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNGZkMjg4ZWE5M2VkZTlhYzQxODk2MjFkNzM0NGQxODU%3D--6f712ec47f8b2292f03a3f773d678cf078189b7a;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:10 GMT; secure;
         HttpOnly
       Status:
-      - 400 Bad Request
+      - 200 OK
       X-Runtime:
-      - '0.273905'
+      - '0.049522'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '92'
+      - '40'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"code":111,"error":"invalid type for key child, expected *Jack::Black,
-        but got *BlackJack"}'
+      string: ! '{"updatedAt":"2013-06-03T22:22:10.794Z"}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:03 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:10 GMT
 - request:
     method: get
-    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/BlackJack?limit=1&where=%7B%22objectId%22:%22w6yxKYHRuC%22%7D
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/BlackJack?limit=1&where=%7B%22objectId%22:%22A2QBjqFIBt%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -269,19 +372,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:04 GMT
+      - Mon, 03 Jun 2013 22:22:11 GMT
       Etag:
-      - ! '"dade2ed585107dd8bc41d7547be8d28a"'
+      - ! '"8ff393cc1164a17ff97bb87fb2c0bbbd"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTc0OTQwODllYjM5Yzc3YzkyM2NlZjBkNmY5OTdkZTE%3D--06e9a77006f3a8fc7501904e3543b3738a30c52d;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:04 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZGJiOTMxYjIwN2MzZjk0YWM3ZTAyNjE1MDE3MDg1NzM%3D--22ebe66b28292d837735b1cccaf7e6e26e8641d2;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:11 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.081182'
+      - '0.049038'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -290,12 +393,12 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"name":"Child","createdAt":"2013-06-03T05:43:01.821Z","updatedAt":"2013-06-03T05:43:01.821Z","objectId":"w6yxKYHRuC"}]}'
+      string: ! '{"results":[{"name":"Child","createdAt":"2013-06-03T22:22:09.882Z","updatedAt":"2013-06-03T22:22:09.882Z","objectId":"A2QBjqFIBt"}]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:04 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:11 GMT
 - request:
     method: get
-    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/BlackJack?limit=1&where=%7B%22objectId%22:%22w6yxKYHRuC%22%7D
+    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/BlackJack?limit=1&where=%7B%22objectId%22:%22A2QBjqFIBt%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -316,19 +419,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:04 GMT
+      - Mon, 03 Jun 2013 22:22:11 GMT
       Etag:
-      - ! '"dade2ed585107dd8bc41d7547be8d28a"'
+      - ! '"8ff393cc1164a17ff97bb87fb2c0bbbd"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZWZiMmQ1ZmMxZDdiNzI2ZmI4NTNiNjljMjQwOGY5NWQ%3D--32c7fc1d5db1d97963d006d3551e6c660fc986ba;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:04 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZTJkOTM2MjRjODBiNjIzYmJmNDhkNTU2NTFmNTkxMmQ%3D--3cb42272a83e156ace402a8a09140f665ce8f053;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:11 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.067036'
+      - '0.028593'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -337,7 +440,7 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"name":"Child","createdAt":"2013-06-03T05:43:01.821Z","updatedAt":"2013-06-03T05:43:01.821Z","objectId":"w6yxKYHRuC"}]}'
+      string: ! '{"results":[{"name":"Child","createdAt":"2013-06-03T22:22:09.882Z","updatedAt":"2013-06-03T22:22:09.882Z","objectId":"A2QBjqFIBt"}]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:04 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:11 GMT
 recorded_with: VCR 2.4.0

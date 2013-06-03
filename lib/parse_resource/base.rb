@@ -32,35 +32,32 @@ module ParseResource
 
     define_model_callbacks :save, :create, :update, :destroy
 
+    #settings 
+    @@settings ||= nil
+    # mapping between the parse models and your models.
+    @@parse_models ||= {}
+    # inverse mapping to make things quick to go the other way.
+    @@inverse_parse_models ||= {}
+
+
     # Instantiates a ParseResource::Base object
     #
     # @params [Hash], [Boolean] a `Hash` of attributes and a `Boolean` that should be false only if the object already exists
     # @return [ParseResource::Base] an object that subclasses `Parseresource::Base`
-    def initialize(attributes = {}, new=true)
-      #attributes = HashWithIndifferentAccess.new(attributes)
-
-
+    def initialize(attributes = {}, new=true)     
       if new
-        @unsaved_attributes = attributes
-        @unsaved_attributes.stringify_keys!
+        @unsaved_attributes = attributes.stringify_keys.slice(* self.class.accepted_fields)
+        @unsaved_attributes = coerce_attributes(@unsaved_attributes)
       else
         @unsaved_attributes = {}
       end
+
       @attributes = {}
       self.error_instances = []
 
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
       create_setters_and_getters!
-
-      # TODO: this is a hack!!!
-      # we reset the values on new to coerce their types.
-      # we need a better place to do this.
-      attributes.keys.each do |key|
-        self.send("#{key}=", attributes[key])
-      end
-
-      self
     end
 
     # Explicitly adds a field to the model.
@@ -70,10 +67,14 @@ module ParseResource
     def self.field(name_or_hash, val=nil)
       if name_or_hash.class == Hash
         fname = name_or_hash.keys.first
-        f_klass = name_or_hash.values.first
+        klass = name_or_hash.values.first
+        self.add_to_map(fname.to_s, klass)
       else
-        fname = name_or_hash.to_sym
+        fname = name_or_hash
+        klass = nil
       end
+
+      self.add_accepted_field(fname.to_s)
 
       class_eval do
         define_method(fname) do
@@ -83,7 +84,6 @@ module ParseResource
       unless self.respond_to? "#{fname}="
         class_eval do
           define_method("#{fname}=") do |val|
-            val = coerce_attribute("#{f_klass}".constantize, val) if f_klass
             set_attribute("#{fname}", val)
 
             val
@@ -97,6 +97,28 @@ module ParseResource
     # @param [Array] *args an array of `Symbol`s, `eg :author, :body, :title`.
     def self.fields(*args)
       args.each {|f| field(f)}
+    end
+
+    def self.accepted_fields
+      @_fields || []
+    end
+
+    def self.add_accepted_field(field)
+      @_fields ||= []
+      @_fields << field
+    end
+
+    def self.add_to_map(key, value)
+      @_map ||= {}
+      @_map[key] = value
+    end
+
+    def self.field_map
+      @_map || {}
+    end
+
+    def self.field_map_keys
+      ( @_map || {} ).keys
     end
 
     # Similar to its ActiveRecord counterpart.
@@ -170,10 +192,6 @@ module ParseResource
         create_getters!(k,v)
       end
     end
-
-    @@settings ||= nil
-    @@parse_models ||= {}
-    @@inverse_parse_models ||= {}
 
     # Explicitly set Parse.com API keys.
     #
@@ -475,14 +493,14 @@ module ParseResource
     end
 
     def update(attributes = {})
+      if attributes
+        attributes = attributes.stringify_keys.slice(* self.class.accepted_fields)
+        attributes = self.coerce_attributes(attributes)
+      end
+
       run_callbacks :update do
         run_callbacks :save do
-          attributes = HashWithIndifferentAccess.new(attributes)
-          attributes.keys.each do |key|
-            self.send("#{key}=", attributes[key])
-          end
-
-          #@unsaved_attributes.merge!(attributes)
+          @unsaved_attributes.merge!(attributes)
           put_attrs = attributes_for_saving.to_json
 
           opts = {:content_type => "application/json"}
@@ -533,6 +551,13 @@ module ParseResource
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
       put_attrs
+    end
+
+    def coerce_attributes(attributes)
+      attributes.keys.each do |key|
+        attributes[key] = coerce_attribute(key, attributes[key])
+      end
+      attributes
     end
 
     def update_attributes(attributes = {})
@@ -623,7 +648,9 @@ module ParseResource
       v
     end
 
-    def coerce_attribute(klass, value)
+    def coerce_attribute(key, value)
+      klass = self.class.field_map[key]
+
       if klass.nil? || value.class == klass
         value
       else

@@ -23,87 +23,36 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:15 GMT
+      - Mon, 03 Jun 2013 22:22:19 GMT
       Etag:
-      - ! '"762844bca264aa2b8f1214f6615d3d4b"'
+      - ! '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOWE2NGQwZWRlNzk5Yjk1NWJhM2U4YTIyZmU0YWU0ZmQ%3D--f5d5b52b94a7b2d312371417d8f4739ba1bb4213;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:15 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWJlMjE0NDA0OWU5MjBjZGVjZmYzMjAzMTg4YmU3MjI%3D--5176f36724ba0d40285dce068e415d2d4c3d9ae5;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:19 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.049998'
+      - '0.037586'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '185'
+      - '14'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"username":"fake_person","createdAt":"2013-06-03T05:43:10.709Z","updatedAt":"2013-06-03T05:43:10.709Z","objectId":"D3c2P6FI4p","sessionToken":"6f0zzd7z4oit0id9qz7spohvq"}]}'
+      string: ! '{"results":[]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:15 GMT
-- request:
-    method: post
-    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
-    body:
-      encoding: UTF-8
-      string: ! '{"requests":[{"method":"DELETE","path":"/1/users/D3c2P6FI4p"}]}'
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '63'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Mon, 03 Jun 2013 05:43:16 GMT
-      Etag:
-      - ! '"b38ebbfb6e6b2ec1f655cf888e3ed892"'
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlN2YxNzhlNTExNjg4YzQ5NDZiYjdlNjdiOWUzYmIxZDA%3D--97298fec89fe236db7af7c194aecd976b8878071;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:16 GMT; secure;
-        HttpOnly
-      Status:
-      - 200 OK
-      X-Runtime:
-      - '0.076408'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '18'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '[{"success":null}]'
-    http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:16 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:19 GMT
 - request:
     method: post
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/users
     body:
       encoding: UTF-8
-      string: ! '{"username":"alan","password":"12345"}'
+      string: ! '{}'
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -112,58 +61,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '38'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 201
-      message: Created
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Mon, 03 Jun 2013 05:43:16 GMT
-      Location:
-      - https://api.parse.com/1/users/VeWCo1Mw2r
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMGMwNzc0MzQzODhjODRkNWZlMTg1M2M4ZGU5ZWI2MzY%3D--d244ee6b122bae1f61217ea8c4a4152cc62a3006;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:16 GMT; secure;
-        HttpOnly
-      Status:
-      - 201 Created
-      X-Runtime:
-      - '0.149276'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '107'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"createdAt":"2013-06-03T05:43:16.813Z","objectId":"VeWCo1Mw2r","sessionToken":"m540f17ezd6qn3lt5gotnlbwt"}'
-    http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:16 GMT
-- request:
-    method: post
-    uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/users
-    body:
-      encoding: UTF-8
-      string: ! '{"username":"alan","password":"56789"}'
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '38'
+      - '2'
       User-Agent:
       - Ruby
   response:
@@ -176,26 +74,26 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:43:17 GMT
+      - Mon, 03 Jun 2013 22:22:19 GMT
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMTRmMDM4MGIwOWY3ZWE3YjY4ZjUwYTY1ZTNmMjQ1ZmM%3D--8f185289eae63a1e1e79c6d658325f269ac30a9c;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:43:17 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZTRiOWM3ZWFlZjM2ODkwNmEyZjI3YjdmNDZiOGJjMGE%3D--5705dd3570e165479b8bbcf1a60a7fd988a6dd71;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:19 GMT; secure;
         HttpOnly
       Status:
       - 400 Bad Request
       X-Runtime:
-      - '0.054621'
+      - '0.034252'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '50'
+      - '44'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"code":202,"error":"username alan already taken"}'
+      string: ! '{"code":201,"error":"missing user password"}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:43:17 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:19 GMT
 recorded_with: VCR 2.4.0

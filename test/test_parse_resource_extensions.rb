@@ -56,26 +56,22 @@ class TestParseResourceExtensions < Test::Unit::TestCase
   end
 
   def test_setting_attribute_value_integer_as_integer
-    nest = Nesty::Nest.new
-    nest.number = 1337
+    nest = Nesty::Nest.new(number: 1337)
     assert_equal nest.number, 1337
   end
 
   def test_setting_attribute_value_integer_as_string
-    nest = Nesty::Nest.new
-    nest.number = "1337"
+    nest = Nesty::Nest.new(number: "1337")
     assert_equal nest.number, 1337
   end
 
   def test_setting_attribute_value_string_as_integer
-    nest = Nesty::Nest.new
-    nest.words = 1337
+    nest = Nesty::Nest.new(words: 1337)
     assert_equal nest.words, "1337"
   end
 
   def test_setting_attribute_without_coersion
-    nest = Nesty::Nest.new
-    nest.whatever = 1337
+    nest = Nesty::Nest.new(whatever: 1337)
     assert_equal nest.whatever, 1337
     nest.whatever = "meh"
     assert_equal nest.whatever, "meh"
@@ -111,7 +107,9 @@ class TestParseResourceExtensions < Test::Unit::TestCase
       TypeCheck.destroy_all
       integer_number = TypeCheck.create(number: 1337)
 
-      assert integer_number.update(number: "1337") == false
+      integer_number.number = "1337"
+
+      assert integer_number.update== false
       assert integer_number.errors.first.include? :number
       assert integer_number.errors.first.include? "invalid type for key number, expected number, but got string"
     end

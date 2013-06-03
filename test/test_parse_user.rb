@@ -5,6 +5,8 @@ ParseResource::Base.load!(ENV["PARSE_RESOURCE_APPLICATION_ID"], ENV["PARSE_RESOU
 
 
 class User < ParseUser
+  field :username
+  field :password
 end
 
 class TestParseUser < Test::Unit::TestCase

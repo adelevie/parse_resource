@@ -23,19 +23,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:42:56 GMT
+      - Mon, 03 Jun 2013 22:22:04 GMT
       Etag:
-      - ! '"66ac381e85a680813b99488822907951"'
+      - ! '"55c8ecb2eda13f036e8da59c5109dd31"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZTUzZDc5ZDNiNmU2YmIxZTU3ODM2OGVlZTUxNjdlYjk%3D--b3fcdfaeb45fe6d4616fddbf0216d5d5ed5b72aa;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:42:56 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMzEwOWJlNzc1MjNhM2UyZDc3YjFlMmIxZmI4M2RjNzk%3D--f6219c9d02f10ea97e1e00a302990d734b9cb710;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:04 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.078789'
+      - '0.049517'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -44,15 +44,15 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"createdAt":"2013-05-31T23:19:01.581Z","updatedAt":"2013-05-31T23:19:01.581Z","objectId":"7ZzyQru363"}]}'
+      string: ! '{"results":[{"createdAt":"2013-06-03T22:11:36.194Z","updatedAt":"2013-06-03T22:11:36.194Z","objectId":"IGt7xAFNAi"}]}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:42:57 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:04 GMT
 - request:
     method: post
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/batch
     body:
       encoding: UTF-8
-      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/CallerOne/7ZzyQru363"}]}'
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/CallerOne/IGt7xAFNAi"}]}'
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -74,19 +74,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:42:57 GMT
+      - Mon, 03 Jun 2013 22:22:05 GMT
       Etag:
       - ! '"6abe125b20486fefa07552105cea58f3"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMmI4OTc3Yjc4YzI5ODRhYWEyYTk0YzEwYmY5ZGU4NWI%3D--c26b57ea2896b88a24e2821f3663fc96d0ce052e;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:42:57 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNDY0NmI2OTAwYTZmY2FlOGFlNjg1MDdlM2YyZmYyZGY%3D--5c10abc1228b7d6e26f04f5215b8f09f1d65a1b9;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:05 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.058301'
+      - '0.320092'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -97,7 +97,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! '[{"success":true}]'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:42:57 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:05 GMT
 - request:
     method: post
     uri: https://dCr8xKB4ab0vZYaeokSKMrUffu326y683z7VJdri:tj1nqoPtBN65F0cTUaSih08v9p06kd515DGAoLQB@api.parse.com/1/classes/CallerOne
@@ -125,19 +125,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 03 Jun 2013 05:42:58 GMT
+      - Mon, 03 Jun 2013 22:22:05 GMT
       Location:
-      - https://api.parse.com/1/classes/CallerOne/Geh4PxgyvR
+      - https://api.parse.com/1/classes/CallerOne/RkVrkGmJzQ
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWU4ZDJkMmFlNjFiZTgxODUwNDFmNmRkYjUwNTUyOTU%3D--44e27d8228fab45be79c19064de49cc4e84ae2f7;
-        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 05:42:58 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZGM2ZTM4OWY5YjRlYzM5NjAwNjI2MDNlMjBiYjg1N2E%3D--e72b8ba0bb445172e3afea60a3dafba6f7aece56;
+        domain=.parse.com; path=/; expires=Sat, 03-Jun-2023 22:22:05 GMT; secure;
         HttpOnly
       Status:
       - 201 Created
       X-Runtime:
-      - '0.059846'
+      - '0.043132'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -146,7 +146,7 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"createdAt":"2013-06-03T05:42:58.046Z","objectId":"Geh4PxgyvR"}'
+      string: ! '{"createdAt":"2013-06-03T22:22:05.625Z","objectId":"RkVrkGmJzQ"}'
     http_version: 
-  recorded_at: Mon, 03 Jun 2013 05:42:58 GMT
+  recorded_at: Mon, 03 Jun 2013 22:22:05 GMT
 recorded_with: VCR 2.4.0
