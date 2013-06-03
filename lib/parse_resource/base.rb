@@ -39,6 +39,7 @@ module ParseResource
     def initialize(attributes = {}, new=true)
       #attributes = HashWithIndifferentAccess.new(attributes)
 
+
       if new
         @unsaved_attributes = attributes
         @unsaved_attributes.stringify_keys!
@@ -51,6 +52,15 @@ module ParseResource
       self.attributes.merge!(attributes)
       self.attributes unless self.attributes.empty?
       create_setters_and_getters!
+
+      # TODO: this is a hack!!!
+      # we reset the values on new to coerce their types.
+      # we need a better place to do this.
+      attributes.keys.each do |key|
+        self.send("#{key}=", attributes[key])
+      end
+
+      self
     end
 
     # Explicitly adds a field to the model.
@@ -454,6 +464,7 @@ module ParseResource
     def create
       run_callbacks :update do
         run_callbacks :save do
+
           attrs = attributes_for_saving.to_json
           opts = {:content_type => "application/json"}
           result = self.resource.post(attrs, opts) do |resp, req, res, &block|
