@@ -550,7 +550,6 @@ module ParseResource
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
-      put_attrs.
       put_attrs
     end
 
