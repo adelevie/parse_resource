@@ -74,10 +74,16 @@ Create a model:
 ```ruby
 class Post < ParseResource::Base
   fields :title, :author, :body
+  field :position => Integer
+  field :birthday => Date
+  field :other_object => YourClass
 
   validates_presence_of :title
 end
 ```
+
+Position will be coerced into an integer and birthday will be coerced into a date. We call ```Kernel.Integer()```,
+```Date.parse()``` and ```YourClass.parse()``` for the above example. Title, author and body are assumed to be string and no coercion is performed. 
 
 If you are using version `1.5.11` or earlier, subclass to just `ParseResource`--or just update to the most recent version.
 
@@ -112,6 +118,26 @@ p.updated_at #=> "2011-09-19T01:32:37.930Z" # more magic from Parse's servers
 p.destroy #=> true 
 p.title #=> nil
 ```
+
+***NOTE:***
+
+When you call ```create(attributes)``` or ```update(attributes)``` we slice the hash based on your fields.
+
+This behavior will change in future builds to be more customizable.
+
+Naming Models:
+
+Previously it was required that models were named exactly alike their Parse counterparts. This is no longer a requirement. If you want to rename your model (or namespace it) simply let your model know what the original Parse name is:
+
+```
+class Purple::PeopleEater
+  parse_model_name "Monster"
+  field :people_eaten => Integer
+end
+```
+
+In order to use this class in rails forms, we define a method ```parse(id)``` which simply does a find on the id
+and then we have ```to_s``` return the id which is a bit of a hack but things work correctly.
 
 Finding:
 
