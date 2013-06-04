@@ -32,19 +32,26 @@ module ParseResource
 
     define_model_callbacks :save, :create, :update, :destroy
 
+    #settings 
+    @@settings ||= nil
+    # mapping between the parse models and your models.
+    @@parse_models ||= {}
+    # inverse mapping to make things quick to go the other way.
+    @@inverse_parse_models ||= {}
+
+
     # Instantiates a ParseResource::Base object
     #
     # @params [Hash], [Boolean] a `Hash` of attributes and a `Boolean` that should be false only if the object already exists
     # @return [ParseResource::Base] an object that subclasses `Parseresource::Base`
-    def initialize(attributes = {}, new=true)
-      #attributes = HashWithIndifferentAccess.new(attributes)
-
+    def initialize(attributes = {}, new=true)     
       if new
-        @unsaved_attributes = attributes
-        @unsaved_attributes.stringify_keys!
+        @unsaved_attributes = attributes.stringify_keys.slice(* self.class.accepted_fields)
+        @unsaved_attributes = coerce_attributes(@unsaved_attributes)
       else
         @unsaved_attributes = {}
       end
+
       @attributes = {}
       self.error_instances = []
 
@@ -57,8 +64,18 @@ module ParseResource
     #
     # @param [Symbol] name the name of the field, eg `:author`.
     # @param [Boolean] val the return value of the field. Only use this within the class.
-    def self.field(fname, val=nil)
-      fname = fname.to_sym
+    def self.field(name_or_hash, val=nil)
+      if name_or_hash.class == Hash
+        fname = name_or_hash.keys.first
+        klass = name_or_hash.values.first
+        self.add_to_map(fname.to_s, klass)
+      else
+        fname = name_or_hash
+        klass = nil
+      end
+
+      self.add_accepted_field(fname.to_s)
+
       class_eval do
         define_method(fname) do
           get_attribute("#{fname}")
@@ -80,6 +97,28 @@ module ParseResource
     # @param [Array] *args an array of `Symbol`s, `eg :author, :body, :title`.
     def self.fields(*args)
       args.each {|f| field(f)}
+    end
+
+    def self.accepted_fields
+      @_fields || []
+    end
+
+    def self.add_accepted_field(field)
+      @_fields ||= []
+      @_fields << field
+    end
+
+    def self.add_to_map(key, value)
+      @_map ||= {}
+      @_map[key] = value
+    end
+
+    def self.field_map
+      @_map || {}
+    end
+
+    def self.field_map_keys
+      ( @_map || {} ).keys
     end
 
     # Similar to its ActiveRecord counterpart.
@@ -154,8 +193,6 @@ module ParseResource
       end
     end
 
-    @@settings ||= nil
-
     # Explicitly set Parse.com API keys.
     #
     # @param [String] app_id the Application ID of your Parse database
@@ -168,6 +205,28 @@ module ParseResource
       load_settings
     end
 
+    def self.parse_model_name(klass_name)
+      @parse_class ||= klass_name
+      @@parse_models[klass_name] = self.name
+      @@inverse_parse_models[self.name] = klass_name
+    end
+
+    def self.parse_models
+      @@parse_models
+    end
+
+    def self.inverse_parse_models
+      @@inverse_parse_models
+    end
+
+    def self.model_name_for_parse_class(parse_class)
+      @@parse_models[parse_class.to_s]
+    end
+
+    def self.parse_class_name_for_model(model_name)
+      @@inverse_parse_models[model_name.to_s]
+    end
+
     # Gets the current class's model name for the URI
     def self.model_name_uri
       if self.model_name == "User"
@@ -175,7 +234,8 @@ module ParseResource
       elsif self.model_name == "Installation"
         "installations"
       else
-        "classes/#{self.model_name}"
+        parse_class_name = ParseResource::Base.parse_class_name_for_model(self.model_name)
+        "classes/#{parse_class_name || self.model_name}"
       end
     end
 
@@ -187,6 +247,26 @@ module ParseResource
     # Gets the current instance's parent class's Parse.com base_uri
     def model_base_uri
       self.class.send(:model_base_uri)
+    end
+
+    def self.parse_class
+      @parse_class || self.name
+    end
+
+    def parse_class
+      self.class.parse_class
+    end
+
+    def to_s
+      if self.respond_to? "objectId"
+        self.objectId
+      else
+        super
+      end
+    end
+
+    def self.parse(id)
+      self.find(id)
     end
 
 
@@ -388,12 +468,10 @@ module ParseResource
 
     def save
       if valid?
-        run_callbacks :save do
-          if new?
-            return create
-          else
-            return update
-          end
+        if new?
+          return create
+        else
+          return update
         end
       else
         false
@@ -402,23 +480,34 @@ module ParseResource
     end
 
     def create
-      attrs = attributes_for_saving.to_json
-      opts = {:content_type => "application/json"}
-      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+      run_callbacks :update do
+        run_callbacks :save do
+
+          attrs = attributes_for_saving.to_json
+          opts = {:content_type => "application/json"}
+          result = self.resource.post(attrs, opts) do |resp, req, res, &block|
+            return post_result(resp, req, res, &block)
+          end
+        end
       end
     end
 
     def update(attributes = {})
+      if attributes
+        attributes = attributes.stringify_keys.slice(* self.class.accepted_fields)
+        attributes = self.coerce_attributes(attributes)
+      end
 
-      attributes = HashWithIndifferentAccess.new(attributes)
+      run_callbacks :update do
+        run_callbacks :save do
+          @unsaved_attributes.merge!(attributes)
+          put_attrs = attributes_for_saving.to_json
 
-      @unsaved_attributes.merge!(attributes)
-      put_attrs = attributes_for_saving.to_json
-
-      opts = {:content_type => "application/json"}
-      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+          opts = {:content_type => "application/json"}
+          result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
+            return post_result(resp, req, res, &block)
+          end
+        end
       end
     end
 
@@ -442,6 +531,13 @@ module ParseResource
         else
           pe = ParseError.new(resp.code.to_s)
         end
+        # try to add error to model.
+        if pe.code == 111
+          phrase = pe.msg.split("key ")
+          key = phrase[1].split(",").first if phrase.count > 1
+          self.errors.add(key.to_sym, pe.msg) if key
+          #self.errors.add(key.underscore, pe.msg) if key
+        end
         self.errors.add(pe.code.to_s.to_sym, pe.msg)
         self.error_instances << pe
         return false
@@ -455,6 +551,13 @@ module ParseResource
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
       put_attrs
+    end
+
+    def coerce_attributes(attributes)
+      attributes.keys.each do |key|
+        attributes[key] = coerce_attribute(key, attributes[key])
+      end
+      attributes
     end
 
     def update_attributes(attributes = {})
@@ -511,7 +614,10 @@ module ParseResource
         klass_name = "User" if klass_name == "_User"
         case attrs[k]["__type"]
         when "Pointer"
-          result = klass_name.constantize.find(attrs[k]["objectId"])
+          # if we are using a mapped class then we need to find that class here
+          # and call its find method
+          name = ParseResource::Base.model_name_for_parse_class(klass_name) || klass_name
+          result = name.constantize.find(attrs[k]["objectId"])
         when "Object"
           result = klass_name.constantize.new(attrs[k], false)
         when "Date"
@@ -532,10 +638,37 @@ module ParseResource
         v = self.class.to_date_object(v)
       elsif v.respond_to?(:to_pointer)
         v = v.to_pointer
+        # if we have a mapped class then we need to change back to the parse 
+        # class here.
+        klass_name = ParseResource::Base.parse_class_name_for_model(v['className'])
+        v['className'] = klass_name unless klass_name.nil?
       end
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
+    end
+
+    def coerce_attribute(key, value)
+      klass = self.class.field_map[key]
+
+      if klass.nil? || value.class == klass
+        if value.respond_to?(:to_pointer)
+          value = value.to_pointer
+          # if we have a mapped class then we need to change back to the parse 
+          # class here.
+          klass_name = ParseResource::Base.parse_class_name_for_model(value['className'])
+          value['className'] = klass_name unless klass_name.nil?
+        end
+        value
+      else
+        if(Kernel.respond_to?(klass.name))
+          Kernel.send(klass.name, value)
+        elsif klass.respond_to?(:parse)
+          klass.parse(value)
+        else
+          value
+        end
+      end
     end
 
 

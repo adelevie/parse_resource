@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "parse_resource"
-  s.version = "1.8.0"
+  s.version = "1.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2013-04-17"
+  s.date = "2013-05-31"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".DS_Store",
     ".document",
+    ".ruby-version",
     ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
@@ -89,6 +90,7 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_parse_installation.rb",
     "test/test_parse_resource.rb",
+    "test/test_parse_resource_extensions.rb",
     "test/test_parse_user.rb",
     "test/test_query.rb",
     "test/test_query_options.rb",
@@ -97,7 +99,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/adelevie/parse_resource"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "1.8.23"
   s.summary = "An ActiveResource-like wrapper for the Parse REST api."
 
   if s.respond_to? :specification_version then

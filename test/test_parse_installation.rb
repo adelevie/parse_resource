@@ -5,6 +5,9 @@ ParseResource::Base.load!(ENV["PARSE_RESOURCE_APPLICATION_ID"], ENV["PARSE_RESOU
 
 
 class Installation < ParseResource::Base
+  field :deviceType
+  field :deviceToken
+  field :channels
 end
 
 class TestParseUser < Test::Unit::TestCase
