@@ -306,7 +306,7 @@ end
 
 # fetch users through a relation on posts named commenters
 post = Post.first
-users = User.related_to(post, commenters)
+users = User.related_to(post, :commenters)
 ```
 
 File Upload
