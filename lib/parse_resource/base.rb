@@ -257,7 +257,7 @@ module ParseResource
       self.class.parse_class
     end
 
-    def self.to_s
+    def to_s
       if self.respond_to? "objectId"
         self.objectId
       else
@@ -550,6 +550,7 @@ module ParseResource
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
+      put_attrs.
       put_attrs
     end
 
@@ -652,6 +653,13 @@ module ParseResource
       klass = self.class.field_map[key]
 
       if klass.nil? || value.class == klass
+        if value.respond_to?(:to_pointer)
+          value = value.to_pointer
+          # if we have a mapped class then we need to change back to the parse 
+          # class here.
+          klass_name = ParseResource::Base.parse_class_name_for_model(value['className'])
+          value['className'] = klass_name unless klass_name.nil?
+        end
         value
       else
         if(Kernel.respond_to?(klass.name))
