@@ -90,7 +90,7 @@ module ParseResource
     end
 
     def to_pointer
-      klass_name = self.class.model_name
+      klass_name = self.class.model_name.to_s
       klass_name = "_User" if klass_name == "User"
       klass_name = "_Installation" if klass_name == "Installation"
       {"__type" => "Pointer", "className" => klass_name.to_s, "objectId" => self.id}
@@ -170,12 +170,12 @@ module ParseResource
 
     # Gets the current class's model name for the URI
     def self.model_name_uri
-      if self.model_name == "User"
+      if self.model_name.to_s == "User"
         "users"
-      elsif self.model_name == "Installation"
+      elsif self.model_name.to_s == "Installation"
         "installations"
       else
-        "classes/#{self.model_name}"
+        "classes/#{self.model_name.to_s}"
       end
     end
 
