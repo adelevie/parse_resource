@@ -11,7 +11,7 @@ class ParseUser < ParseResource::Base
     
     begin
       resp = resource.get(:params => {:username => username, :password => password})
-      user = model_name.constantize.new(JSON.parse(resp), false)
+      user = model_name.to_s.constantize.new(JSON.parse(resp), false)
             
       user 
     rescue 
@@ -38,7 +38,7 @@ class ParseUser < ParseResource::Base
                             }
                       }.to_json,
                      :content_type => 'application/json', :accept => :json)
-      user = model_name.constantize.new(JSON.parse(resp), false)
+      user = model_name.to_s.constantize.new(JSON.parse(resp), false)
       user
     rescue
       false

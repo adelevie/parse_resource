@@ -108,7 +108,7 @@ class Query
       return results.to_i
     else
       results = JSON.parse(resp)['results']
-      return results.map {|r| @klass.model_name.constantize.new(r, false)}
+      return results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
     end
   end
 
@@ -126,7 +126,7 @@ class Query
 
       resp = @klass.resource.get(:params => params)
       results = JSON.parse(resp)['results']
-      result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
+      result = result + results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
       break if results.length < params[:limit] # Got back fewer than we asked for, so exit.
     end
     result
