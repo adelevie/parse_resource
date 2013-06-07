@@ -20,12 +20,12 @@ class Query
     criteria[:limit] = limit
     self
   end
-  
+
   def include_object(parent)
     criteria[:include] = parent
     self
   end
-  
+
   def order(attr)
     orders = attr.split(" ")
     if orders.count > 1
@@ -102,23 +102,23 @@ class Query
     return chunk_results(params) if criteria[:chunk]
 
     resp = @klass.resource.get(:params => params)
-    
+
     if criteria[:count] == 1
       results = JSON.parse(resp)['count']
       return results.to_i
     else
       results = JSON.parse(resp)['results']
-      return results.map {|r| @klass.model_name.constantize.new(r, false)}
+      return results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
     end
   end
 
   def chunk_results(params={})
     criteria[:limit] ||= 100
-    
+
     start_row = criteria[:skip].to_i
     end_row = [criteria[:limit].to_i - start_row - 1, 1].max
     result = []
-    
+
     # Start at start_row, go to end_row, get results in chunks
     (start_row..end_row).each_slice(criteria[:chunk].to_i) do |slice|
       params[:skip] = slice.first
@@ -126,7 +126,7 @@ class Query
 
       resp = @klass.resource.get(:params => params)
       results = JSON.parse(resp)['results']
-      result = result + results.map {|r| @klass.model_name.constantize.new(r, false)}
+      result = result + results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
       break if results.length < params[:limit] # Got back fewer than we asked for, so exit.
     end
     result
