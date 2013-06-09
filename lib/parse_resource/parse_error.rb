@@ -17,6 +17,8 @@ class ParseError
       @error = "Unknown device type."
     when "202"
       @error = "Username already taken."
+    when "203"
+      @error = "Email already taken."
     when "400"
       @error = "Bad Request: The request cannot be fulfilled due to bad syntax."
     when "401"
