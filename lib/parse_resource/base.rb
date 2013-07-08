@@ -309,8 +309,10 @@ module ParseResource
     # @param [String] id the ID of the Parse object you want to find.
     # @return [ParseResource] an object that subclasses ParseResource.
     def self.find(id)
-			raise RecordNotFound if id.blank?
-      where(:objectId => id).first
+      raise RecordNotFound, "Couldn't find #{name} without an ID" if id.blank?
+      record = where(:objectId => id).first
+      raise RecordNotFound, "Couldn't find #{name} with id: #{id}" if record.blank?
+      record
     end
 
     # Find a ParseResource::Base object by chaining #where method calls.
