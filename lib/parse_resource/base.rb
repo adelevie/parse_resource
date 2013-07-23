@@ -398,7 +398,8 @@ module ParseResource
       else
         false
       end
-      rescue false
+    rescue
+      false
     end
 
     def create
