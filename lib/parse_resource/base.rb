@@ -98,7 +98,7 @@ module ParseResource
 
     def self.to_date_object(date)
       date = date.to_time if date.respond_to?(:to_time)
-      {"__type" => "Date", "iso" => date.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
+      {"__type" => "Date", "iso" => date.getutc.iso8601} if date && (date.is_a?(Date) || date.is_a?(DateTime) || date.is_a?(Time))
     end
 
     # Creates setter methods for model fields
