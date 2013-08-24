@@ -1,7 +1,7 @@
 ParseResource 
 =============
 
-[![Build Status](https://secure.travis-ci.org/adelevie/parse_resource.png)](http://travis-ci.org/adelevie/parse_resource)
+[![Build Status](https://secure.travis-ci.org/adelevie/parse_resource.png)](http://travis-ci.org/adelevie/parse_resource) [![Code Climate](https://codeclimate.com/github/adelevie/parse_resource.png)](https://codeclimate.com/github/adelevie/parse_resource)
 
 
 ParseResource makes it easy to interact with Parse.com's REST API. It adheres to the ActiveRecord pattern. ParseResource is fully ActiveModel compliant, meaning you can use validations and Rails forms.
