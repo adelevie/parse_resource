@@ -101,6 +101,14 @@ class TestParseResource < Test::Unit::TestCase
     end
 	end
 
+  def test_find_should_throw_an_exception_if_object_does_not_exist
+    VCR.use_cassette('test_find_should_throw_an_exception_if_object_is_nil', :record => :new_episodes) do
+      assert_raise RecordNotFound do
+        Post.find("id does not exist")
+      end
+    end
+  end
+  
   def test_first
     VCR.use_cassette('test_first', :record => :new_episodes) do
       Fork.destroy_all
