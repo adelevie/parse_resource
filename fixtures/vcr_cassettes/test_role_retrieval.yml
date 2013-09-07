@@ -1,188 +1,6 @@
 ---
 http_interactions:
 - request:
-    method: post
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles
-    body:
-      encoding: UTF-8
-      string: '{"name":"VIP"}'
-    headers:
-      Accept:
-      - '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '14'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 05 Sep 2013 16:38:31 GMT
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmNjMTBhMjVhODc0NDc0OTNhOGM1ZTcyMTRhYThlYWI%3D--eec27b6f0b4c344e5f4e8f112863b36ce3d24185;
-        domain=.parse.com; path=/; expires=Sat, 05-Oct-2013 16:38:31 GMT; secure;
-        HttpOnly
-      Status:
-      - 400 Bad Request
-      X-Runtime:
-      - '0.052977'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '56'
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: &1 !ruby/string
-        str: '{"code":135,"error":"Roles must have an ACL specified."}'
-        net_http_res: !ruby/object:Net::HTTPBadRequest
-          http_version: '1.0'
-          code: '400'
-          message: Bad Request
-          header:
-            cache-control:
-            - no-cache
-            content-type:
-            - application/json; charset=utf-8
-            date:
-            - Thu, 05 Sep 2013 16:38:31 GMT
-            server:
-            - nginx/1.2.2
-            set-cookie:
-            - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmNjMTBhMjVhODc0NDc0OTNhOGM1ZTcyMTRhYThlYWI%3D--eec27b6f0b4c344e5f4e8f112863b36ce3d24185;
-              domain=.parse.com; path=/; expires=Sat, 05-Oct-2013 16:38:31 GMT; secure;
-              HttpOnly
-            status:
-            - 400 Bad Request
-            x-runtime:
-            - '0.052977'
-            x-ua-compatible:
-            - IE=Edge,chrome=1
-            content-length:
-            - '56'
-            connection:
-            - keep-alive
-          body: *1
-          read: true
-          uri: 
-          decode_content: false
-          __read_body_previously_called: true
-        args:
-          :user: tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq
-          :password: H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq
-          :method: :post
-          :url: https://api.parse.com/1/roles
-          :payload: '{"name":"VIP"}'
-          :headers:
-            :content_type: application/json
-        code: 400
-    http_version: 
-  recorded_at: Thu, 05 Sep 2013 16:38:31 GMT
-- request:
-    method: post
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles
-    body:
-      encoding: UTF-8
-      string: '{"name":"Senator"}'
-    headers:
-      Accept:
-      - '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '18'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Thu, 05 Sep 2013 16:38:31 GMT
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOGExZTQ4ODIwMmRjZTcwOGEyNGUxNGZiYjg5ZmE2OGU%3D--c0ab252bd2d9131fa21d3ac26b31174ac8f9c5a9;
-        domain=.parse.com; path=/; expires=Sat, 05-Oct-2013 16:38:31 GMT; secure;
-        HttpOnly
-      Status:
-      - 400 Bad Request
-      X-Runtime:
-      - '0.033777'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '56'
-      Connection:
-      - keep-alive
-    body:
-      encoding: UTF-8
-      string: &2 !ruby/string
-        str: '{"code":135,"error":"Roles must have an ACL specified."}'
-        net_http_res: !ruby/object:Net::HTTPBadRequest
-          http_version: '1.0'
-          code: '400'
-          message: Bad Request
-          header:
-            cache-control:
-            - no-cache
-            content-type:
-            - application/json; charset=utf-8
-            date:
-            - Thu, 05 Sep 2013 16:38:31 GMT
-            server:
-            - nginx/1.2.2
-            set-cookie:
-            - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOGExZTQ4ODIwMmRjZTcwOGEyNGUxNGZiYjg5ZmE2OGU%3D--c0ab252bd2d9131fa21d3ac26b31174ac8f9c5a9;
-              domain=.parse.com; path=/; expires=Sat, 05-Oct-2013 16:38:31 GMT; secure;
-              HttpOnly
-            status:
-            - 400 Bad Request
-            x-runtime:
-            - '0.033777'
-            x-ua-compatible:
-            - IE=Edge,chrome=1
-            content-length:
-            - '56'
-            connection:
-            - keep-alive
-          body: *2
-          read: true
-          uri: 
-          decode_content: false
-          __read_body_previously_called: true
-        args:
-          :user: tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq
-          :password: H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq
-          :method: :post
-          :url: https://api.parse.com/1/roles
-          :payload: '{"name":"Senator"}'
-          :headers:
-            :content_type: application/json
-        code: 400
-    http_version: 
-  recorded_at: Thu, 05 Sep 2013 16:38:31 GMT
-- request:
     method: get
     uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?where=%7B%7D
     body:
@@ -190,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - '*/*; q=0.5, application/xml'
+      - ! '*/*; q=0.5, application/xml'
       Accept-Encoding:
       - gzip, deflate
       User-Agent:
@@ -205,28 +23,224 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Thu, 05 Sep 2013 16:38:50 GMT
+      - Sat, 07 Sep 2013 18:25:37 GMT
       Etag:
-      - '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
+      - ! '"868a4e31d1e8b29200ed489773af873d"'
       Server:
       - nginx/1.2.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWNkNzE0YzYyNzlkNjIyMGQ3NTBhNzcyZjJiNTcyN2I%3D--eef520fbff7b93e871f404659422f3d2b7f85723;
-        domain=.parse.com; path=/; expires=Sat, 05-Oct-2013 16:38:50 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlODU3NjljNzMzN2VlZTEwYjFjZTAwZjYwZWVkYWJhNGI%3D--670f8e464e11d28b449cd85f88549c501a3fb696;
+        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:37 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.138995'
+      - '0.037252'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
-      - '14'
+      - '269'
       Connection:
       - keep-alive
     body:
-      encoding: UTF-8
-      string: '{"results":[]}'
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:36.878Z","updatedAt":"2013-09-07T18:25:36.878Z","objectId":"XZF1Q97rnj","ACL":{"*":{"read":true,"write":true}}}]}'
     http_version: 
-  recorded_at: Thu, 05 Sep 2013 16:38:50 GMT
+  recorded_at: Sat, 07 Sep 2013 18:25:37 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/batch
+    body:
+      encoding: UTF-8
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/roles/XZF1Q97rnj"}]}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '63'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 07 Sep 2013 18:25:38 GMT
+      Etag:
+      - ! '"b07f5370ab798313e6f6b418826017ed"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlM2E1OGQyNjlmYjNlNmIzMzIyZDQyZDFiYzJhMDZiY2I%3D--47af03d42aa4201e173b5cebe76b53cbbaffdba4;
+        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:38 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.242397'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '16'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"success":[]}]'
+    http_version: 
+  recorded_at: Sat, 07 Sep 2013 18:25:38 GMT
+- request:
+    method: post
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"VIP","ACL":{"*":{"read":true,"write":true}}}'
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '53'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 07 Sep 2013 18:25:38 GMT
+      Location:
+      - https://api.parse.com/1/roles/ao7upyS3Iz
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlODVmMmIxOWVkN2U0MjUzNjA5ZGY1ZmIyNGRmNThjMDA%3D--a6e2d226644164f27c0c29eb0d947f6556a0d285;
+        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:38 GMT; secure;
+        HttpOnly
+      Status:
+      - 201 Created
+      X-Runtime:
+      - '0.060335'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '64'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"createdAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz"}'
+    http_version: 
+  recorded_at: Sat, 07 Sep 2013 18:25:38 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?limit=1&where=%7B%22objectId%22:%22ao7upyS3Iz%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 07 Sep 2013 18:25:39 GMT
+      Etag:
+      - ! '"183d44e2b2d4ebb1b9e4f44a3514cdaa"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZmE1MTcwYmJjMGNiMWIxZjFkMDU0MmM3NDc2OWRhMWQ%3D--523f266fec661bb5aaef020bf028abff52a3a46f;
+        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:39 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.047982'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '269'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:38.844Z","updatedAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz","ACL":{"*":{"read":true,"write":true}}}]}'
+    http_version: 
+  recorded_at: Sat, 07 Sep 2013 18:25:39 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?limit=1&where=%7B%22name%22:%22VIP%22%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 07 Sep 2013 18:25:39 GMT
+      Etag:
+      - ! '"183d44e2b2d4ebb1b9e4f44a3514cdaa"'
+      Server:
+      - nginx/1.2.2
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTRjNWRiODQ5MjY4MmMzNzY2NTA0NWZlYWI5YzE5M2M%3D--87b873ed59e1c7fd2bf6b9ecaceaa68a6de80785;
+        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:39 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.053261'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '269'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:38.844Z","updatedAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz","ACL":{"*":{"read":true,"write":true}}}]}'
+    http_version: 
+  recorded_at: Sat, 07 Sep 2013 18:25:39 GMT
 recorded_with: VCR 2.4.0
