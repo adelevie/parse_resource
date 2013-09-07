@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alan deLevie"]
-  s.date = "2013-04-17"
+  s.date = "2013-09-07"
   s.description = ""
   s.email = "adelevie@gmail.com"
   s.extra_rdoc_files = [
@@ -17,8 +17,6 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    ".DS_Store",
-    ".document",
     ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
@@ -57,6 +55,8 @@ Gem::Specification.new do |s|
     "fixtures/vcr_cassettes/test_map.yml",
     "fixtures/vcr_cassettes/test_order_ascending.yml",
     "fixtures/vcr_cassettes/test_order_descending.yml",
+    "fixtures/vcr_cassettes/test_role_creation.yml",
+    "fixtures/vcr_cassettes/test_role_retrieval.yml",
     "fixtures/vcr_cassettes/test_save.yml",
     "fixtures/vcr_cassettes/test_save_all_and_destroy_all.yml",
     "fixtures/vcr_cassettes/test_saving_geo_point_with_quick_init.yml",
@@ -66,13 +66,13 @@ Gem::Specification.new do |s|
     "fixtures/vcr_cassettes/test_updated_at.yml",
     "fixtures/vcr_cassettes/test_username_should_be_unique.yml",
     "fixtures/vcr_cassettes/test_where.yml",
-    "lib/.DS_Store",
     "lib/kaminari_extension.rb",
     "lib/parse_resource.rb",
     "lib/parse_resource/base.rb",
     "lib/parse_resource/client.rb",
     "lib/parse_resource/parse_error.rb",
     "lib/parse_resource/parse_exceptions.rb",
+    "lib/parse_resource/parse_role.rb",
     "lib/parse_resource/parse_user.rb",
     "lib/parse_resource/parse_user_validator.rb",
     "lib/parse_resource/query.rb",
@@ -80,15 +80,11 @@ Gem::Specification.new do |s|
     "lib/parse_resource/types/parse_geopoint.rb",
     "parse_resource.gemspec",
     "parse_resource.yml",
-    "rdoc/ParseResource.html",
-    "rdoc/created.rid",
-    "rdoc/index.html",
-    "rdoc/lib/parse_resource_rb.html",
-    "rdoc/rdoc.css",
     "test/active_model_lint_test.rb",
     "test/helper.rb",
     "test/test_parse_installation.rb",
     "test/test_parse_resource.rb",
+    "test/test_parse_role.rb",
     "test/test_parse_user.rb",
     "test/test_query.rb",
     "test/test_query_options.rb",
@@ -97,7 +93,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/adelevie/parse_resource"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "1.8.25"
   s.summary = "An ActiveResource-like wrapper for the Parse REST api."
 
   if s.respond_to? :specification_version then
