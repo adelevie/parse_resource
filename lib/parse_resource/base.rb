@@ -93,6 +93,7 @@ module ParseResource
       klass_name = self.class.model_name.to_s
       klass_name = "_User" if klass_name == "User"
       klass_name = "_Installation" if klass_name == "Installation"
+      klass_name = "_Role" if klass_name == "Role"
       {"__type" => "Pointer", "className" => klass_name.to_s, "objectId" => self.id}
     end
 
@@ -174,6 +175,8 @@ module ParseResource
         "users"
       elsif self.model_name.to_s == "Installation"
         "installations"
+      elsif self.model_name.to_s == "Role"
+        "roles"
       else
         "classes/#{self.model_name.to_s}"
       end
