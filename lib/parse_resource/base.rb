@@ -526,9 +526,9 @@ module ParseResource
         klass_name = "User" if klass_name == "_User"
         case attrs[k]["__type"]
         when "Pointer"
-          result = klass_name.constantize.find(attrs[k]["objectId"])
+          result = klass_name.to_s.constantize.find(attrs[k]["objectId"])
         when "Object"
-          result = klass_name.constantize.new(attrs[k], false)
+          result = klass_name.to_s.constantize.new(attrs[k], false)
         when "Date"
           result = DateTime.parse(attrs[k]["iso"]).to_time_in_current_zone
         when "File"
