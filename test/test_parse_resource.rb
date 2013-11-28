@@ -112,7 +112,6 @@ class TestParseResource < Test::Unit::TestCase
     end
   end
 
-
   def test_last
     VCR.use_cassette('test_last', :record => :new_episodes) do
       Fork.destroy_all

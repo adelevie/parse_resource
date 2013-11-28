@@ -29,9 +29,9 @@ class Query
   def order(attr)
     orders = attr.split(" ")
     if orders.count > 1
-      criteria[:order] = orders.last.downcase == "desc" ? "#{orders.first}" : "-#{orders.first}"
+      criteria[:order] = orders.last.downcase == "desc" ? "-#{orders.first}" : "#{orders.first}"
     else
-      criteria[:order] = "-#{orders.first}"
+      criteria[:order] = orders.first
     end
     self
   end
@@ -108,6 +108,7 @@ class Query
       return results.to_i
     else
       results = JSON.parse(resp)['results']
+      puts results
       return results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
     end
   end
