@@ -112,6 +112,18 @@ class TestParseResource < Test::Unit::TestCase
     end
   end
 
+
+  def test_last
+    VCR.use_cassette('test_last', :record => :new_episodes) do
+      Fork.destroy_all
+      f = Fork.create(:points => "lasttt")
+      p = Fork.last
+      assert p.is_a?(Fork)
+      assert f.id, p.id
+      assert f.points, p.points
+    end
+  end
+
   def test_find_by
     VCR.use_cassette('test_find_by', :record => :new_episodes) do
       p1    = Post.create(:title => "Welcome111")

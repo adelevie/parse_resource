@@ -29,9 +29,9 @@ class Query
   def order(attr)
     orders = attr.split(" ")
     if orders.count > 1
-      criteria[:order] = orders.last.downcase == "desc" ? "-#{orders.first}" : "#{orders.first}"
+      criteria[:order] = orders.last.downcase == "desc" ? "#{orders.first}" : "-#{orders.first}"
     else
-      criteria[:order] = orders.first
+      criteria[:order] = "-#{orders.first}"
     end
     self
   end
@@ -135,6 +135,13 @@ class Query
   def first
     limit(1)
     execute.first
+  end
+
+  #my contribution
+  def last
+    order('created_at desc')
+    limit(1)
+    execute.last
   end
 
   def all

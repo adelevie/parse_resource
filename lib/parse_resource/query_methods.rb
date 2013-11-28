@@ -31,6 +31,11 @@ module ParseResource
 	    def first
 	      Query.new(self).limit(1).first
 	    end
+      # Find the last object. Fairly random, not based on any specific condition.
+      #my contribution
+      def last
+	      Query.new(self).limit(1).last
+	    end
 
 	    # Limits the number of objects returned
 	    #
