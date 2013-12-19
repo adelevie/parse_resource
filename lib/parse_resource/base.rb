@@ -160,9 +160,9 @@ module ParseResource
     # Explicitly set Parse.com API keys.
     #
     # @param [String] app_id the Application ID of your Parse database
-    # @param [String] master_key the Master Key of your Parse database
-    def self.load!(app_id, master_key)
-      @@settings = {"app_id" => app_id, "master_key" => master_key}
+    # @param [String] rest_api_key the Master Key of your Parse database
+    def self.load!(app_id, rest_api_key)
+      @@settings = {"app_id" => app_id, "rest_api_key" => rest_api_key}
     end
 
     def self.settings
@@ -200,9 +200,11 @@ module ParseResource
       load_settings
 
       #refactor to settings['app_id'] etc
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
-      RestClient::Resource.new(self.model_base_uri, app_id, master_key)
+      app_id       = @@settings['app_id']
+      rest_api_key = @@settings['rest_api_key']
+      RestClient::Resource.new(self.model_base_uri,
+                                headers: { x_parse_application_id: app_id,
+                                           x_parse_REST_API_key:   rest_api_key })
     end
 
     # Batch requests
@@ -214,11 +216,12 @@ module ParseResource
       return true if save_objects.blank?
       load_settings
 
-      base_uri = "https://api.parse.com/1/batch"
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
+      base_uri     = "https://api.parse.com/1/batch"
+      app_id       = @@settings['app_id']
+      rest_api_key = @@settings['rest_api_key']
 
-      res = RestClient::Resource.new(base_uri, app_id, master_key)
+      res = RestClient::Resource.new(base_uri, headers: { x_parse_application_id: app_id,
+                                                          x_parse_REST_API_key: rest_api_key } )
 
       # Batch saves seem to fail if they're too big. We'll slice it up into multiple posts if they are.
       save_objects.each_slice(slice_size) do |objects|
@@ -278,10 +281,10 @@ module ParseResource
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
         if FileTest.exist? (path) 
           YAML.load(ERB.new(File.new(path).read).result)[environment]
-        elsif ENV["PARSE_RESOURCE_APPLICATION_ID"] && ENV["PARSE_RESOURCE_MASTER_KEY"]
+        elsif ENV["PARSE_RESOURCE_APPLICATION_ID"] && ENV["PARSE_RESOURCE_REST_API_KEY"]
           settings = HashWithIndifferentAccess.new
           settings['app_id'] = ENV["PARSE_RESOURCE_APPLICATION_ID"]
-          settings['master_key'] = ENV["PARSE_RESOURCE_MASTER_KEY"]
+          settings['rest_api_key'] = ENV["PARSE_RESOURCE_REST_API_KEY"]
           settings
         else
           raise "Cannot load parse_resource.yml and API keys are not set in environment"
@@ -300,15 +303,17 @@ module ParseResource
       base_uri = "https://api.parse.com/1/files"
 
       #refactor to settings['app_id'] etc
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
+      app_id       = @@settings['app_id']
+      rest_api_key = @@settings['rest_api_key']
 
       options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
       file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
 
       filename = filename.parameterize
 
-      private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
+      private_resource = RestClient::Resource.new("#{base_uri}/#{filename}",
+                                                  headers: { x_parse_application_id: app_id,
+                                                             x_parse_REST_API_key:   rest_api_key } )
       private_resource.post(file_instance, options) do |resp, req, res, &block|
         return false if resp.code == 400
         return JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}

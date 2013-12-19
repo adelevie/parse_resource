@@ -40,27 +40,27 @@ gem install kaminari # optional for pagination support
 gem install parse_resource
 ```
 
-Create an account at Parse.com. Then create an application and copy the `app_id` and `master_key` into a file called `parse_resource.yml`. If you're using a Rails app, place this file in the `config` folder.
+Create an account at Parse.com. Then create an application and copy the `app_id` and `rest_api_key` into a file called `parse_resource.yml`. If you're using a Rails app, place this file in the `config` folder.
 
 ```yml
 development:
   app_id: 1234567890
-  master_key: abcdefgh
+  rest_api_key: abcdefgh
 
 test:
   app_id: 1234567890
-  master_key: abcdefgh
+  rest_api_key: abcdefgh
 
 production:
   app_id: 1234567890
-  master_key: abcdefgh
+  rest_api_key: abcdefgh
 ```
 
 If you keep `parse_resource.yml` in `.gitignore`, ParseResource will alternatively look for the api keys in environment variables. If using Heroku you can easily set your api keys in the Heroku environment using:
 
 ```
 heroku config:set PARSE_RESOURCE_APPLICATION_ID=1234567890
-heroku config:set PARSE_RESOURCE_MASTER_KEY=abcdefgh
+heroku config:set PARSE_RESOURCE_REST_API_KEY=abcdefgh
 ```
 
 You can create separate Parse databases if you want. If not, include the same info for each environment.
@@ -69,7 +69,7 @@ In a non-Rails app, include this somewhere (preferable in an initializer):
 
 
 ```ruby
-ParseResource::Base.load!("your_app_id", "your_master_key")
+ParseResource::Base.load!("your_app_id", "your_rest_api_key")
 ```
 
 
