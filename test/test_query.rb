@@ -10,4 +10,12 @@ class TestQuery < Test::Unit::TestCase
     assert_equal q.respond_to?(:map), true
   end
 
+  def test_order_criteria
+    q = Query.new(self).order("created_at DESC")
+    assert_equal "-created_at", q.criteria[:order]
+
+    q = Query.new(self).order("created_at")
+    assert_equal "created_at", q.criteria[:order]
+  end
+
 end
