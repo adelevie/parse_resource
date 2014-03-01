@@ -9,8 +9,16 @@ class Query
   end
 
   def where(args)
-    criteria[:conditions].merge!(args)
+    criteria[:conditions].merge!(convert_arg(args))
     self
+  end
+
+  def convert_arg(arg)
+    return arg.to_pointer if arg.is_a?(ParseResource::Base)
+    return ParseResource::Base.to_date_object(arg) if arg.is_a?(Time) || arg.is_a?(Date)
+    return arg.update(arg) { |key, inner_arg| convert_arg(inner_arg) } if arg.is_a?(Hash)
+
+    arg
   end
 
   def limit(limit)
