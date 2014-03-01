@@ -530,7 +530,7 @@ module ParseResource
         when "Object"
           result = klass_name.to_s.constantize.new(attrs[k], false)
         when "Date"
-          result = DateTime.parse(attrs[k]["iso"]).to_time_in_current_zone
+          result = DateTime.parse(attrs[k]["iso"]).in_time_zone
         when "File"
           result = attrs[k]["url"]
         when "GeoPoint"
