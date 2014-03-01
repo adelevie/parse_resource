@@ -22,6 +22,7 @@ module ParseResource
     #  end
 
     include ActiveModel::Validations
+    include ActiveModel::Validations::Callbacks
     include ActiveModel::Conversion
     include ActiveModel::AttributeMethods
     extend ActiveModel::Naming
