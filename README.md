@@ -321,7 +321,7 @@ File Upload
 ```ruby
   @post = Post.first()
   result = Post.upload(uploaded_file.tempfile, uploaded_file.original_filename, content_type: uploaded_file.content_type)
-  @post.thumbnail = {"name" => result["name"], "__type" => "File"}
+  @post.thumbnail = {"name" => result["name"], "__type" => "File", "url" => result["url"]}
 ```
 
 Custom Getters and Setters
