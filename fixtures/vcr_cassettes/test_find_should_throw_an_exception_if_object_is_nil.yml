@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Post?limit=1&where=%7B%22objectId%22:%22id%20does%20not%20exist%22%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Post?include=categories,categories&limit=1&where=%7B%22objectId%22:%22id%20does%20not%20exist%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -23,19 +23,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 08 Jul 2013 20:15:52 GMT
+      - Fri, 14 Mar 2014 21:13:06 GMT
       Etag:
       - ! '"e2412c1ffbfb6b53a82a9daf665b2c1a"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.4
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMTU4OWIxOGQ0MTU3OGRmZTJkYjIyNGZkNWU5NjY0NjU%3D--183a4c99d7f6fea646a58d19fc98ca5663a339bc;
-        domain=.parse.com; path=/; expires=Wed, 07-Aug-2013 20:15:52 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlY2NlMDE3YjI5NjExYzFmMDE1MGI1OWQzNGUwODBkNWY%3D--13338487fcf604f2e8279ad9d65ef2eda15095b6;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:13:06 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.061779'
+      - '0.121861'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -46,5 +46,5 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"results":[]}'
     http_version: 
-  recorded_at: Mon, 08 Jul 2013 20:15:52 GMT
+  recorded_at: Fri, 14 Mar 2014 21:13:07 GMT
 recorded_with: VCR 2.4.0

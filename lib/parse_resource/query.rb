@@ -30,7 +30,15 @@ class Query
   end
   
   def include_object(parent)
-    criteria[:include] = parent
+    criteria[:include] ||= []
+
+    if parent.is_a?(Array)
+      parent.each do |item|
+        criteria[:include] << item
+      end
+    else
+      criteria[:include] << parent
+    end
     self
   end
   
@@ -99,12 +107,17 @@ class Query
   end
 
   def execute
+    if @klass.has_many_relations
+      relations = @klass.has_many_relations.map { |relation| relation.to_s }
+      include_object(relations)
+    end
+
     params = {}
     params.merge!({:where => criteria[:conditions].to_json}) if criteria[:conditions]
     params.merge!({:limit => criteria[:limit].to_json}) if criteria[:limit]
     params.merge!({:skip => criteria[:skip].to_json}) if criteria[:skip]
     params.merge!({:count => criteria[:count].to_json}) if criteria[:count]
-    params.merge!({:include => criteria[:include]}) if criteria[:include]
+    params.merge!({:include => criteria[:include].join(',')}) if criteria[:include]
     params.merge!({:order => criteria[:order]}) if criteria[:order]
 
     return chunk_results(params) if criteria[:chunk]
@@ -116,8 +129,28 @@ class Query
       return results.to_i
     else
       results = JSON.parse(resp)['results']
-      return results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
+      get_relation_objects results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
     end
+  end
+
+  def get_relation_objects(objects)
+    if @klass.has_many_relations
+      objects.each do |item|
+        @klass.has_many_relations.each do |relation|
+          item.attributes[relation.to_s] = [] if !item.attributes.has_key?(relation.to_s)
+        end
+      end
+    end
+
+    objects.each do |item|
+      item.attributes.each do |key, value|
+        value.each do |relation_hash|
+          relation_obj = turn_relation_hash_into_object(relation_hash)
+          value[value.index(relation_hash)] = relation_obj
+        end if value.is_a?(Array) and value[0].is_a?(Hash) and value[0].has_key?("className")
+      end
+    end
+    objects
   end
 
   def chunk_results(params={})
@@ -185,6 +218,39 @@ class Query
     else
       super
     end
+  end
+
+  private
+
+  def turn_relation_hash_into_object(hash)
+    return nil if hash == nil or hash["className"] == "_User"
+    relation_object = hash["className"].to_s.constantize.new if hash["className"] != "_User"
+    hash.each do |key, value|
+      class_name_in_a_hash = false
+      if value.is_a?(Array)
+        value.each do |item|
+          if item and item.is_a?(Hash)
+            class_name_in_a_hash = true if item.has_key?("className")
+            break
+          end
+        end
+      end
+
+      if value.is_a?(Array) and class_name_in_a_hash
+        value.each do |object_in_array|
+          fresh_object = turn_relation_hash_into_object(object_in_array)
+          value[value.index(object_in_array)] = fresh_object
+        end
+        relation_object.attributes[key] = value
+      elsif value.is_a?(Hash) and value.has_key?("className")
+        relation_object.attributes[key] = turn_relation_hash_into_object(value)
+      else
+        relation_object.attributes[key] = value if key.to_s != "__type" and key.to_s != "className"
+      end
+    end
+
+    hash = relation_object
+    relation_object
   end
 
 end

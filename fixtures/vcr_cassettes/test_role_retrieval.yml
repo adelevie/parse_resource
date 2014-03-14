@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?where=%7B%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?include=categories,categories&where=%7B%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -23,19 +23,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Sep 2013 18:25:37 GMT
+      - Fri, 14 Mar 2014 21:15:47 GMT
       Etag:
-      - ! '"868a4e31d1e8b29200ed489773af873d"'
+      - ! '"6979e86f037d0d44ef340741ec2c01fa"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlODU3NjljNzMzN2VlZTEwYjFjZTAwZjYwZWVkYWJhNGI%3D--670f8e464e11d28b449cd85f88549c501a3fb696;
-        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:37 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNmUwNTYyNGFiNDJkOWVjYTQ0M2FkOGQyZDFmYWNlZmE%3D--1199d62ace0e71d4023966e99d1314c9fd256b06;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:15:47 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.037252'
+      - '0.086934'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -44,15 +44,15 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:36.878Z","updatedAt":"2013-09-07T18:25:36.878Z","objectId":"XZF1Q97rnj","ACL":{"*":{"read":true,"write":true}}}]}'
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2014-03-14T21:15:46.447Z","updatedAt":"2014-03-14T21:15:46.447Z","objectId":"9boE1dCO6M","ACL":{"*":{"read":true,"write":true}}}]}'
     http_version: 
-  recorded_at: Sat, 07 Sep 2013 18:25:37 GMT
+  recorded_at: Fri, 14 Mar 2014 21:15:47 GMT
 - request:
     method: post
     uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/batch
     body:
       encoding: UTF-8
-      string: ! '{"requests":[{"method":"DELETE","path":"/1/roles/XZF1Q97rnj"}]}'
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/roles/9boE1dCO6M"}]}'
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -74,19 +74,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Sep 2013 18:25:38 GMT
+      - Fri, 14 Mar 2014 21:15:47 GMT
       Etag:
       - ! '"b07f5370ab798313e6f6b418826017ed"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlM2E1OGQyNjlmYjNlNmIzMzIyZDQyZDFiYzJhMDZiY2I%3D--47af03d42aa4201e173b5cebe76b53cbbaffdba4;
-        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:38 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNDY0ZjYzMGY4NjBmM2VjMTVkYjdlZDZiYjU3MDY1MjM%3D--973059a3bd43476c738f0d5f9c82c66e55193060;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:15:47 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.242397'
+      - '0.111751'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -97,7 +97,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! '[{"success":[]}]'
     http_version: 
-  recorded_at: Sat, 07 Sep 2013 18:25:38 GMT
+  recorded_at: Fri, 14 Mar 2014 21:15:48 GMT
 - request:
     method: post
     uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles
@@ -125,19 +125,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Sep 2013 18:25:38 GMT
+      - Fri, 14 Mar 2014 21:15:48 GMT
       Location:
-      - https://api.parse.com/1/roles/ao7upyS3Iz
+      - https://api.parse.com/1/roles/6i0yyHCGhg
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlODVmMmIxOWVkN2U0MjUzNjA5ZGY1ZmIyNGRmNThjMDA%3D--a6e2d226644164f27c0c29eb0d947f6556a0d285;
-        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:38 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjQ5YWNkMTk4N2IyNzM2OGRlZjc2N2JhMDA2ZGIwY2Y%3D--f78895f2aa8701efc20a44976067ce7e0bfcaa9f;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:15:48 GMT; secure;
         HttpOnly
       Status:
       - 201 Created
       X-Runtime:
-      - '0.060335'
+      - '0.073858'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -146,12 +146,12 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"createdAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz"}'
+      string: ! '{"createdAt":"2014-03-14T21:15:48.280Z","objectId":"6i0yyHCGhg"}'
     http_version: 
-  recorded_at: Sat, 07 Sep 2013 18:25:38 GMT
+  recorded_at: Fri, 14 Mar 2014 21:15:49 GMT
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?limit=1&where=%7B%22objectId%22:%22ao7upyS3Iz%22%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?include=categories,categories&limit=1&where=%7B%22objectId%22:%226i0yyHCGhg%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -172,19 +172,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Sep 2013 18:25:39 GMT
+      - Fri, 14 Mar 2014 21:15:48 GMT
       Etag:
-      - ! '"183d44e2b2d4ebb1b9e4f44a3514cdaa"'
+      - ! '"30a80a58962ad433254ff08a7a5d1a27"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZmE1MTcwYmJjMGNiMWIxZjFkMDU0MmM3NDc2OWRhMWQ%3D--523f266fec661bb5aaef020bf028abff52a3a46f;
-        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:39 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNzYxN2ZlZjdmYmQxNTBkODUwNTAzY2ZhNWMyMjYwOWM%3D--d0f05df2ca42f37761e8554c007cbb23ed395503;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:15:48 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.047982'
+      - '0.075520'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -193,12 +193,12 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:38.844Z","updatedAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz","ACL":{"*":{"read":true,"write":true}}}]}'
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2014-03-14T21:15:48.280Z","updatedAt":"2014-03-14T21:15:48.280Z","objectId":"6i0yyHCGhg","ACL":{"*":{"read":true,"write":true}}}]}'
     http_version: 
-  recorded_at: Sat, 07 Sep 2013 18:25:39 GMT
+  recorded_at: Fri, 14 Mar 2014 21:15:49 GMT
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?limit=1&where=%7B%22name%22:%22VIP%22%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/roles?include=categories,categories&limit=1&where=%7B%22name%22:%22VIP%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -219,19 +219,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 07 Sep 2013 18:25:39 GMT
+      - Fri, 14 Mar 2014 21:15:49 GMT
       Etag:
-      - ! '"183d44e2b2d4ebb1b9e4f44a3514cdaa"'
+      - ! '"30a80a58962ad433254ff08a7a5d1a27"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYTRjNWRiODQ5MjY4MmMzNzY2NTA0NWZlYWI5YzE5M2M%3D--87b873ed59e1c7fd2bf6b9ecaceaa68a6de80785;
-        domain=.parse.com; path=/; expires=Mon, 07-Oct-2013 18:25:39 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYjJiODg2NjJhN2ZjOWJiNTNmODQwMzZiYmEyM2E3ZGU%3D--79c824902a82c968fadf898c277bd691038df8a9;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:15:49 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.053261'
+      - '0.079318'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -240,7 +240,7 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2013-09-07T18:25:38.844Z","updatedAt":"2013-09-07T18:25:38.844Z","objectId":"ao7upyS3Iz","ACL":{"*":{"read":true,"write":true}}}]}'
+      string: ! '{"results":[{"name":"VIP","users":{"__type":"Relation","className":"_User"},"roles":{"__type":"Relation","className":"_Role"},"createdAt":"2014-03-14T21:15:48.280Z","updatedAt":"2014-03-14T21:15:48.280Z","objectId":"6i0yyHCGhg","ACL":{"*":{"read":true,"write":true}}}]}'
     http_version: 
-  recorded_at: Sat, 07 Sep 2013 18:25:39 GMT
+  recorded_at: Fri, 14 Mar 2014 21:15:49 GMT
 recorded_with: VCR 2.4.0

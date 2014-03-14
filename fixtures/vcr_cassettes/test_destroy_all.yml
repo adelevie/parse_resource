@@ -27,19 +27,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 17 Apr 2013 06:26:24 GMT
+      - Fri, 14 Mar 2014 21:11:28 GMT
       Location:
-      - https://api.parse.com/1/classes/Knife/xQOMz3MEZv
+      - https://api.parse.com/1/classes/Knife/NquJfqlY3q
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.2
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlZThlNjZhMGM0NmMzMzUxYTM4OWFjNTVmNzA3MmJiZDg%3D--50250605dedb1fdb91eab0c4174f65a450bb431c;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:26:24 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMzRjMWY2MTFlMDg1NTNlOTE4Y2U5NGFiNDkzZTM4ZGI%3D--5c3a291b79994289dd4fd927aab87ca8e1ab69a7;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:11:28 GMT; secure;
         HttpOnly
       Status:
       - 201 Created
       X-Runtime:
-      - '0.034645'
+      - '0.051349'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -48,12 +48,12 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"createdAt":"2013-04-17T06:26:24.134Z","objectId":"xQOMz3MEZv"}'
+      string: ! '{"createdAt":"2014-03-14T21:11:28.758Z","objectId":"NquJfqlY3q"}'
     http_version: 
-  recorded_at: Wed, 17 Apr 2013 06:26:24 GMT
+  recorded_at: Fri, 14 Mar 2014 21:11:29 GMT
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Knife?where=%7B%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Knife?include=categories,categories&limit=1&where=%7B%22objectId%22:%22NquJfqlY3q%22%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -74,19 +74,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 17 Apr 2013 06:26:24 GMT
+      - Fri, 14 Mar 2014 21:11:29 GMT
       Etag:
-      - ! '"349e72d07e3ecf1865a5ce3247c81db4"'
+      - ! '"2b8d0087e54f67b616be9065a8d9ee5b"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.4
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWMzNmM4OWE0N2U3Yjg1MzlmMTdlY2E0NjQwNzg4MTg%3D--f8bd54338f5ebe0c284d2b2ae6ea339f91f0bc45;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:26:24 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOTllZDNlZTAwZjdhMjdhNGFmYWU3MDA0ODhkNmRhN2I%3D--3f4ed0f485f41ce7c84da91f270ab5e0ed5bdfb2;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:11:29 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.028852'
+      - '0.041298'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -95,15 +95,62 @@ http_interactions:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"results":[{"is_shiny":"arbitrary","createdAt":"2013-04-17T06:26:24.134Z","updatedAt":"2013-04-17T06:26:24.134Z","objectId":"xQOMz3MEZv"}]}'
+      string: ! '{"results":[{"is_shiny":"arbitrary","createdAt":"2014-03-14T21:11:28.758Z","updatedAt":"2014-03-14T21:11:28.758Z","objectId":"NquJfqlY3q"}]}'
     http_version: 
-  recorded_at: Wed, 17 Apr 2013 06:26:24 GMT
+  recorded_at: Fri, 14 Mar 2014 21:11:29 GMT
+- request:
+    method: get
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Knife?include=categories,categories&where=%7B%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*; q=0.5, application/xml'
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 Mar 2014 21:11:29 GMT
+      Etag:
+      - ! '"2b8d0087e54f67b616be9065a8d9ee5b"'
+      Server:
+      - nginx/1.4.4
+      Set-Cookie:
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlMWMxYjRiYzJkNmI2ZDYzZjQ3ZGI5NmMyYjI5M2E5YmM%3D--3437dec2cae29495255518d0d10983615692ff91;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:11:29 GMT; secure;
+        HttpOnly
+      Status:
+      - 200 OK
+      X-Runtime:
+      - '0.060040'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '140'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"results":[{"is_shiny":"arbitrary","createdAt":"2014-03-14T21:11:28.758Z","updatedAt":"2014-03-14T21:11:28.758Z","objectId":"NquJfqlY3q"}]}'
+    http_version: 
+  recorded_at: Fri, 14 Mar 2014 21:11:30 GMT
 - request:
     method: post
     uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/batch
     body:
       encoding: UTF-8
-      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Knife/xQOMz3MEZv"}]}'
+      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Knife/NquJfqlY3q"}]}'
     headers:
       Accept:
       - ! '*/*; q=0.5, application/xml'
@@ -125,19 +172,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 17 Apr 2013 06:26:25 GMT
+      - Fri, 14 Mar 2014 21:11:30 GMT
       Etag:
       - ! '"6abe125b20486fefa07552105cea58f3"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.4
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYWE0NzdmNmJkMDY0ZDZjNWZkMTQ0YTY0MTM2NGVhYzE%3D--e77db52add04f565f94ce9fde96a0a0f60361678;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:26:25 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNTdiMWI2YTA3ZjMyNTRjOTAwNjZkODhiZDNiZGRmODM%3D--112c88a1568e1d09a461cc2d5351179aff9258ec;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:11:30 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.034901'
+      - '0.521119'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -148,10 +195,10 @@ http_interactions:
       encoding: US-ASCII
       string: ! '[{"success":true}]'
     http_version: 
-  recorded_at: Wed, 17 Apr 2013 06:26:25 GMT
+  recorded_at: Fri, 14 Mar 2014 21:11:31 GMT
 - request:
     method: get
-    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Knife?count=1&where=%7B%7D
+    uri: https://tIcrV2dwbkT7AqjU8Cn8FZFU60hk5qCnMXlJnJQq:H6xYlZzvwBZHUBjoyrFKXkWZoCVfqrmC3ARXMZjq@api.parse.com/1/classes/Knife?count=1&include=categories,categories&where=%7B%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -172,19 +219,19 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 17 Apr 2013 06:26:25 GMT
+      - Fri, 14 Mar 2014 21:11:31 GMT
       Etag:
       - ! '"8c97ea0119fb2eb809f32e913cb37202"'
       Server:
-      - nginx/1.2.2
+      - nginx/1.4.4
       Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNWM3M2M4MGQ5ZGVhZjliZTkwZTNkOTIyY2UzODBmZGU%3D--b8f34fb25ad9de0a1b986596fa715f6e6f763933;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 06:26:25 GMT; secure;
+      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNjgxZmY0ZDMxMDljY2ZlODM3YTYwYzE5MTNkOWIwNTE%3D--101f371d46ca74fe39d9bc7c2386af3729c632a6;
+        domain=.parse.com; path=/; expires=Sun, 13-Apr-2014 21:11:31 GMT; secure;
         HttpOnly
       Status:
       - 200 OK
       X-Runtime:
-      - '0.033442'
+      - '0.095660'
       X-Ua-Compatible:
       - IE=Edge,chrome=1
       Content-Length:
@@ -195,201 +242,5 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"results":[],"count":0}'
     http_version: 
-  recorded_at: Wed, 17 Apr 2013 06:26:25 GMT
-- request:
-    method: post
-    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Knife
-    body:
-      encoding: UTF-8
-      string: ! '{"is_shiny":"arbitrary"}'
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '24'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 201
-      message: Created
-    headers:
-      Cache-Control:
-      - no-cache
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 17 Apr 2013 20:08:31 GMT
-      Location:
-      - https://api.parse.com/1/classes/Knife/ug0FquS5qz
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlODRkOWVkMmVkNzNiMTgyYzYwZTM5ZTg5NzRiMDMwMWU%3D--008dad5fa960b61d1ec414ce86bdad85b408604b;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:31 GMT; secure;
-        HttpOnly
-      Status:
-      - 201 Created
-      X-Runtime:
-      - '0.036054'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '64'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"createdAt":"2013-04-17T20:08:31.701Z","objectId":"ug0FquS5qz"}'
-    http_version: 
-  recorded_at: Wed, 17 Apr 2013 20:08:31 GMT
-- request:
-    method: get
-    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Knife?where=%7B%7D
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 17 Apr 2013 20:08:31 GMT
-      Etag:
-      - ! '"3d09e336879b8624244596fb2a413ded"'
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlOWZiOTIxYmFhZWI3NmM4YmZiYWQxZGYyMDY1NTQwNGY%3D--380d0f886738099ceea54e2399c01bb2db6c3962;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:31 GMT; secure;
-        HttpOnly
-      Status:
-      - 200 OK
-      X-Runtime:
-      - '0.025418'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '140'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"results":[{"is_shiny":"arbitrary","createdAt":"2013-04-17T20:08:31.701Z","updatedAt":"2013-04-17T20:08:31.701Z","objectId":"ug0FquS5qz"}]}'
-    http_version: 
-  recorded_at: Wed, 17 Apr 2013 20:08:31 GMT
-- request:
-    method: post
-    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/batch
-    body:
-      encoding: UTF-8
-      string: ! '{"requests":[{"method":"DELETE","path":"/1/classes/Knife/ug0FquS5qz"}]}'
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '71'
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 17 Apr 2013 20:08:32 GMT
-      Etag:
-      - ! '"6abe125b20486fefa07552105cea58f3"'
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlNzYzMjJkMWQ3NjZjOGNmOGQzYzM1ZTBjMTMxYjIyMWE%3D--bc4d61492c9ff847754efd3c8ba556749ba4655c;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:32 GMT; secure;
-        HttpOnly
-      Status:
-      - 200 OK
-      X-Runtime:
-      - '0.123676'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '18'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '[{"success":true}]'
-    http_version: 
-  recorded_at: Wed, 17 Apr 2013 20:08:32 GMT
-- request:
-    method: get
-    uri: https://FKEzdzDgEyghLDFgIVHYJehVlWpfVtUmEv4MUEkJ:bOYO7usWbrcIbL5L5bPzlYrSonQRvwJecC1XLsuN@api.parse.com/1/classes/Knife?count=1&where=%7B%7D
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept:
-      - ! '*/*; q=0.5, application/xml'
-      Accept-Encoding:
-      - gzip, deflate
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Cache-Control:
-      - max-age=0, private, must-revalidate
-      Content-Type:
-      - application/json; charset=utf-8
-      Date:
-      - Wed, 17 Apr 2013 20:08:32 GMT
-      Etag:
-      - ! '"8c97ea0119fb2eb809f32e913cb37202"'
-      Server:
-      - nginx/1.2.2
-      Set-Cookie:
-      - _parse_session=BAh7BkkiD3Nlc3Npb25faWQGOgZFRiIlYmM2MTAwYzExNzE1NTlhYjU2YzE3YzVjYWNlNmI3NTY%3D--56665e04b70810d69cef9bfe29a3357bd5dddf41;
-        domain=.parse.com; path=/; expires=Mon, 17-Apr-2023 20:08:32 GMT; secure;
-        HttpOnly
-      Status:
-      - 200 OK
-      X-Runtime:
-      - '0.045320'
-      X-Ua-Compatible:
-      - IE=Edge,chrome=1
-      Content-Length:
-      - '24'
-      Connection:
-      - keep-alive
-    body:
-      encoding: US-ASCII
-      string: ! '{"results":[],"count":0}'
-    http_version: 
-  recorded_at: Wed, 17 Apr 2013 20:08:32 GMT
+  recorded_at: Fri, 14 Mar 2014 21:11:32 GMT
 recorded_with: VCR 2.4.0
