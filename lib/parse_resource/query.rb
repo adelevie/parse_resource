@@ -116,6 +116,7 @@ class Query
       return results.to_i
     else
       results = JSON.parse(resp)['results']
+      puts results
       return results.map {|r| @klass.model_name.to_s.constantize.new(r, false)}
     end
   end
@@ -143,6 +144,13 @@ class Query
   def first
     limit(1)
     execute.first
+  end
+
+  #my contribution
+  def last
+    order('created_at desc')
+    limit(1)
+    execute.last
   end
 
   def all
