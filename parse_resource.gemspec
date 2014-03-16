@@ -26,8 +26,6 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "fixtures/.DS_Store",
-    "fixtures/vcr_cassettes/.DS_Store",
     "fixtures/vcr_cassettes/test_all.yml",
     "fixtures/vcr_cassettes/test_attribute_getters.yml",
     "fixtures/vcr_cassettes/test_attribute_setters.yml",

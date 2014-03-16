@@ -10,6 +10,7 @@ require "parse_resource/query_methods"
 require "parse_resource/parse_error"
 require "parse_resource/parse_exceptions"
 require "parse_resource/types/parse_geopoint"
+require "parse_resource/relation_array"
 
 module ParseResource
 
@@ -20,6 +21,9 @@ module ParseResource
     #  class Post < ParseResource::Base
     #    fields :title, :author, :body
     #  end
+
+    @@has_many_relations = []
+    @@belongs_to_relations = []
 
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
@@ -88,6 +92,15 @@ module ParseResource
     # @param [Hash] options Added so that you can specify :class_name => '...'. It does nothing at all, but helps you write self-documenting code.
     def self.belongs_to(parent, options = {})
       field(parent)
+      @@belongs_to_relations << parent
+    end
+
+    # Creates setter and getter in order access the specified relation for this Model
+    #
+    # @param [Hash] options Added so that you can specify :class_name => '...'. It does nothing at all, but helps you write self-documenting code.
+    def self.has_many(parent, options = {})
+      field(parent)
+      @@has_many_relations << parent
     end
 
     def to_pointer
@@ -240,7 +253,6 @@ module ParseResource
         res.post(batch_json.to_json, :content_type => "application/json") do |resp, req, res, &block|
           response = JSON.parse(resp) rescue nil
           if resp.code == 400
-            puts resp
             return false
           end
           if response && response.is_a?(Array) && response.length == objects.length
@@ -442,14 +454,29 @@ module ParseResource
     def merge_attributes(results)
       @attributes.merge!(results)
       @attributes.merge!(@unsaved_attributes)
+      
+      merge_relations
       @unsaved_attributes = {}
+
+      
       create_setters_and_getters!
       @attributes
     end
 
+    def merge_relations
+      # KK 11-17-2012 The response after creation does not return full description of
+      # the object nor the relations it contains. Make another request here.
+      if @@has_many_relations.map { |relation| relation.to_s.to_sym }
+        #todo: make this a little smarter by checking if there are any Pointer objects in the objects attributes.
+        @attributes = self.class.to_s.constantize.where(:objectId => @attributes["objectId"]).first.attributes
+      end
+    end
+
     def post_result(resp, req, res, &block)
       if resp.code.to_s == "200" || resp.code.to_s == "201"
+        puts "request: #{req.inspect}"
         merge_attributes(JSON.parse(resp))
+
         return true
       else
         error_response = JSON.parse(resp)
@@ -467,9 +494,70 @@ module ParseResource
     def attributes_for_saving
       @unsaved_attributes = pointerize(@unsaved_attributes)
       put_attrs = @unsaved_attributes
+
+      put_attrs = relations_for_saving(put_attrs)
+
       put_attrs.delete('objectId')
       put_attrs.delete('createdAt')
       put_attrs.delete('updatedAt')
+      put_attrs
+    end
+
+    def relations_for_saving(put_attrs)
+      all_add_item_queries = {}
+      all_remove_item_queries = {}
+      @unsaved_attributes.each_pair do |key, value|
+        next if !value.is_a? Array
+
+        # Go through the array in unsaved and check if they are in array in attributes (saved stuff)
+        add_item_ops = []
+        @unsaved_attributes[key].each do |item|
+          found_item_in_saved = false
+          @attributes[key].each do |item_in_saved|
+            if !!(defined? item.attributes) && item.attributes["objectId"] == item_in_saved.attributes["objectId"]
+              found_item_in_saved = true
+            end
+          end
+
+          if !found_item_in_saved && !!(defined? item.objectId)
+            # need to send additem operation to parse
+            put_attrs.delete(key) # arrays should not be sent along with REST to parse api
+            add_item_ops << {"__type" => "Pointer", "className" => item.class.to_s, "objectId" => item.objectId}
+          end
+        end
+        all_add_item_queries.merge!({key => {"__op" => "Add", "objects" => add_item_ops}}) if !add_item_ops.empty?
+
+        # Go through saved and if it isn't in unsaved perform a removeitem operation
+        remove_item_ops = []
+        unless @unsaved_attributes.empty?
+          @attributes[key].each do |item|
+            found_item_in_unsaved = false
+            @unsaved_attributes[key].each do |item_in_unsaved|
+              if !!(defined? item.attributes) && item.attributes["objectId"] == item_in_unsaved.attributes["objectId"]
+                found_item_in_unsaved = true
+              end
+            end
+
+            if !found_item_in_unsaved  && !!(defined? item.objectId)
+              # need to send removeitem operation to parse
+              remove_item_ops << {"__type" => "Pointer", "className" => item.class.to_s, "objectId" => item.objectId}
+            end
+          end
+        end
+        all_remove_item_queries.merge!({key => {"__op" => "Remove", "objects" => remove_item_ops}}) if !remove_item_ops.empty?
+      end
+
+      # TODO figure out a more elegant way to get this working. the remove_item merge overwrites the add.
+      # Use a seperate query to add objects to the relation.
+      #if !all_add_item_queries.empty?
+      #  #result = self.instance_resource.put(all_add_item_queries.to_json, {:content_type => "application/json"}) do |resp, req, res, &block|
+      #  #  return puts(resp, req, res, false, &block)
+      #  #end
+      #  puts result
+      #end
+
+      put_attrs.merge!(all_add_item_queries) unless all_add_item_queries.empty?
+      put_attrs.merge!(all_remove_item_queries) unless all_remove_item_queries.empty?
       put_attrs
     end
 
@@ -536,9 +624,24 @@ module ParseResource
           result = attrs[k]["url"]
         when "GeoPoint"
           result = ParseGeoPoint.new(attrs[k])
+        when "Relation"
+          objects_related_to_self = klass_name.constantize.where("$relatedTo" => {"object" => {"__type" => "Pointer", "className" => self.class.to_s, "objectId" => self.objectId}, "key" => k}).all
+          attrs[k] = RelationArray.new self, objects_related_to_self, k, klass_name
+          @unsaved_attributes[k] = RelationArray.new self, objects_related_to_self, k, klass_name
+          result = @unsaved_attributes[k]
         end #todo: support other types https://www.parse.com/docs/rest#objects-types
       else
-        result =  attrs["#{k}"]
+        #relation will assign itself if an array, this will add to unsave_attributes
+         if @@has_many_relations.index(k.to_s.to_sym)
+          if attrs[k].nil?
+            result = nil
+          else
+            @unsaved_attributes[k] = attrs[k].clone
+            result = @unsaved_attributes[k]
+          end
+        else
+          result =  attrs["#{k}"]
+        end
       end
       result
     end
@@ -552,6 +655,14 @@ module ParseResource
       @unsaved_attributes[k.to_s] = v unless v == @attributes[k.to_s] # || @unsaved_attributes[k.to_s]
       @attributes[k.to_s] = v
       v
+    end
+
+    def self.has_many_relations
+      @@has_many_relations
+    end
+
+    def self.belongs_to_relations
+      @@belongs_to_relations
     end
 
 
@@ -568,6 +679,15 @@ module ParseResource
     end
 
     module ClassMethods
+    end
+
+    #if we are comparing objects, use id if they are both ParseResource objects
+    def ==(another_object)
+      if another_object.class <= ParseResource::Base
+        self.id == another_object.id
+      else
+        super
+      end
     end
 
   end
