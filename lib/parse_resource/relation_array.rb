@@ -48,26 +48,6 @@ class RelationArray < Array
     self.each { |item| super(item) if item.id == object_id }
   end
 
-  def clear
-    super
-  end
-
-  def size
-    super
-  end
-
-  def count
-    super
-  end
-
-  def empty?
-    super
-  end
-
-  def where
-    super
-  end
-
   def contains?(object)
     self.each { |item| return true if item.attributes == object.attributes }
     false
