@@ -532,9 +532,11 @@ module ParseResource
         unless @unsaved_attributes.empty?
           @attributes[key].each do |item|
             found_item_in_unsaved = false
-            @unsaved_attributes[key].each do |item_in_unsaved|
-              if !!(defined? item.attributes) && item.attributes["objectId"] == item_in_unsaved.attributes["objectId"]
-                found_item_in_unsaved = true
+            unless @unsaved_attributes[key].nil?
+              @unsaved_attributes[key].each do |item_in_unsaved|
+                if !!(defined? item.attributes) && item.attributes["objectId"] == item_in_unsaved.attributes["objectId"]
+                  found_item_in_unsaved = true
+                end
               end
             end
 
