@@ -474,7 +474,6 @@ module ParseResource
 
     def post_result(resp, req, res, &block)
       if resp.code.to_s == "200" || resp.code.to_s == "201"
-        puts "request: #{req.inspect}"
         merge_attributes(JSON.parse(resp))
 
         return true
