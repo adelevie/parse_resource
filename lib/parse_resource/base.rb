@@ -430,23 +430,26 @@ module ParseResource
     end
 
     def create
-      attrs = attributes_for_saving.to_json
-      opts = {:content_type => "application/json"}
-      result = self.resource.post(attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+      run_callbacks :create do
+        attrs = attributes_for_saving.to_json
+        opts = {:content_type => "application/json"}
+        result = self.resource.post(attrs, opts) do |resp, req, res, &block|
+          return post_result(resp, req, res, &block)
+        end
       end
     end
 
     def update(attributes = {})
+      run_callbacks :update do
+        attributes = HashWithIndifferentAccess.new(attributes)
 
-      attributes = HashWithIndifferentAccess.new(attributes)
+        @unsaved_attributes.merge!(attributes)
+        put_attrs = attributes_for_saving.to_json
 
-      @unsaved_attributes.merge!(attributes)
-      put_attrs = attributes_for_saving.to_json
-
-      opts = {:content_type => "application/json"}
-      result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
-        return post_result(resp, req, res, &block)
+        opts = {:content_type => "application/json"}
+        result = self.instance_resource.put(put_attrs, opts) do |resp, req, res, &block|
+          return post_result(resp, req, res, &block)
+        end
       end
     end
 
