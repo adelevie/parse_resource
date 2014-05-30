@@ -1,6 +1,10 @@
 ParseResource 
 =============
 
+### Maintainer needed
+
+Unfortunately, I haven't been able to give this library the time it deserves. If you'd like to be a maintainer, please let me know.
+
 [![Build Status](https://secure.travis-ci.org/adelevie/parse_resource.png)](http://travis-ci.org/adelevie/parse_resource) [![Code Climate](https://codeclimate.com/github/adelevie/parse_resource.png)](https://codeclimate.com/github/adelevie/parse_resource)
 
 
