@@ -34,6 +34,10 @@ if defined?(Kaminari)
       def max_per_page
         @klass.max_per_page
       end
+      
+      def max_pages
+        @klass.max_pages
+      end
 
       def page(num)
         limit(@klass.default_per_page).skip(@klass.default_per_page * ([num.to_i, 1].max - 1))
