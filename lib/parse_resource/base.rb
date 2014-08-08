@@ -185,7 +185,9 @@ module ParseResource
 
     # Gets the current class's model name for the URI
     def self.model_name_uri
-      if self.model_name.to_s == "User"
+      if self.parse_class_name
+        "classes/#{self.parse_class_name}"
+      elsif self.model_name.to_s == "User"
         "users"
       elsif self.model_name.to_s == "Installation"
         "installations"
@@ -194,6 +196,11 @@ module ParseResource
       else
         "classes/#{self.model_name.to_s}"
       end
+    end
+
+    # This is a workaround to allow the user to specify a custom class
+    def parse_class_name
+      nil
     end
 
     # Gets the current class's Parse.com base_uri
@@ -289,7 +296,7 @@ module ParseResource
       @@settings ||= begin
         path = "config/parse_resource.yml"
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        if FileTest.exist? (path) 
+        if FileTest.exist? (path)
           YAML.load(ERB.new(File.new(path).read).result)[environment]
         elsif ENV["PARSE_RESOURCE_APPLICATION_ID"] && ENV["PARSE_RESOURCE_MASTER_KEY"]
           settings = HashWithIndifferentAccess.new
@@ -454,11 +461,11 @@ module ParseResource
     def merge_attributes(results)
       @attributes.merge!(results)
       @attributes.merge!(@unsaved_attributes)
-      
+
       merge_relations
       @unsaved_attributes = {}
 
-      
+
       create_setters_and_getters!
       @attributes
     end
