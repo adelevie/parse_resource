@@ -185,7 +185,8 @@ module ParseResource
 
     # Gets the current class's model name for the URI
     def self.model_name_uri
-      if self.parse_class_name
+      # This is a workaround to allow the user to specify a custom class
+      if defined?(self.parse_class_name)
         "classes/#{self.parse_class_name}"
       elsif self.model_name.to_s == "User"
         "users"
@@ -196,11 +197,6 @@ module ParseResource
       else
         "classes/#{self.model_name.to_s}"
       end
-    end
-
-    # This is a workaround to allow the user to specify a custom class
-    def parse_class_name
-      nil
     end
 
     # Gets the current class's Parse.com base_uri
