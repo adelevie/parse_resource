@@ -63,7 +63,7 @@ class Query
   end
 
   # Divides the query into multiple chunks if you're running into RestClient::BadRequest errors.
-  def chunk(count=1000000)
+  def chunk(count=100)
     criteria[:chunk] = count
     self
   end
@@ -154,7 +154,7 @@ class Query
   end
 
   def chunk_results(params={})
-    criteria[:limit] ||= 1000000
+    criteria[:limit] ||= 100
     
     start_row = criteria[:skip].to_i
     end_row = [criteria[:limit].to_i - start_row - 1, 1].max
