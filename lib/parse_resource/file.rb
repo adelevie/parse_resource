@@ -31,8 +31,8 @@ module ParseResource
 
       # Method takes in a filename string or file attributes hash and deletes
       # the file from Parse's AWS
-      #   product = Product.find '12345'
-      #   Product.delete_file(product.attributes['image'])
+      #   post = Post.find '12345'
+      #   Post.delete_file(post.attributes['image'])
       #
       # Files are not deleted when record is deleted.
       # We have to manually send DELETE request to delete it.
@@ -75,13 +75,14 @@ module ParseResource
     end
 
     # Allows users to delete attached file directly from the model instance
-    #   product = Product.find '12344'
-    #   product.delete_file(column: 'image')
+    #   post = Post.find '12344'
+    #   post.delete_file(column: 'image')
     def delete_file(column: 'image')
       unless attributes.keys.include? column.to_s
         raise ArgumentError, "Unknown column #{column} for #{self.class}"
       end
       self.class.delete_file attributes[column.to_s]
+      send "#{column}=", nil
     end
 
   end
