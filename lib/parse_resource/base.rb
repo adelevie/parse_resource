@@ -289,7 +289,7 @@ module ParseResource
       @@settings ||= begin
         path = "config/parse_resource.yml"
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        if FileTest.exist? (path) 
+        if FileTest.exist? (path)
           YAML.load(ERB.new(File.new(path).read).result)[environment]
         elsif ENV["PARSE_RESOURCE_APPLICATION_ID"] && ENV["PARSE_RESOURCE_MASTER_KEY"]
           settings = HashWithIndifferentAccess.new
@@ -417,9 +417,9 @@ module ParseResource
       if valid?
         run_callbacks :save do
           if new?
-            return create
+            create
           else
-            return update
+            update
           end
         end
       else
@@ -454,11 +454,11 @@ module ParseResource
     def merge_attributes(results)
       @attributes.merge!(results)
       @attributes.merge!(@unsaved_attributes)
-      
+
       merge_relations
       @unsaved_attributes = {}
 
-      
+
       create_setters_and_getters!
       @attributes
     end
