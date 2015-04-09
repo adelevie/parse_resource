@@ -392,9 +392,9 @@ module ParseResource
       if valid?
         run_callbacks :save do
           if new?
-            return create
+            create
           else
-            return update
+            update
           end
         end
       else
