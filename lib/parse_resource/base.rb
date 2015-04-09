@@ -5,6 +5,7 @@ require "erb"
 require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
+require "parse_resource/file"
 require "parse_resource/query"
 require "parse_resource/query_methods"
 require "parse_resource/parse_error"
@@ -289,7 +290,7 @@ module ParseResource
       @@settings ||= begin
         path = "config/parse_resource.yml"
         environment = defined?(Rails) && Rails.respond_to?(:env) ? Rails.env : ENV["RACK_ENV"]
-        if FileTest.exist? (path) 
+        if FileTest.exist? (path)
           YAML.load(ERB.new(File.new(path).read).result)[environment]
         elsif ENV["PARSE_RESOURCE_APPLICATION_ID"] && ENV["PARSE_RESOURCE_MASTER_KEY"]
           settings = HashWithIndifferentAccess.new
@@ -301,32 +302,6 @@ module ParseResource
         end
       end
       @@settings
-    end
-
-
-    # Creates a RESTful resource for file uploads
-    # sends requests to [base_uri]/files
-    #
-    def self.upload(file_instance, filename, options={})
-      load_settings
-
-      base_uri = "https://api.parse.com/1/files"
-
-      #refactor to settings['app_id'] etc
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
-
-      options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
-      file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
-
-      filename = filename.parameterize
-
-      private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
-      private_resource.post(file_instance, options) do |resp, req, res, &block|
-        return false if resp.code == 400
-        return JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
-      end
-      false
     end
 
     # Find a ParseResource::Base object by ID
@@ -438,7 +413,6 @@ module ParseResource
     end
 
     def update(attributes = {})
-
       attributes = HashWithIndifferentAccess.new(attributes)
 
       @unsaved_attributes.merge!(attributes)
@@ -454,11 +428,10 @@ module ParseResource
     def merge_attributes(results)
       @attributes.merge!(results)
       @attributes.merge!(@unsaved_attributes)
-      
+
       merge_relations
       @unsaved_attributes = {}
 
-      
       create_setters_and_getters!
       @attributes
     end
