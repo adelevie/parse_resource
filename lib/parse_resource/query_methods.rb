@@ -1,9 +1,11 @@
-#require 'parse_resource'
 require 'parse_resource/query'
 
 module ParseResource
-
 	module QueryMethods
+
+		def self.included(base)
+			base.extend(ClassMethods)
+		end
 
 		module ClassMethods
 	    # Include the attributes of a parent ojbect in the results
@@ -11,6 +13,12 @@ module ParseResource
 	    #
 	    def include_object(parent)
 	      Query.new(self).include_object(parent)
+	    end
+
+	    # Find a ParseResource::Base object by chaining #where method calls.
+	    #
+	    def where(*args)
+	      Query.new(self).where(*args)
 	    end
 
 	    # Add this at the end of a method chain to get the count of objects, instead of an Array of objects
@@ -43,7 +51,7 @@ module ParseResource
 	    def skip(n)
 	      Query.new(self).skip(n)
 	    end
-	    
+
 	    def order(attr)
 	      Query.new(self).order(attr)
       end
@@ -61,8 +69,5 @@ module ParseResource
       end
 		end
 
-		def self.included(base)
-			base.extend(ClassMethods)
-		end
 	end
 end
