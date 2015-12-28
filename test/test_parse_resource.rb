@@ -121,7 +121,7 @@ class TestParseResource < Test::Unit::TestCase
   end
 
   def test_find_by_attribute
-    VCR.use_cassette('test_find_by_attribute', :record => :new_episodes) do
+    VCR.use_cassette('test_find_by', :record => :new_episodes) do
       p1    = Post.create(:title => "Welcome111")
       where = Post.where(:title => "Welcome111").first
       find  = Post.find_by_title("Welcome111")
