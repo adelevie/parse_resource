@@ -142,6 +142,7 @@ id = "DjiH4Qffke"
 p = Post.find(id) #simple find by id
 
 # ActiveRecord style find commands
+Post.find_by(:title => "Uncrunched") #=> A Post object
 Post.find_by_title("Uncrunched") #=> A Post object
 Post.find_all_by_author("Arrington") #=> An Array of Posts
 
