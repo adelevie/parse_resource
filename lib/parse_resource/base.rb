@@ -577,6 +577,11 @@ module ParseResource
       self.update(attributes)
     end
 
+    def update_attribute(key, value)
+      send(key.to_s + '=', value)
+      update
+    end
+
     def destroy
       if self.instance_resource.delete
         @attributes = {}
