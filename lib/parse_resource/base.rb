@@ -340,6 +340,15 @@ module ParseResource
       record
     end
 
+    # Find a ParseResource::Base object by given key/value pair
+    #
+    def self.find_by(*args)
+      raise RecordNotFound, "Couldn't find an object without arguments" if args.blank?
+      key, value = args.first.first
+      record = where(key => value).first
+      record
+    end
+
     # Find a ParseResource::Base object by chaining #where method calls.
     #
     def self.where(*args)
