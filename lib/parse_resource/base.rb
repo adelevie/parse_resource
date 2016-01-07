@@ -5,6 +5,7 @@ require "erb"
 require "rest-client"
 require "json"
 require "active_support/hash_with_indifferent_access"
+require "parse_resource/file"
 require "parse_resource/query"
 require "parse_resource/query_methods"
 require "parse_resource/parse_error"
@@ -306,32 +307,6 @@ module ParseResource
       @@settings
     end
 
-
-    # Creates a RESTful resource for file uploads
-    # sends requests to [base_uri]/files
-    #
-    def self.upload(file_instance, filename, options={})
-      load_settings
-
-      base_uri = "https://api.parse.com/1/files"
-
-      #refactor to settings['app_id'] etc
-      app_id     = @@settings['app_id']
-      master_key = @@settings['master_key']
-
-      options[:content_type] ||= 'image/jpg' # TODO: Guess mime type here.
-      file_instance = File.new(file_instance, 'rb') if file_instance.is_a? String
-
-      filename = filename.parameterize
-
-      private_resource = RestClient::Resource.new "#{base_uri}/#{filename}", app_id, master_key
-      private_resource.post(file_instance, options) do |resp, req, res, &block|
-        return false if resp.code == 400
-        return JSON.parse(resp) rescue {"code" => 0, "error" => "unknown error"}
-      end
-      false
-    end
-
     # Find a ParseResource::Base object by ID
     #
     # @param [String] id the ID of the Parse object you want to find.
@@ -450,7 +425,6 @@ module ParseResource
     end
 
     def update(attributes = {})
-
       attributes = HashWithIndifferentAccess.new(attributes)
 
       @unsaved_attributes.merge!(attributes)
@@ -469,7 +443,6 @@ module ParseResource
 
       merge_relations
       @unsaved_attributes = {}
-
 
       create_setters_and_getters!
       @attributes
