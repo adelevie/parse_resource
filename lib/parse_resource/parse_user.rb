@@ -4,24 +4,24 @@ class ParseUser < ParseResource::Base
   fields :username, :password
 
   def self.authenticate(username, password)
-    base_uri   = "https://api.parse.com/1/login"
+    base_uri   = "#{api_path}/login"
     app_id     = settings['app_id']
     master_key = settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
-    
+
     begin
       resp = resource.get(:params => {:username => username, :password => password})
       user = model_name.to_s.constantize.new(JSON.parse(resp), false)
-            
-      user 
-    rescue 
+
+      user
+    rescue
       false
     end
-    
+
   end
-  
+
   def self.authenticate_with_facebook(user_id, access_token, expires)
-    base_uri   = "https://api.parse.com/1/users"
+    base_uri   = "#{api_path}/users"
     app_id     = settings['app_id']
     master_key = settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
@@ -44,9 +44,9 @@ class ParseUser < ParseResource::Base
       false
     end
   end
-  
+
   def self.reset_password(email)
-      base_uri   = "https://api.parse.com/1/requestPasswordReset"
+      base_uri   = "#{api_path}/requestPasswordReset"
       app_id     = settings['app_id']
       master_key = settings['master_key']
       resource = RestClient::Resource.new(base_uri, app_id, master_key)

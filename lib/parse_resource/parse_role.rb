@@ -10,7 +10,7 @@ class ParseRole < ParseResource::Base
   end
 
   def self.create(attributes)
-    base_uri   = "https://api.parse.com/1/roles"
+    base_uri   = "#{api_path}/roles"
     app_id     = settings['app_id']
     master_key = settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
@@ -25,18 +25,18 @@ class ParseRole < ParseResource::Base
       role = Role.find(JSON.parse(resp)["objectId"])
     rescue
       false
-    end    
+    end
   end
 
   def add_user(user)
     # Expects user parameter to be a ParseUser object
-    base_uri   = "https://api.parse.com/1/roles/#{self.objectId}"
+    base_uri   = "#{api_path}/roles/#{self.objectId}"
     app_id     = self.class.settings['app_id']
     master_key = self.class.settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
-    data = {"users" => {"__op" => "AddRelation", 
-                        "objects" => [{"__type" => "Pointer", 
-                                       "className" => "_User", 
+    data = {"users" => {"__op" => "AddRelation",
+                        "objects" => [{"__type" => "Pointer",
+                                       "className" => "_User",
                                        "objectId" => user.objectId}] } }
     json_data = data.to_json
     begin
@@ -48,14 +48,14 @@ class ParseRole < ParseResource::Base
 
   def remove_user(user)
     # Expects user parameter to be a ParseUser object
-    
-    base_uri   = "https://api.parse.com/1/roles/#{self.objectId}"
+
+    base_uri   = "#{api_path}/roles/#{self.objectId}"
     app_id     = self.class.settings['app_id']
     master_key = self.class.settings['master_key']
     resource = RestClient::Resource.new(base_uri, app_id, master_key)
-    data = {"users" => {"__op" => "RemoveRelation", 
-                        "objects" => [{"__type" => "Pointer", 
-                                       "className" => "_User", 
+    data = {"users" => {"__op" => "RemoveRelation",
+                        "objects" => [{"__type" => "Pointer",
+                                       "className" => "_User",
                                        "objectId" => user.objectId}] } }
     json_data = data.to_json
     begin
