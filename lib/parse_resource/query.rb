@@ -122,7 +122,7 @@ class Query
 
     return chunk_results(params) if criteria[:chunk]
 
-    resp = @klass.resource.get(:params => params)
+    resp = @klass.resource.get(params)
     
     if criteria[:count] == 1
       results = JSON.parse(resp)['count']
