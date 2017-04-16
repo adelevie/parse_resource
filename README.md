@@ -165,6 +165,28 @@ Post.where(:bar => "foo").count #=> 1337
 
 ```
 
+Pointers
+
+```ruby
+# For parse object columns of type Pointer you can use the usual .where() method plus ParseResource::Base#to_pointer.
+# If the Post data definition has a pointer column (for type Author) called author:
+
+me = Author.new
+me.name = 'My name' #...
+
+post1 = Post.new
+post1.author = me
+post1.save
+
+#then to query:
+
+me = Author.find(some_id)
+posts = Post.where(author:me.to_pointer)
+#also chainable
+posts = Post.where.(book:author.to_pointer).where(number:1)
+
+```
+
 Pagination with [kaminari](https://github.com/amatsuda/kaminari):
 
 ```ruby
