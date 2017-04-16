@@ -192,7 +192,7 @@ module ParseResource
         "users"
       elsif self.model_name.to_s == "Installation"
         "installations"
-      elsif self.model_name.to_s == "Role"
+      elsif self.model_name.to_s == "ParseRole"
         "roles"
       else
         "classes/#{self.model_name.to_s}"
