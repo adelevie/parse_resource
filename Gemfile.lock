@@ -1,25 +1,28 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (3.2.13)
-      activesupport (= 3.2.13)
-      builder (~> 3.0.0)
-    activesupport (3.2.13)
-      i18n (= 0.6.1)
-      multi_json (~> 1.0)
+    activemodel (6.0.0)
+      activesupport (= 6.0.0)
+    activesupport (6.0.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+      zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.3.4)
     ansi (1.4.3)
-    builder (3.0.4)
+    concurrent-ruby (1.1.5)
     crack (0.3.2)
     git (1.2.5)
-    i18n (0.6.1)
+    i18n (1.7.0)
+      concurrent-ruby (~> 1.0)
     jeweler (1.6.4)
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
     json (1.8.2)
     mime-types (1.22)
-    multi_json (1.7.2)
+    minitest (5.12.2)
     power_assert (0.2.2)
     rake (10.0.4)
     reek (1.2.13)
@@ -39,12 +42,16 @@ GEM
     sexp_processor (3.2.0)
     test-unit (3.0.9)
       power_assert
+    thread_safe (0.3.6)
     turn (0.9.6)
       ansi
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
     vcr (2.4.0)
     webmock (1.11.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    zeitwerk (2.2.0)
 
 PLATFORMS
   ruby
