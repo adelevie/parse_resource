@@ -21,7 +21,7 @@ GEM
     mime-types (1.22)
     multi_json (1.7.2)
     power_assert (0.2.2)
-    rake (10.0.4)
+    rake (13.0.1)
     reek (1.2.13)
       ripper_ruby_parser (~> 0.0.7)
       ruby2ruby (~> 1.2.5)
