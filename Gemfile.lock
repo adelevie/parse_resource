@@ -17,7 +17,7 @@ GEM
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
-    json (1.8.2)
+    json (2.3.0)
     mime-types (1.22)
     multi_json (1.7.2)
     power_assert (0.2.2)
